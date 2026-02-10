@@ -1,9 +1,9 @@
 # LezoProject
 
 
-Group name:  lezoKapitalFumar.ong
+## Group name:  lezoKapitalFumar.ong
 
-Group members:
+## Group members:
 
   1. Oier Redondo Lasa (LEADER)
   2. Pablo Hernandez Lozano ()
