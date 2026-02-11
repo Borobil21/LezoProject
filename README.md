@@ -12,3 +12,5 @@
 
 ## Our project
 
+In LezoKapitalFumar.ong, we dream. That's the reason we have created this project: CarBid (provisional name). 
+We intend to make an application for buying and selling cars, implementing auctions too, where users can bid for the car they want to buy.
