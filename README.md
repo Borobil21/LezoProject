@@ -5,9 +5,9 @@
 
 ## Members:
 
-  1. Oier Redondo Lasa (LEADER)
-  2. Pablo Hernandez Lozano ()
-  3. Raul García Orduña ()
+  1. Oier Redondo Lasa (Borobil21)
+  2. Pablo Hernandez Lozano (caraco14)
+  3. Raul García Orduña (raulGar2)
   4. Jon Rabadán de la Vega (Jonduuu)
 
 ## Our project
