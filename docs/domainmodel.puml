@@ -1,76 +1,87 @@
-@startuml
+@startuml PickAuto_Domain_Model
 
-' es el de BUM1_fx, ahora cambiamos.
-
-' Color definitions to match screenshot
-skinparam class {
-   BackgroundColor White
-  ' BackgroundColor LemonChiffon
-  ' BackgroundColor<<interface>> LightPink
-  ' BackgroundColor<<enum>> LightGreen
-  BorderColor Black
+enum Role {
+    REGISTERED_USER
+    ADMIN
 }
 
-' Classes
-class CalculatorController {
-  -amountTextField
-  -fromComboBox
-  -toComboBox
-  -calculateButton
-  -result
-  -bizLogic
-  
-    +initialize()
-    +onClick()
+enum Condition {
+    NEW
+    ALMOST_NEW
+    USED
+    CLASSIC
 }
 
-class CalculatorStarter  {
-  +printValidCurrencies()
-    +main()
-
+enum ListingStatus {
+    ACTIVE
+    SOLD
+    EXPIRED
 }
 
-class CalculatorWindow {
-    +start(stage)
-    +main(args)
+class User {
+    - int id
+    - String name
+    - String email
+    - String password
+    - String phone
+    - String location
+    - Role role
+    + register()
+    + login()
 }
 
-interface ExchangeCalculator  {
-  +getCurrencyLongNames()
-  +getChangeValue(origCurrency, amount, endCurrency)
-  +calculateCommission(amount, cur)
+class Vehicle {
+    - String make
+    - String model
+    - int year
+    - int mileage
+    - int powerCV
+    - String fuelType
+    - String transmission
+    - Condition condition
+    - List<String> photoPaths
 }
 
-class BarcenaysCalculator {
-  +getCurrencyLongNames()
-  +getChangeValue(origCurrency, amount, endCurrency)
-  +calculateCommission(amount, cur)
+abstract class Listing {
+    - int id
+    - String description
+    - String location
+    - LocalDateTime createdAt
+    - ListingStatus status
+    + markAsSold()
 }
 
-class CommissionCalculator {
-  -amount
-  -currency
-  +calculateCommission()
+class Sale {
+    - double fixedPrice
 }
 
-enum Currency {
-  +longNames()
+class Auction {
+    - double minBid
+    - LocalDateTime endDate
+    - double currentHighestBid
 }
 
-class ForexOperator {
-  -sourceCurrency: String
-  -amount: Float
-  -endCurrency: String
-  +ForexOperator(source, x, end)
-  +getChangeValue()
+class Bid {
+    - double amount
+    - LocalDateTime timestamp
 }
 
-' Relationships
-CalculatorController -> ExchangeCalculator
-CalculatorStarter -> ExchangeCalculator
-ExchangeCalculator <|-- BarcenaysCalculator
-BarcenaysCalculator ..> CommissionCalculator
-BarcenaysCalculator ..> Currency
-BarcenaysCalculator ..> ForexOperator
+class Message {
+    - String content
+    - LocalDateTime sentAt
+}
+
+' Relaciones
+User "1" *-- "0..*" Listing : creates
+User "1" o-- "0..*" Listing : favorites
+User "1" -- "0..*" Bid : places
+User "1" -- "0..*" Message : sends/receives
+
+Listing "1" *-- "1" Vehicle : describes
+Listing <|-- Sale
+Listing <|-- Auction
+Listing "1" -- "0..*" Message : regarding
+
+Auction "1" *-- "0..*" Bid : receives
 
 @enduml
