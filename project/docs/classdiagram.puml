@@ -1,6 +1,6 @@
 @startuml
 
-' es el de BUM1_fx, ahora cambiamos
+' es el de BUM1_fx, ahora cambiamos.
 
 ' Color definitions to match screenshot
 skinparam class {
