@@ -1,0 +1,44 @@
+@startuml
+title PickAuto
+left to right direction
+skinparam packageStyle rectangle
+
+actor "User" as User
+actor "Admin" as Admin
+
+rectangle "PickAuto System" {
+
+(Create a post) as UC_Create
+(Like Post) as UC_Like
+(Log in) as UC_Log
+(Register) as UC_Register
+(Filter Search) as UC_Search
+(View Offer) as UC_View
+(Report Post) as UC_ReportPost
+(View Profile) as UC_Profile
+(Delete Post) as UC_Delete
+(View Reports) as UC_Reports
+
+}
+
+' User actions
+User --> UC_Create
+User --> UC_Like
+User --> UC_Log
+User --> UC_Register
+User --> UC_Search
+User --> UC_View
+User --> UC_ReportPost
+User --> UC_Profile
+
+' Admin actions
+Admin --> UC_Reports
+Admin --> UC_Delete
+
+' Includes (obligatorio login)
+UC_Create .> UC_Log 
+UC_Delete .> UC_Log 
+UC_Like .> UC_Log 
+UC_ReportPost .> UC_Log
+
+@enduml
