@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" style="background-color: #F3F4F6; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+
+  <rect width="100%" height="100%" fill="#F9FAFB" />
+
+  <rect width="1200" height="60" fill="#ffffff" stroke="#e0e0e0" />
+  <text x="60" y="38" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#007bff">PickAuto</text>
+  
+  <g transform="translate(360, 120)">
+    <rect width="480" height="620" rx="12" fill="#ffffff" stroke="#E5E7EB" filter="drop-shadow(0px 4px 6px rgba(0,0,0,0.05))" />
+
+    <g transform="translate(40, 50)">
+      <text x="0" y="0" font-size="12" font-weight="bold" fill="#6B7280" letter-spacing="1">ACCOUNT LOGIN</text>
+      <text x="0" y="35" font-size="32" font-weight="bold" fill="#111827">Welcome Back</text>
+      <text x="0" y="65" font-size="14" fill="#6B7280">Sign in to manage your fleet and saved listings</text>
+    </g>
+
+    <line x1="0" y1="140" x2="480" y2="140" stroke="#F3F4F6" />
+
+    <g transform="translate(40, 170)">
+      
+      <text x="0" y="0" font-size="14" font-weight="bold" fill="#374151">Username or Email</text>
+      <rect x="0" y="15" width="400" height="45" rx="6" fill="#F9FAFB" stroke="#D1D5DB" />
+      <text x="15" y="43" font-size="14" fill="#111827">driver@pickauto.com</text>
+
+      <g transform="translate(0, 85)">
+        <text x="0" y="0" font-size="14" font-weight="bold" fill="#374151">Password</text>
+        <rect x="0" y="15" width="400" height="45" rx="6" fill="#FFF5F5" stroke="#EF4444" />
+        <text x="15" y="48" font-size="18" fill="#111827" letter-spacing="2">••••••••••••</text>
+        
+        <g transform="translate(0, 75)">
+            <rect width="400" height="30" rx="4" fill="#FEF2F2" />
+            <circle cx="20" cy="15" r="8" fill="#EF4444" />
+            <text x="20" y="20" font-size="12" fill="#FFFFFF" text-anchor="middle" font-weight="bold">!</text>
+            <text x="40" y="20" font-size="12" fill="#B91C1C">Invalid credentials. Please try again.</text>
+        </g>
+      </g>
+
+      <g transform="translate(0, 215)">
+        <rect x="0" y="0" width="16" height="16" rx="3" stroke="#D1D5DB" fill="#FFFFFF" />
+        <text x="25" y="13" font-size="13" fill="#6B7280">Remember me</text>
+        <text x="400" y="13" font-size="13" fill="#007bff" text-anchor="end" font-weight="bold">Forgot your password?</text>
+      </g>
+
+      <g transform="translate(0, 255)">
+        <rect width="400" height="50" rx="8" fill="#007bff" />
+        <text x="200" y="30" font-size="16" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Log In ></text>
+      </g>
+
+      <g transform="translate(150, 325)">
+        <path d="M6 10 V 5 A 4 4 0 0 1 14 5 V 10" stroke="#10B981" fill="none" stroke-width="2" transform="translate(-10, -8) scale(0.8)"/>
+        <rect x="-4" y="2" width="12" height="10" rx="2" fill="#10B981" transform="translate(-10, -8) scale(0.8)"/>
+        <text x="10" y="5" font-size="12" fill="#059669" font-weight="bold">Secure Access</text>
+      </g>
+
+    </g> <line x1="40" y1="540" x2="440" y2="540" stroke="#F3F4F6" />
+    <g transform="translate(40, 565)">
+        <text x="0" y="10" font-size="13" fill="#6B7280">Don't have an account?</text>
+        <text x="145" y="10" font-size="13" fill="#007bff" font-weight="bold">Create Account</text>
+        <text x="400" y="10" font-size="13" fill="#6B7280" text-anchor="end">Need help?</text>
+    </g>
+
+  </g> <g transform="translate(600, 780)">
+    <text x="-60" y="0" font-size="12" fill="#9CA3AF" text-anchor="end">Terms of Service</text>
+    <circle cx="0" cy="-4" r="2" fill="#9CA3AF" />
+    <text x="60" y="0" font-size="12" fill="#9CA3AF" text-anchor="start">Privacy Policy</text>
+  </g>
+  
+  <text x="600" y="810" font-size="12" fill="#9CA3AF" text-anchor="middle">© 2024 PickAuto Inc. All rights reserved.</text>
+
+  <rect x="0" y="860" width="1200" height="40" fill="#1F2937" />
+  <g transform="translate(60, 885)">
+    <circle cx="10" cy="-4" r="6" fill="none" stroke="#10B981" stroke-width="2" />
+    <path d="M10 -8 L 10 0" stroke="#10B981" stroke-width="2" />
+    
+    <text x="30" y="0" font-size="12" font-family="monospace" fill="#10B981">Status: All Systems Operational</text>
+    <text x="1140" y="0" font-size="12" fill="#9CA3AF" text-anchor="end">Support: (800) AUTO-HELP</text>
+  </g>
+
+</svg>

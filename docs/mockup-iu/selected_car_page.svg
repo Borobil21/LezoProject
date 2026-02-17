@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1650" style="background-color: #F3F4F6; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+  
+  <rect width="100%" height="100%" fill="#F9FAFB" />
+
+  <rect width="1200" height="60" fill="#ffffff" stroke="#e0e0e0" />
+  <text x="60" y="38" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#007bff">PickAuto</text>
+  
+  <rect x="250" y="15" width="500" height="30" rx="4" fill="#f1f3f5" />
+  <text x="265" y="35" font-family="Arial, sans-serif" font-size="12" fill="#adb5bd">Search...</text>
+  <rect x="760" y="15" width="80" height="30" rx="4" fill="#007bff" />
+  <text x="800" y="35" font-family="Arial, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle">Search</text>
+
+  <circle cx="1130" cy="30" r="15" fill="#ddd" />
+  <text x="1105" y="25" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="end">Ibai Martiarena</text>
+  <text x="1105" y="40" font-family="Arial, sans-serif" font-size="10" fill="#28a745" text-anchor="end">Verified Dealer</text>
+
+  <g transform="translate(60, 100)">
+    <defs>
+      <linearGradient id="carGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#d1d5db;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#9ca3af;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    <rect width="1080" height="500" rx="12" fill="url(#carGrad)" />    
+    
+    <rect x="30" y="430" width="100" height="40" rx="8" fill="#FBBF24" />
+    <text x="50" y="455" font-weight="bold" font-size="14" fill="#111827">Auction</text>
+    <rect x="150" y="430" width="150" height="40" rx="20" fill="#FFFFFF" />
+    <text x="170" y="455" font-weight="bold" font-size="14" fill="#111827">Time Left: 8 Days</text>
+    <circle cx="1030" cy="50" r="24" fill="#FFFFFF" />
+    <text x="1022" y="58" font-size="24" fill="#000000">☆</text>
+  </g>
+
+  <g transform="translate(60, 630)">
+    
+    <g>
+      <text x="0" y="0" font-size="12" font-weight="bold" fill="#D97706" letter-spacing="1">PREMIUM LISTING</text>
+      <text x="0" y="40" font-size="36" font-weight="bold" fill="#111827">Porsche 911 Carrera S</text>
+
+      <g transform="translate(0, 55)">
+        <line x1="0" y1="0" x2="600" y2="0" stroke="#E5E7EB" />
+        <g transform="translate(0, 30)">
+           <text x="0" y="0" font-size="12" fill="#6B7280">YEAR</text>
+           <text x="0" y="25" font-size="16" fill="#111827" font-weight="bold">2022</text>
+        </g>
+        <g transform="translate(200, 30)">
+           <text x="0" y="0" font-size="12" fill="#6B7280">OPTION</text>
+           <text x="0" y="25" font-size="16" fill="#111827" font-weight="bold">Auction</text>
+        </g>
+        <g transform="translate(400, 30)">
+           <text x="0" y="0" font-size="12" fill="#6B7280">MILEAGE</text>
+           <text x="0" y="25" font-size="16" fill="#111827" font-weight="bold">24.000 Km</text>
+        </g>
+      </g>
+
+      <g transform="translate(0, 130)">
+        <line x1="0" y1="0" x2="600" y2="0" stroke="#E5E7EB" />
+        <g transform="translate(0, 30)">
+           <text x="0" y="0" font-size="12" fill="#6B7280">BRAND</text>
+           <text x="0" y="25" font-size="16" fill="#111827" font-weight="bold">Porsche</text>
+        </g>
+        <g transform="translate(200, 30)">
+           <text x="0" y="0" font-size="12" fill="#6B7280">COLOR</text>
+           <text x="0" y="25" font-size="16" fill="#111827" font-weight="bold">Guards Red</text>
+        </g>
+        <g transform="translate(400, 30)">
+           <text x="0" y="0" font-size="12" fill="#6B7280">MOTOR</text>
+           <text x="0" y="25" font-size="16" fill="#111827" font-weight="bold">3.0L Flat-6 Twin-Turbo</text>
+        </g>
+      </g>
+      
+      <line x1="0" y1="210" x2="600" y2="210" stroke="#E5E7EB" />
+
+      <g transform="translate(0, 240)">
+        <text x="0" y="0" font-size="14" fill="#6B7280">Starting Value</text>
+        <text x="0" y="25" font-size="20" font-weight="bold" fill="#374151">80.000€</text>
+        
+        <text x="200" y="0" font-size="14" fill="#6B7280">Current Winning Bid</text>
+        <text x="200" y="30" font-size="32" font-weight="bold" fill="#111827">84.500€</text>
+        
+        <g transform="translate(0, 60)">
+          <rect width="400" height="60" rx="8" fill="#FFFFFF" stroke="#E5E7EB" />
+          <text x="20" y="35" font-size="16" fill="#9CA3AF">Min. 85.000€</text>
+          <rect x="280" y="5" width="110" height="50" rx="6" fill="#000000" />
+          <text x="335" y="35" text-anchor="middle" font-size="14" font-weight="bold" fill="#FFFFFF">BID NOW</text>
+        </g>
+        <text x="5" y="140" font-size="12" fill="#10B981">✓ VERIFIED BIDS ONLY • SECURE TRANSACTION</text>
+      </g>
+      
+      <g transform="translate(0, 430)">
+        <text x="0" y="0" font-size="18" font-weight="bold" fill="#111827">Condition Report</text>
+        <text x="0" y="30" font-size="14" fill="#4B5563">
+            <tspan x="0" dy="0">Vehicle Inspected by certified professionals. No previous</tspan>
+            <tspan x="0" dy="20">accidents, full service history at official dealership.</tspan>
+            <tspan x="0" dy="20">Mint interior condition with sport seats upgrade.</tspan>
+        </text>
+      </g>
+    </g>
+
+    <g transform="translate(700, 0)">
+      <rect width="380" height="520" rx="12" fill="#FFFFFF" stroke="#E5E7EB" />
+      <g transform="translate(20, 20)">
+        <text x="0" y="15" font-size="18" font-weight="bold" fill="#111827">Bid History</text>
+        <text x="280" y="15" font-size="14" fill="#6B7280">12 Total Bids</text>
+        <line x1="0" y1="35" x2="340" y2="35" stroke="#F3F4F6" />
+        
+        <g transform="translate(0, 60)">
+          <circle cx="15" cy="15" r="15" fill="#E5E7EB" />
+          <text x="40" y="10" font-size="14" font-weight="bold" fill="#111827">Ibai Martiarena</text>
+          <text x="40" y="28" font-size="12" fill="#9CA3AF">2 mins ago</text>
+          <text x="340" y="20" text-anchor="end" font-size="16" font-weight="bold" fill="#111827">84.500€</text>
+        </g>
+
+        <g transform="translate(0, 120)">
+          <circle cx="15" cy="15" r="15" fill="#E5E7EB" />
+          <text x="40" y="10" font-size="14" font-weight="bold" fill="#111827">Oier Redondo</text>
+          <text x="40" y="28" font-size="12" fill="#9CA3AF">35 mins ago</text>
+          <text x="340" y="20" text-anchor="end" font-size="16" font-weight="bold" fill="#6B7280">84.200€</text>
+        </g>
+
+        <g transform="translate(0, 180)">
+          <circle cx="15" cy="15" r="15" fill="#E5E7EB" />
+          <text x="40" y="10" font-size="14" font-weight="bold" fill="#111827">Ibai Martiarena</text>
+          <text x="40" y="28" font-size="12" fill="#9CA3AF">19 hours ago</text>
+          <text x="340" y="20" text-anchor="end" font-size="16" font-weight="bold" fill="#6B7280">83.800€</text>
+        </g>
+
+        <g transform="translate(0, 240)">
+          <circle cx="15" cy="15" r="15" fill="#E5E7EB" />
+          <text x="40" y="10" font-size="14" font-weight="bold" fill="#111827">Pablo Hernandez</text>
+          <text x="40" y="28" font-size="12" fill="#9CA3AF">2 Days ago</text>
+          <text x="340" y="20" text-anchor="end" font-size="16" font-weight="bold" fill="#6B7280">83.500€</text>
+        </g>
+
+        <g transform="translate(0, 300)">
+          <circle cx="15" cy="15" r="15" fill="#E5E7EB" />
+          <text x="40" y="10" font-size="14" font-weight="bold" fill="#111827">Raul Garcia</text>
+          <text x="40" y="28" font-size="12" fill="#9CA3AF">3 Days ago</text>
+          <text x="340" y="20" text-anchor="end" font-size="16" font-weight="bold" fill="#6B7280">82.900€</text>
+        </g>
+        
+        <line x1="0" y1="360" x2="340" y2="360" stroke="#F3F4F6" />
+        <text x="170" y="400" text-anchor="middle" font-size="14" fill="#2563EB" font-weight="bold">View Full History</text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(0, 1200)">
+    <rect width="1200" height="350" fill="#1F2937" />
+    <g transform="translate(60, 50)">
+      <text x="0" y="0" font-size="18" font-weight="bold" fill="#FFFFFF">Interested in this vehicle?</text>
+      <text x="0" y="25" font-size="14" fill="#9CA3AF">Our concierge team is available 24/7 for Basque Country region inquiries.</text>
+      
+      <g transform="translate(0, 60)">
+          <text x="0" y="0" font-size="12" fill="#6B7280" font-weight="bold">TELEPHONE</text>
+          <text x="0" y="20" font-size="16" fill="#FFFFFF">+34 943 198 751</text>
+      </g>
+      <g transform="translate(250, 60)">
+          <text x="0" y="0" font-size="12" fill="#6B7280" font-weight="bold">EMAIL</text>
+          <text x="0" y="20" font-size="16" fill="#FFFFFF">pickauto.offers@gmail.com</text>
+      </g>
+      <g transform="translate(550, 60)">
+          <text x="0" y="0" font-size="12" fill="#6B7280" font-weight="bold">LOCATION</text>
+          <text x="0" y="20" font-size="16" fill="#FFFFFF">Lezo, Basque Country, Spain</text>
+      </g>
+      
+      <g transform="translate(900, 20)">
+        <rect width="180" height="80" rx="8" fill="#374151" />
+        <text x="90" y="35" text-anchor="middle" font-size="14" font-weight="bold" fill="#FFFFFF">Verified Dealer</text>
+        <text x="90" y="55" text-anchor="middle" font-size="12" fill="#9CA3AF">Authorized Seller</text>
+      </g>
+
+      <line x1="0" y1="180" x2="1080" y2="180" stroke="#4B5563" />
+      <g transform="translate(0, 210)">
+          <text x="0" y="10" font-size="18" font-weight="bold" fill="#FFFFFF">PickAuto</text>
+          <text x="1080" y="10" text-anchor="end" font-size="12" fill="#6B7280">© 2024 PickAuto Automotive Marketplace. All rights reserved.</text>
+      </g>
+    </g>
+  </g>
+</svg>
