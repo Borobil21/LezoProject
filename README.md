@@ -7,7 +7,7 @@
 
   1. Oier Redondo Lasa (Borobil21)
   2. Pablo Hernandez Lozano (caraco14)
-  3. Raul García Orduña (raulGar2) Fork: https://github.com/raulGar2/LezoProject.git
+  3. Raul García Orduña (raulGar2)
   4. Jon Rabadán de la Vega (Jonduuu)
 
 ## Our project
@@ -25,3 +25,4 @@ The users will be able to:
 
 ## Forks
 - Pablo: https://github.com/caraco14/LezoProject.git
+- Raul: https://github.com/raulGar2/LezoProject.git
