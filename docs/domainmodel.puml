@@ -1,5 +1,8 @@
 @startuml PickAuto_Domain_Model
 
+skinparam classAttributeIconSize 0
+hide methods
+
 enum Role {
     REGISTERED_USER
     ADMIN
@@ -25,9 +28,6 @@ class User {
     - String password
     - String phone
     - String location
-    - Role role
-    + register()
-    + login()
 }
 
 class Vehicle {
@@ -38,8 +38,14 @@ class Vehicle {
     - int powerCV
     - String fuelType
     - String transmission
-    - Condition condition
-    - List<String> photoPaths
+}
+
+class Photo {
+    - int id
+    - byte[] content
+    - String format
+    - String description
+    - LocalDateTime uploadedAt
 }
 
 abstract class Listing {
@@ -47,8 +53,6 @@ abstract class Listing {
     - String description
     - String location
     - LocalDateTime createdAt
-    - ListingStatus status
-    + markAsSold()
 }
 
 class Sale {
@@ -83,5 +87,11 @@ Listing <|-- Auction
 Listing "1" -- "0..*" Message : regarding
 
 Auction "1" *-- "0..*" Bid : receives
+
+Vehicle "1" *-- "1..*" Photo : has
+
+User "1" -- "1" Role : has
+Vehicle "1" -- "1" Condition : is in
+Listing "1" -- "1" ListingStatus : is in.
 
 @enduml
