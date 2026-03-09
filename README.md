@@ -22,4 +22,8 @@ The users will be able to:
   - Log In as a Buyer/Seller
   - The buyers will see their options, sorting options and saving their favorites on a personal Wishlist, and buying/bidding (Initial proposes)
   - The sellers will have their view, add new products...
-  
+
+## Forks
+- Pablo: https://github.com/caraco14/LezoProject.git
+- Raul: https://github.com/raulGar2/LezoProject.git
+- Jon: https://github.com/Jonduuu/LezoProject.git
