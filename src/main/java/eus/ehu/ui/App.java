@@ -13,11 +13,12 @@ import java.io.IOException;
  */
 public class App extends Application {
 
+    private static final String FXML_BASE_PATH = "/eus/ehu/presentation/";
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("FilterSearch"), 1000, 820);
         stage.setScene(scene);
         stage.show();
     }
@@ -27,7 +28,7 @@ public class App extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(FXML_BASE_PATH + fxml + ".fxml"));
         return fxmlLoader.load();
     }
 
