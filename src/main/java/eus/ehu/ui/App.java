@@ -1,4 +1,4 @@
-package eus.ehu;
+package eus.ehu.ui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -1,4 +1,4 @@
-package eus.ehu;
+package eus.ehu.ui;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
