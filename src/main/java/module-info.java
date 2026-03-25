@@ -4,5 +4,5 @@ module eus.ehu {
     requires javafx.fxml;
 
     opens eus.ehu to javafx.fxml;
-    exports eus.ehu;
+    exports eus.ehu.ui;
 }
