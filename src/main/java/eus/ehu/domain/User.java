@@ -1,9 +1,14 @@
 package eus.ehu.domain;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -11,6 +16,7 @@ import javax.persistence.Table;
 public class User {
 
 	@Id
+	@Column(updatable = false, nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
@@ -18,6 +24,9 @@ public class User {
 	private String password;
 	private String phone;
 	private String location;
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Listing> publications;
 
 	protected User() {
 	}
@@ -72,6 +81,27 @@ public class User {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	public List<Listing> getPublications() {
+		return publications;
+	}
+
+	public void setPublications(List<Listing> publications) {
+		this.publications = publications;
+	}
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", email='" + email + '\'' +
+				", password='" + password + '\'' +
+				", phone='" + phone + '\'' +
+				", location='" + location + '\'' +
+				", publicationsCount=" + (publications != null ? publications.size() : 0) +
+				'}';
 	}
 
 }

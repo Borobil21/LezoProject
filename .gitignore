@@ -20,5 +20,6 @@ release.properties
 .settings/
 *.factorypath
 
+
 # macOS
 .DS_Store
