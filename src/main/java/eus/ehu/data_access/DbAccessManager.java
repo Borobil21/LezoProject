@@ -162,4 +162,15 @@ public class DbAccessManager {
         }
     }
 
+    // Method to get a user by email, used for login and registration checks
+    public User getUserByEmail(String email) {
+        try {
+            return db.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+                    .setParameter("email", email)
+                    .getSingleResult();
+        } catch (Exception e) {
+            // If no user is found or there's an error, return null (indicates the email doesn't exist in our db)
+            return null;
+        }
+    }
 }

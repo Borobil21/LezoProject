@@ -46,4 +46,6 @@ public interface BlInterface {
 
 	void deleteVehicle(Vehicle vehicle);
 
+	boolean register(String name, String email, String password, String phone, String location);
+
 }

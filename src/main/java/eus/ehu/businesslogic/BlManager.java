@@ -116,4 +116,22 @@ public class BlManager implements BlInterface {
     public void deleteVehicle(Vehicle vehicle) {
         dbManager.deleteVehicle(vehicle.getLicensePlate());
     }
+
+    @Override
+    public boolean register(String name, String email, String password, String phone, String location) {
+        // Verify if the email is already in use
+        if (dbManager.getUserByEmail(email) != null) {
+            System.out.println("El registro falló: el email ya está en uso."); 
+            //or trigger a message in the UI TO DO
+            return false;
+        }
+        // If not, create a new user and store it in the database
+        User newUser = new User(name, email, password, phone, location);
+        try {
+            dbManager.storeUser(newUser);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
