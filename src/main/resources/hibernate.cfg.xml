@@ -15,5 +15,8 @@
         <property name="hibernate.format_sql">true</property>
 
         <mapping class="eus.ehu.domain.User"/>
+        <mapping class="eus.ehu.domain.Listing"/>
+        <mapping class="eus.ehu.domain.Sale"/>
+        <mapping class="eus.ehu.domain.Vehicle"/>
     </session-factory>
 </hibernate-configuration>

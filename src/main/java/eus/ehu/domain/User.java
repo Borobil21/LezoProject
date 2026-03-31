@@ -1,5 +1,6 @@
 package eus.ehu.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -29,6 +30,7 @@ public class User {
 	private List<Listing> publications;
 
 	protected User() {
+		this.publications = new ArrayList<>();
 	}
 
 	public User(String name, String email, String password, String phone, String location) {
@@ -37,6 +39,7 @@ public class User {
 		this.password = password;
 		this.phone = phone;
 		this.location = location;
+		this.publications = new ArrayList<>();
 	}
 
 	public Integer getId() {

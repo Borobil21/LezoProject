@@ -17,6 +17,7 @@ public class Vehicle {
 
 	private String make;
 	private String model;
+	@Column(name = "vehicle_year")
 	private int year;
 	private int mileage;
 	private int horsepower;
