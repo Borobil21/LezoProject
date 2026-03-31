@@ -8,11 +8,10 @@ enum Role {
     ADMIN
 }
 
-enum Condition {
-    NEW
-    ALMOST_NEW
-    USED
-    CLASSIC
+enum MotorType {
+    GASOLINE
+    DIESEL
+    ELECTRIC
 }
 
 enum ListingStatus {
@@ -31,13 +30,12 @@ class User {
 }
 
 class Vehicle {
+    - String licensePlate
     - String make
     - String model
     - int year
     - int mileage
-    - int powerCV
-    - String fuelType
-    - String transmission
+    - int horsepower
 }
 
 class Photo {
@@ -91,7 +89,7 @@ Auction "1" *-- "0..*" Bid : receives
 Vehicle "1" *-- "1..*" Photo : has
 
 User "1" -- "1" Role : has
-Vehicle "1" -- "1" Condition : is in
+Vehicle "1" -- "1" MotorType : has
 Listing "1" -- "1" ListingStatus : is in.
 
 @enduml
