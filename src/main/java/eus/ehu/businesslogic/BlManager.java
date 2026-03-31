@@ -117,11 +117,12 @@ public class BlManager implements BlInterface {
         dbManager.deleteVehicle(vehicle.getLicensePlate());
     }
 
+    //method to register a user, it uses the storeUser method + a check to avoid duplicated emails.
     @Override
     public boolean register(String name, String email, String password, String phone, String location) {
         // Verify if the email is already in use
         if (dbManager.getUserByEmail(email) != null) {
-            System.out.println("El registro falló: el email ya está en uso."); 
+            System.out.println("Registration failed: Email already in use."); 
             //or trigger a message in the UI TO DO
             return false;
         }
