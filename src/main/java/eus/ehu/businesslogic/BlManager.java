@@ -14,106 +14,226 @@ public class BlManager implements BlInterface {
     }
 
     public BlManager(DbAccessManager dbManager) {
+        if (dbManager == null) {
+            throw new NullPointerException("dbManager cannot be null");
+        }
         this.dbManager = dbManager;
     }
 
     @Override
     public void storeUser(User user) {
+        if (user == null) {
+            throw new NullPointerException("user cannot be null");
+        }
         dbManager.storeUser(user);
     }
 
     @Override
     public void addSaleToUser(Integer userId, Integer saleId) {
+        if (userId == null) {
+            throw new NullPointerException("userId cannot be null");
+        }
+        if (saleId == null) {
+            throw new NullPointerException("saleId cannot be null");
+        }
         dbManager.addSaleToUser(userId, saleId);
     }
 
     @Override
     public void addSaleToUser(Integer userId, Sale sale) {
+        if (userId == null) {
+            throw new NullPointerException("userId cannot be null");
+        }
+        if (sale == null) {
+            throw new NullPointerException("sale cannot be null");
+        }
+        if (sale.getId() == null) {
+            throw new NullPointerException("sale.id cannot be null");
+        }
         dbManager.addSaleToUser(userId, sale.getId());
     }
 
     @Override
     public void addSaleToUser(User user, Integer saleId) {
+        if (user == null) {
+            throw new NullPointerException("user cannot be null");
+        }
+        if (user.getId() == null) {
+            throw new NullPointerException("user.id cannot be null");
+        }
+        if (saleId == null) {
+            throw new NullPointerException("saleId cannot be null");
+        }
         dbManager.addSaleToUser(user.getId(), saleId);
     }
 
     @Override
     public void addSaleToUser(User user, Sale sale) {
+        if (user == null) {
+            throw new NullPointerException("user cannot be null");
+        }
+        if (user.getId() == null) {
+            throw new NullPointerException("user.id cannot be null");
+        }
+        if (sale == null) {
+            throw new NullPointerException("sale cannot be null");
+        }
+        if (sale.getId() == null) {
+            throw new NullPointerException("sale.id cannot be null");
+        }
         dbManager.addSaleToUser(user.getId(), sale.getId());
     }
 
     @Override
     public void storeSale(Sale sale) {
+        if (sale == null) {
+            throw new NullPointerException("sale cannot be null");
+        }
         dbManager.storeSale(sale);
     }
 
     @Override
     public void storeVehicle(Vehicle vehicle) {
+        if (vehicle == null) {
+            throw new NullPointerException("vehicle cannot be null");
+        }
         dbManager.storeVehicle(vehicle);
     }
 
     @Override
     public void addVehicleToSale(Integer saleId, String licensePlate) {
+        if (saleId == null) {
+            throw new NullPointerException("saleId cannot be null");
+        }
+        if (licensePlate == null) {
+            throw new NullPointerException("licensePlate cannot be null");
+        }
         dbManager.addVehicleToSale(saleId, licensePlate);
     }
 
     @Override
     public void addVehicleToSale(Integer saleId, Vehicle vehicle) {
+        if (saleId == null) {
+            throw new NullPointerException("saleId cannot be null");
+        }
+        if (vehicle == null) {
+            throw new NullPointerException("vehicle cannot be null");
+        }
+        if (vehicle.getLicensePlate() == null) {
+            throw new NullPointerException("vehicle.licensePlate cannot be null");
+        }
         dbManager.addVehicleToSale(saleId, vehicle.getLicensePlate());
     }
 
     @Override
     public void addVehicleToSale(Sale sale, String licensePlate) {
+        if (sale == null) {
+            throw new NullPointerException("sale cannot be null");
+        }
+        if (sale.getId() == null) {
+            throw new NullPointerException("sale.id cannot be null");
+        }
+        if (licensePlate == null) {
+            throw new NullPointerException("licensePlate cannot be null");
+        }
         dbManager.addVehicleToSale(sale.getId(), licensePlate);
     }
 
     @Override
     public void addVehicleToSale(Sale sale, Vehicle vehicle) {
+        if (sale == null) {
+            throw new NullPointerException("sale cannot be null");
+        }
+        if (sale.getId() == null) {
+            throw new NullPointerException("sale.id cannot be null");
+        }
+        if (vehicle == null) {
+            throw new NullPointerException("vehicle cannot be null");
+        }
+        if (vehicle.getLicensePlate() == null) {
+            throw new NullPointerException("vehicle.licensePlate cannot be null");
+        }
         dbManager.addVehicleToSale(sale.getId(), vehicle.getLicensePlate());
     }
 
     @Override
     public Sale getSaleById(Integer saleId) {
+        if (saleId == null) {
+            throw new NullPointerException("saleId cannot be null");
+        }
         return dbManager.getSaleById(saleId);
     }
 
     @Override
     public User getUserById(Integer userId) {
+        if (userId == null) {
+            throw new NullPointerException("userId cannot be null");
+        }
         return dbManager.getUserById(userId);
     }
 
     @Override
     public Vehicle getVehicleByLicensePlate(String licensePlate) {
+        if (licensePlate == null) {
+            throw new NullPointerException("licensePlate cannot be null");
+        }
         return dbManager.getVehicleByLicensePlate(licensePlate);
     }
 
     @Override
     public void deleteSale(Integer saleId) {
+        if (saleId == null) {
+            throw new NullPointerException("saleId cannot be null");
+        }
         dbManager.deleteSale(saleId);
     }
 
     @Override
     public void deleteSale(Sale sale) {
+        if (sale == null) {
+            throw new NullPointerException("sale cannot be null");
+        }
+        if (sale.getId() == null) {
+            throw new NullPointerException("sale.id cannot be null");
+        }
         dbManager.deleteSale(sale.getId());
     }
 
     @Override
     public void deleteUser(Integer userId) {
+        if (userId == null) {
+            throw new NullPointerException("userId cannot be null");
+        }
         dbManager.deleteUser(userId);
     }
 
     @Override
     public void deleteUser(User user) {
+        if (user == null) {
+            throw new NullPointerException("user cannot be null");
+        }
+        if (user.getId() == null) {
+            throw new NullPointerException("user.id cannot be null");
+        }
         dbManager.deleteUser(user.getId());
     }
 
     @Override
     public void deleteVehicle(String licensePlate) {
+        if (licensePlate == null) {
+            throw new NullPointerException("licensePlate cannot be null");
+        }
         dbManager.deleteVehicle(licensePlate);
     }
 
     @Override
     public void deleteVehicle(Vehicle vehicle) {
+        if (vehicle == null) {
+            throw new NullPointerException("vehicle cannot be null");
+        }
+        if (vehicle.getLicensePlate() == null) {
+            throw new NullPointerException("vehicle.licensePlate cannot be null");
+        }
         dbManager.deleteVehicle(vehicle.getLicensePlate());
     }
 }
