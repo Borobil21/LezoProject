@@ -173,4 +173,18 @@ public class DbAccessManager {
             return null;
         }
     }
+
+    //login
+    public User login(String email, String password) {
+    try {
+        // Buscamos un usuario que tenga ese email y esa contraseña exacta
+        return db.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :pass", User.class)
+                 .setParameter("email", email)
+                 .setParameter("pass", password)
+                 .getSingleResult();
+    } catch (Exception e) {
+        // Si no encuentra a nadie (o la contraseña está mal), getSingleResult() lanza una excepción
+        return null; 
+    }
+}
 }

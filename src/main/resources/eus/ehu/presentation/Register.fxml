@@ -16,15 +16,10 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="850.0" layoutY="25.0" text="My profile" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
          </children>
       </AnchorPane>
 
-      <AnchorPane fx:id="ErrorLabel" layoutX="150.0" layoutY="110.0" prefHeight="630.0" prefWidth="700.0" style="-fx-background-color: #ffffff; -fx-border-color: #dddddd;">
+      <AnchorPane layoutX="150.0" layoutY="110.0" prefHeight="630.0" prefWidth="700.0" style="-fx-background-color: #ffffff; -fx-border-color: #dddddd;">
          <children>
             <Label layoutX="40.0" layoutY="52.0" text="Please fill all your information">
                <font>
@@ -51,7 +46,7 @@
             </Button>
             <Label layoutX="40.0" layoutY="254.0" text="Phone" />
             <TextField fx:id="txtPhone" layoutX="40.0" layoutY="279.0" prefHeight="35.0" prefWidth="290.0" style="-fx-border-color: #cccccc;" />
-            <Label alignment="CENTER" contentDisplay="CENTER" disable="true" ellipsisString="" layoutX="103.0" layoutY="542.0" prefHeight="59.0" prefWidth="498.0" text="Something went wrong, please check everything is filled" textAlignment="CENTER" textOverrun="CLIP" />
+            <Label fx:id="ErrorLabel" alignment="CENTER" contentDisplay="CENTER" disable="true" ellipsisString="" layoutX="103.0" layoutY="542.0" prefHeight="59.0" prefWidth="498.0" text="Something went wrong, please check everything is filled" textAlignment="CENTER" textOverrun="CLIP" />
          </children>
       </AnchorPane>
    </children>

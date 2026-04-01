@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class RegisterController {
-    //this controler is for the register scene
+    //this controler is for the register scene (Resgister.fxml)
 
     private BlInterface bl = new BlManager();
 

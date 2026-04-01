@@ -46,6 +46,8 @@ public interface BlInterface {
 
 	void deleteVehicle(Vehicle vehicle);
 
-	boolean register(String name, String email, String password, String phone, String location);
+	boolean register(String name, String email, String password, String phone, String location); // returns true if registration is successful, false otherwise (e.g., email already exists)
+
+	User login(String email, String password); //it returns the user object if the login is successful, otherwise it returns null
 
 }

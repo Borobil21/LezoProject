@@ -135,4 +135,11 @@ public class BlManager implements BlInterface {
             return false;
         }
     }
+    
+    @Override
+    public User login(String email, String password) {
+        // Simply call the database manager to check credentials and return the user if successful, otherwise return null.
+        // If we wanted to add some business logic (e.g., limit login attempts, log login times, etc.) we could do it here before calling the database.
+        return dbManager.login(email, password);
+    }
 }
