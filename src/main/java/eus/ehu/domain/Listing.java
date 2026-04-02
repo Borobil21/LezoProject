@@ -1,6 +1,7 @@
 package eus.ehu.domain;
 
 import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,7 +19,6 @@ public abstract class Listing {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String description;
-    private String location;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ListingStatus status;
@@ -26,15 +26,14 @@ public abstract class Listing {
     @ManyToOne
     private User user;
 
-    @OneToOne(mappedBy = "listing")
+    @OneToOne(mappedBy = "listing", cascade = CascadeType.ALL, orphanRemoval = true)
     private Vehicle vehicle;
 
     protected Listing() {
     }
 
-    protected Listing(String description, String location, ListingStatus status, User user) {
+    protected Listing(String description, ListingStatus status, User user) {
         this.description = description;
-        this.location = location;
         this.status = status;
         this.user = user;
     }
@@ -49,14 +48,6 @@ public abstract class Listing {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public ListingStatus getStatus() {
@@ -88,7 +79,6 @@ public abstract class Listing {
         return "Listing{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
-                ", location='" + location + '\'' +
                 ", status=" + status +
                 ", userId=" + (user != null ? user.getId() : null) +
                 '}';
