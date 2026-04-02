@@ -1,5 +1,7 @@
 package eus.ehu.data_access;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -102,22 +104,37 @@ public class DbAccessManager {
         return db.find(User.class, userId);
     }
 
+    public User getUserByEmail(String email) {
+        try {
+            return db.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+                    .setParameter("email", email)
+                    .setMaxResults(1)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public Vehicle getVehicleByLicensePlate(String licensePlate) {
         return db.find(Vehicle.class, licensePlate);
+    }
+
+    public List<User> getAllUsers() {
+        return db.createQuery("SELECT u FROM User u ORDER BY u.id", User.class).getResultList();
+    }
+
+    public List<Sale> getAllSales() {
+        return db.createQuery("SELECT s FROM Sale s ORDER BY s.id", Sale.class).getResultList();
+    }
+
+    public List<Vehicle> getAllVehicles() {
+        return db.createQuery("SELECT v FROM Vehicle v ORDER BY v.licensePlate", Vehicle.class).getResultList();
     }
 
     public void deleteSale(Integer saleId) {
         Sale sale = db.find(Sale.class, saleId);
         if (sale != null) {
             db.getTransaction().begin();
-
-            Vehicle vehicle = sale.getVehicle();
-            if (vehicle != null) {
-                vehicle.setListing(null);
-                sale.setVehicle(null);
-                db.remove(vehicle);
-                System.out.println("Vehicle deleted with sale: " + vehicle.getLicensePlate());
-            }
 
             if (sale.getUser() != null && sale.getUser().getPublications() != null) {
                 sale.getUser().getPublications().remove(sale);
@@ -159,18 +176,6 @@ public class DbAccessManager {
             System.out.println("Vehicle deleted: " + licensePlate);
         } else {
             System.out.println("Vehicle not found: " + licensePlate);
-        }
-    }
-
-    // Method to get a user by email, used for login and registration checks
-    public User getUserByEmail(String email) {
-        try {
-            return db.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
-                    .setParameter("email", email)
-                    .getSingleResult();
-        } catch (Exception e) {
-            // If no user is found or there's an error, return null (indicates the email doesn't exist in our db)
-            return null;
         }
     }
 

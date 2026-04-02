@@ -1,0 +1,141 @@
+package eus.ehu.ui;
+
+import eus.ehu.businesslogic.BlManager;
+import eus.ehu.domain.ListingStatus;
+import eus.ehu.domain.MotorType;
+import eus.ehu.domain.Sale;
+import eus.ehu.domain.Vehicle;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+
+public class CreateController {
+
+    BlManager bl;
+
+    @FXML
+    private TextField brand;
+
+    @FXML
+    private TextField age;
+
+    @FXML
+    private TextArea description;
+
+    @FXML
+    private TextField horsePower;
+
+    @FXML
+    private TextField mileage;
+
+    @FXML
+    private TextField model;
+
+    @FXML
+    private TextField licensePlate;
+
+    @FXML
+    private ComboBox<MotorType> motorType;
+
+    @FXML
+    private Button postButton;
+
+    @FXML
+    private TextField price;
+
+    @FXML
+    void initialize() {
+        bl = new BlManager();
+        motorType.getItems().addAll(MotorType.values());
+    }
+
+    @FXML
+    void post() {
+        boolean done = false;
+        try {
+            String licensePlate = requiredText(this.licensePlate, "License plate is required");
+            if (bl.getVehicleByLicensePlate(licensePlate) != null) {
+                throw new IllegalStateException("There is already a vehicle with that license plate");
+            }
+            String brand = requiredText(this.brand, "Brand is required");
+            String model = requiredText(this.model, "Model is required");
+            int age = parseRequiredInt(this.age, "Age must be a valid number");
+            int mileage = parseRequiredInt(this.mileage, "Mileage must be a valid number");
+            int horsePower = parseRequiredInt(this.horsePower, "Horsepower must be a valid number");
+            double price = parseRequiredDouble(this.price, "Price must be a valid number");
+            MotorType motorType = this.motorType.getValue();
+            if (motorType == null) {
+                throw new NullPointerException("You must select a motor type");
+            }
+            String description = this.description.getText();
+            
+            eus.ehu.domain.User user = bl.getDefaultUser();
+            if (user == null) {
+                throw new NullPointerException("Default user not available");
+            }
+            
+            Sale sale = new Sale(description, ListingStatus.ACTIVE, user, price);
+            Vehicle v = new Vehicle(licensePlate, brand, model, age, mileage, horsePower, motorType, sale);
+            bl.storeSale(sale);
+            bl.storeVehicle(v);
+            bl.addVehicleToSale(sale, v);
+            bl.addSaleToUser(user, sale);
+
+            System.out.println("OK -> " + licensePlate + " " + brand + " " + model + " " + age + " " + mileage + " "
+                    + horsePower + " " + price + " " + motorType + " " + description);
+            done = true;
+        } catch (NullPointerException | NumberFormatException | IllegalStateException ex) {
+            showError(ex.getMessage());
+        }
+        if (done) {
+            bl.close();
+            closeWindow();
+        }
+    }
+
+    private String requiredText(TextField field, String message) {
+        if (field == null) {
+            throw new NullPointerException("Field is not initialized (FXML)");
+        }
+        String value = field.getText();
+        if (value == null || value.isBlank()) {
+            throw new NullPointerException(message);
+        }
+        return value.trim();
+    }
+
+    private int parseRequiredInt(TextField field, String message) {
+        String value = requiredText(field, message);
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException ex) {
+            throw new NumberFormatException(message);
+        }
+    }
+
+    private double parseRequiredDouble(TextField field, String message) {
+        String value = requiredText(field, message);
+        try {
+            return Double.parseDouble(value);
+        } catch (NumberFormatException ex) {
+            throw new NumberFormatException(message);
+        }
+    }
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Cannot publish listing");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void closeWindow() {
+        ((Stage) postButton.getScene().getWindow()).close();
+    }
+
+}

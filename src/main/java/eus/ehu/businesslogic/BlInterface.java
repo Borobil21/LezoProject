@@ -1,5 +1,7 @@
 package eus.ehu.businesslogic;
 
+import java.util.List;
+
 import eus.ehu.domain.Sale;
 import eus.ehu.domain.User;
 import eus.ehu.domain.Vehicle;
@@ -32,7 +34,15 @@ public interface BlInterface {
 
 	User getUserById(Integer userId);
 
+	User getUserByEmail(String email);
+
 	Vehicle getVehicleByLicensePlate(String licensePlate);
+
+	List<User> getAllUsers();
+
+	List<Sale> getAllSales();
+
+	List<Vehicle> getAllVehicles();
 
 	void deleteSale(Integer saleId);
 
@@ -49,5 +59,7 @@ public interface BlInterface {
 	boolean register(String name, String email, String password, String phone, String location); // returns true if registration is successful, false otherwise (e.g., email already exists)
 
 	User login(String email, String password); //it returns the user object if the login is successful, otherwise it returns null
+
+	void close();
 
 }
