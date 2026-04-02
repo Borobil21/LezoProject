@@ -3,6 +3,7 @@ package eus.ehu.businesslogic;
 import eus.ehu.domain.Sale;
 import eus.ehu.domain.User;
 import eus.ehu.domain.Vehicle;
+import java.util.List;
 
 public interface BlInterface {
 
@@ -32,7 +33,15 @@ public interface BlInterface {
 
 	User getUserById(Integer userId);
 
+	User getUserByEmail(String email);
+
 	Vehicle getVehicleByLicensePlate(String licensePlate);
+
+	List<User> getAllUsers();
+
+	List<Sale> getAllSales();
+
+	List<Vehicle> getAllVehicles();
 
 	void deleteSale(Integer saleId);
 
@@ -45,5 +54,7 @@ public interface BlInterface {
 	void deleteVehicle(String licensePlate);
 
 	void deleteVehicle(Vehicle vehicle);
+
+	void close();
 
 }

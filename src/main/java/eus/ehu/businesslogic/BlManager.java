@@ -4,10 +4,19 @@ import eus.ehu.data_access.DbAccessManager;
 import eus.ehu.domain.Sale;
 import eus.ehu.domain.User;
 import eus.ehu.domain.Vehicle;
+import java.util.List;
 
 public class BlManager implements BlInterface {
 
     private final DbAccessManager dbManager;
+    private User defaultUser;
+
+    public User getDefaultUser() {
+        if (defaultUser == null) {
+            defaultUser = loadOrCreateDefaultUser();
+        }
+        return defaultUser;
+    }
 
     public BlManager() {
         this.dbManager = new DbAccessManager();
@@ -18,6 +27,17 @@ public class BlManager implements BlInterface {
             throw new NullPointerException("dbManager cannot be null");
         }
         this.dbManager = dbManager;
+    }
+
+    private User loadOrCreateDefaultUser() {
+        User user = dbManager.getUserByEmail("default@gmail.com");
+        if (user != null) {
+            return user;
+        }
+
+        User defaultUser = new User("Default User", "default@gmail.com", "1234", "999999999", "Lezo");
+        storeUser(defaultUser);
+        return dbManager.getUserByEmail("default@gmail.com");
     }
 
     @Override
@@ -173,11 +193,34 @@ public class BlManager implements BlInterface {
     }
 
     @Override
+    public User getUserByEmail(String email) {
+        if (email == null) {
+            throw new NullPointerException("email cannot be null");
+        }
+        return dbManager.getUserByEmail(email);
+    }
+
+    @Override
     public Vehicle getVehicleByLicensePlate(String licensePlate) {
         if (licensePlate == null) {
             throw new NullPointerException("licensePlate cannot be null");
         }
         return dbManager.getVehicleByLicensePlate(licensePlate);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return dbManager.getAllUsers();
+    }
+
+    @Override
+    public List<Sale> getAllSales() {
+        return dbManager.getAllSales();
+    }
+
+    @Override
+    public List<Vehicle> getAllVehicles() {
+        return dbManager.getAllVehicles();
     }
 
     @Override
@@ -235,5 +278,12 @@ public class BlManager implements BlInterface {
             throw new NullPointerException("vehicle.licensePlate cannot be null");
         }
         dbManager.deleteVehicle(vehicle.getLicensePlate());
+    }
+
+    @Override
+    public void close() {
+        if (dbManager != null) {
+            dbManager.close();
+        }
     }
 }

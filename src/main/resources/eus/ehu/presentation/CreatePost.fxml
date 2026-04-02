@@ -37,36 +37,37 @@
             <Label layoutX="40.0" layoutY="90.0" text="Brand" />
             
             <Label layoutX="370.0" layoutY="90.0" text="Model" />
-            <TextField fx:id="model" layoutX="370.0" layoutY="115.0" prefHeight="35.0" prefWidth="290.0" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
 
-            <Label layoutX="40.0" layoutY="180.0" text="Age" />
-            <TextField fx:id="age" layoutX="40.0" layoutY="205.0" prefHeight="35.0" prefWidth="290.0" style="-fx-border-color: #cccccc;" />
+            <Label layoutX="40.0" layoutY="170.0" text="Age" />
             
-            <Label layoutX="370.0" layoutY="180.0" text="Mileage (km)" />
-            <TextField fx:id="mileage" layoutX="370.0" layoutY="205.0" prefHeight="35.0" prefWidth="290.0" style="-fx-border-color: #cccccc;" />
+            <Label layoutX="370.0" layoutY="170.0" text="Mileage (km)" />
 
-            <Label layoutX="40.0" layoutY="270.0" text="Motor type" />
-            <ComboBox fx:id="motorType" layoutX="40.0" layoutY="295.0" prefHeight="35.0" prefWidth="290.0" promptText="Gasoline / Diesel / Electric" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+            <Label layoutX="40.0" layoutY="246.0" text="Motor type" />
             
-            <Label layoutX="370.0" layoutY="270.0" text="Horse Power (CV)" />
-            <TextField fx:id="horsePower" layoutX="370.0" layoutY="295.0" prefHeight="35.0" prefWidth="290.0" style="-fx-border-color: #cccccc;" />
+            <Label layoutX="370.0" layoutY="246.0" text="Horse Power (CV)" />
 
-            <Label layoutX="40.0" layoutY="360.0" text="Additional description" />
-            <TextArea fx:id="description" layoutX="40.0" layoutY="385.0" prefHeight="100.0" prefWidth="620.0" style="-fx-border-color: #cccccc;" />
-
-            <Label layoutX="40.0" layoutY="505.0" text="Sale price (€)">
+            <Label layoutX="40.0" layoutY="411.0" text="Additional description" />
+            <Label layoutX="40.0" layoutY="322.0" text="License plate" />
+            <Label layoutX="370.0" layoutY="322.0" text="Price">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="price" layoutX="40.0" layoutY="530.0" prefHeight="40.0" prefWidth="200.0" promptText="0.00" style="-fx-border-color: #007bff; -fx-font-size: 16px;" />
+            <TextField fx:id="brand" layoutX="40.0" layoutY="115.0" prefHeight="35.0" prefWidth="290.0" style="-fx-border-color: #cccccc;" />
+            <TextField fx:id="model" layoutX="370.0" layoutY="115.0" prefHeight="35.0" prefWidth="290.0" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+            <TextField fx:id="age" layoutX="40.0" layoutY="195.0" prefHeight="35.0" prefWidth="290.0" style="-fx-border-color: #cccccc;" />
+            <TextField fx:id="mileage" layoutX="370.0" layoutY="195.0" prefHeight="35.0" prefWidth="290.0" style="-fx-border-color: #cccccc;" />
+            <ComboBox fx:id="motorType" layoutX="40.0" layoutY="271.0" prefHeight="35.0" prefWidth="290.0" promptText="Gasoline / Diesel / Electric" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+            <TextField fx:id="horsePower" layoutX="370.0" layoutY="271.0" prefHeight="35.0" prefWidth="290.0" style="-fx-border-color: #cccccc;" />
+            <TextField fx:id="licensePlate" layoutX="40.0" layoutY="346.0" prefHeight="35.0" prefWidth="290.0" style="-fx-border-color: #cccccc;" />
+            <TextField fx:id="price" layoutX="370.0" layoutY="346.0" prefHeight="35.0" prefWidth="290.0" style="-fx-border-color: #cccccc;" />
+            <TextArea fx:id="description" layoutX="40.0" layoutY="436.0" prefHeight="100.0" prefWidth="620.0" style="-fx-border-color: #cccccc;" />
 
-            <Button fx:id="postButton" layoutX="460.0" layoutY="530.0" mnemonicParsing="false" onAction="#post" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #007bff;" text="POST" textFill="WHITE">
+            <Button fx:id="postButton" defaultButton="true" layoutX="460.0" layoutY="559.0" mnemonicParsing="false" onAction="#post" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #007bff;" text="POST" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <TextField fx:id="brand" layoutX="40.0" layoutY="115.0" prefHeight="35.0" prefWidth="290.0" style="-fx-border-color: #cccccc;" />
          </children>
       </AnchorPane>
    </children>
