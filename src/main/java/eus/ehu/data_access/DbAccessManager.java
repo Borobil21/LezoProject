@@ -1,9 +1,10 @@
 package eus.ehu.data_access;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.util.List;
+
+import javax.persistence.TypedQuery;
 
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -178,18 +179,53 @@ public class DbAccessManager {
             System.out.println("Vehicle not found: " + licensePlate);
         }
     }
+    public List<Sale> getFilteredSales(String location, Double minPrice, Double maxPrice, String make, String model, Integer minYear, Integer maxYear) {
+        String queryStr = "SELECT s FROM Sale s JOIN s.vehicles v WHERE 1=1";
 
-    //login
-    public User login(String email, String password) {
-    try {
-        // Buscamos un usuario que tenga ese email y esa contraseña exacta
-        return db.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :pass", User.class)
-                 .setParameter("email", email)
-                 .setParameter("pass", password)
-                 .getSingleResult();
-    } catch (Exception e) {
-        // Si no encuentra a nadie (o la contraseña está mal), getSingleResult() lanza una excepción
-        return null; 
+        if (location != null && !location.isEmpty()) {
+            queryStr += " AND s.location = :location";
+        }
+        if (minPrice != null) {
+            queryStr += " AND s.fixedPrice >= :minPrice";
+        }
+        if(maxPrice != null) {
+            queryStr += " AND s.fixedPrice <= :maxPrice";
+        }
+        if (make != null && !make.isEmpty()) {
+            queryStr += " AND v.make = :make";
+        }
+        if(model != null && !model.isEmpty()) {
+            queryStr += " AND v.model = :model";
+        }
+        if(minYear != null) {
+            queryStr += " AND v.year >= :minYear";
+        }
+        if(maxYear != null) {
+            queryStr += " AND v.year <= :maxYear";
+        }
+
+        TypedQuery<Sale> query = db.createQuery(queryStr, Sale.class);
+        if (location != null && !location.isEmpty()) {
+            query.setParameter("location", location);
+        }
+        if (minPrice != null) {
+            query.setParameter("minPrice", minPrice);
+        }
+        if(maxPrice != null) {
+            query.setParameter("maxPrice", maxPrice);
+        }
+        if (make != null && !make.isEmpty()) {
+            query.setParameter("make", make);
+        }
+        if (model != null && !model.isEmpty()) {
+            query.setParameter("model", model);
+        }
+        if (minYear != null) {
+            query.setParameter("minYear", minYear);
+        }
+        if (maxYear != null) {
+            query.setParameter("maxYear", maxYear);
+        }
+        return query.getResultList();
     }
-}
 }

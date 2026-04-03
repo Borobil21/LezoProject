@@ -1,14 +1,17 @@
-package eus.ehu.businesslogic;
-
-import java.util.List;
+package eus.ehu.businessLogic;
 
 import eus.ehu.domain.Sale;
 import eus.ehu.domain.User;
 import eus.ehu.domain.Vehicle;
+import java.util.List;
 
 public interface BlInterface {
 
 	void storeUser(User user);
+
+	boolean register(String name, String email, String password, String phone, String location);
+
+	User login(String email, String password);
 
 	void addSaleToUser(Integer userId, Integer saleId);
 
@@ -56,10 +59,6 @@ public interface BlInterface {
 
 	void deleteVehicle(Vehicle vehicle);
 
-	boolean register(String name, String email, String password, String phone, String location); // returns true if registration is successful, false otherwise (e.g., email already exists)
-
-	User login(String email, String password); //it returns the user object if the login is successful, otherwise it returns null
-
-	void close();
-
+	List<Sale> getFilteredSales(String location, Double minPrice, Double maxPrice, String make, String model,
+			Integer minYear, Integer maxYear);
 }

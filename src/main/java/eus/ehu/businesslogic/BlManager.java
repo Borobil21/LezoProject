@@ -1,4 +1,4 @@
-package eus.ehu.businesslogic;
+package eus.ehu.businessLogic;
 
 import eus.ehu.data_access.DbAccessManager;
 import eus.ehu.domain.Sale;
@@ -46,6 +46,32 @@ public class BlManager implements BlInterface {
             throw new NullPointerException("user cannot be null");
         }
         dbManager.storeUser(user);
+    }
+
+    @Override
+    public boolean register(String name, String email, String password, String phone, String location) {
+        if (name == null || email == null || password == null || phone == null || location == null) {
+            throw new NullPointerException("registration fields cannot be null");
+        }
+        if (dbManager.getUserByEmail(email) != null) {
+            return false;
+        }
+
+        storeUser(new User(name, email, password, phone, location));
+        return true;
+    }
+
+    @Override
+    public User login(String email, String password) {
+        if (email == null || password == null) {
+            throw new NullPointerException("email and password cannot be null");
+        }
+
+        User user = dbManager.getUserByEmail(email);
+        if (user == null) {
+            return null;
+        }
+        return password.equals(user.getPassword()) ? user : null;
     }
 
     @Override
@@ -280,36 +306,13 @@ public class BlManager implements BlInterface {
         dbManager.deleteVehicle(vehicle.getLicensePlate());
     }
 
-    //method to register a user, it uses the storeUser method + a check to avoid duplicated emails.
     @Override
-    public boolean register(String name, String email, String password, String phone, String location) {
-        // Verify if the email is already in use
-        if (dbManager.getUserByEmail(email) != null) {
-            System.out.println("Registration failed: Email already in use."); 
-            //or trigger a message in the UI TO DO
-            return false;
-        }
-        // If not, create a new user and store it in the database
-        User newUser = new User(name, email, password, phone, location);
-        try {
-            dbManager.storeUser(newUser);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-    
-    @Override
-    public User login(String email, String password) {
-        // Simply call the database manager to check credentials and return the user if successful, otherwise return null.
-        // If we wanted to add some business logic (e.g., limit login attempts, log login times, etc.) we could do it here before calling the database.
-        return dbManager.login(email, password);
+    public List<Sale> getFilteredSales(String location, Double minPrice, Double maxPrice, String make, String model, Integer minYear, Integer maxYear) {
+        // La lógica de persistencia NO debe estar aquí, solo la llamada
+        return dbManager.getFilteredSales(location, minPrice, maxPrice, make, model, minYear, maxYear);
     }
 
-    @Override
     public void close() {
-        if (dbManager != null) {
-            dbManager.close();
-        }
+        dbManager.close();
     }
 }
