@@ -1,5 +1,6 @@
 package eus.ehu.businessLogic;
 
+import eus.ehu.domain.MotorType;
 import eus.ehu.domain.Sale;
 import eus.ehu.domain.User;
 import eus.ehu.domain.Vehicle;
@@ -59,6 +60,9 @@ public interface BlInterface {
 
 	void deleteVehicle(Vehicle vehicle);
 
-	List<Sale> getFilteredSales(String location, Double minPrice, Double maxPrice, String make, String model,
-			Integer minYear, Integer maxYear);
+	List<Sale> getFilteredSales(String location, Double minPrice, Double maxPrice,
+        List<String> makes, String model,
+        Integer minYear, Integer maxYear,
+        Integer minMileage, Integer maxMileage,
+        MotorType motorType);
 }

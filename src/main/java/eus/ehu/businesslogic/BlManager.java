@@ -1,6 +1,7 @@
 package eus.ehu.businessLogic;
 
 import eus.ehu.data_access.DbAccessManager;
+import eus.ehu.domain.MotorType;
 import eus.ehu.domain.Sale;
 import eus.ehu.domain.User;
 import eus.ehu.domain.Vehicle;
@@ -307,9 +308,12 @@ public class BlManager implements BlInterface {
     }
 
     @Override
-    public List<Sale> getFilteredSales(String location, Double minPrice, Double maxPrice, String make, String model, Integer minYear, Integer maxYear) {
-        // La lógica de persistencia NO debe estar aquí, solo la llamada
-        return dbManager.getFilteredSales(location, minPrice, maxPrice, make, model, minYear, maxYear);
+    public List<Sale> getFilteredSales(String location, Double minPrice, Double maxPrice,
+            List<String> makes, String model,
+            Integer minYear, Integer maxYear,
+            Integer minMileage, Integer maxMileage,
+            MotorType motorType) {
+        return dbManager.getFilteredSales(location, minPrice, maxPrice, makes, model, minYear, maxYear, minMileage, maxMileage, motorType);
     }
 
     public void close() {
