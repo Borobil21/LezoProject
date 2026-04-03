@@ -1,6 +1,6 @@
 package eus.ehu.test;
 
-import eus.ehu.businessLogic.BlManager;
+import eus.ehu.businesslogic.BlManager;
 import eus.ehu.domain.Sale;
 import eus.ehu.domain.Vehicle;
 import eus.ehu.domain.User;

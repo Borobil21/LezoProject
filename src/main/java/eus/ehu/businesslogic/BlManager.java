@@ -1,11 +1,12 @@
-package eus.ehu.businessLogic;
+package eus.ehu.businesslogic;
+
+import java.util.List;
 
 import eus.ehu.data_access.DbAccessManager;
 import eus.ehu.domain.MotorType;
 import eus.ehu.domain.Sale;
 import eus.ehu.domain.User;
 import eus.ehu.domain.Vehicle;
-import java.util.List;
 
 public class BlManager implements BlInterface {
 

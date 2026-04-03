@@ -1,6 +1,6 @@
 package eus.ehu.init;
 
-import eus.ehu.businessLogic.BlManager;
+import eus.ehu.businesslogic.BlManager;
 import eus.ehu.domain.User;
 
 public class DefaultUserInitializer {

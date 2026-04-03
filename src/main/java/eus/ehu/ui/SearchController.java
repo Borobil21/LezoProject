@@ -1,6 +1,6 @@
 package eus.ehu.ui;
 
-import eus.ehu.businessLogic.BlInterface;
+import eus.ehu.businesslogic.BlInterface;
 import eus.ehu.domain.MotorType;
 import eus.ehu.domain.Sale;
 
