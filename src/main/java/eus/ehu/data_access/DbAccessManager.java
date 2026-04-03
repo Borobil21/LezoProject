@@ -2,9 +2,9 @@ package eus.ehu.data_access;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.TypedQuery;
-
 import java.util.List;
+
+import javax.persistence.TypedQuery;
 
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -105,22 +105,37 @@ public class DbAccessManager {
         return db.find(User.class, userId);
     }
 
+    public User getUserByEmail(String email) {
+        try {
+            return db.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+                    .setParameter("email", email)
+                    .setMaxResults(1)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public Vehicle getVehicleByLicensePlate(String licensePlate) {
         return db.find(Vehicle.class, licensePlate);
+    }
+
+    public List<User> getAllUsers() {
+        return db.createQuery("SELECT u FROM User u ORDER BY u.id", User.class).getResultList();
+    }
+
+    public List<Sale> getAllSales() {
+        return db.createQuery("SELECT s FROM Sale s ORDER BY s.id", Sale.class).getResultList();
+    }
+
+    public List<Vehicle> getAllVehicles() {
+        return db.createQuery("SELECT v FROM Vehicle v ORDER BY v.licensePlate", Vehicle.class).getResultList();
     }
 
     public void deleteSale(Integer saleId) {
         Sale sale = db.find(Sale.class, saleId);
         if (sale != null) {
             db.getTransaction().begin();
-
-            Vehicle vehicle = sale.getVehicle();
-            if (vehicle != null) {
-                vehicle.setListing(null);
-                sale.setVehicle(null);
-                db.remove(vehicle);
-                System.out.println("Vehicle deleted with sale: " + vehicle.getLicensePlate());
-            }
 
             if (sale.getUser() != null && sale.getUser().getPublications() != null) {
                 sale.getUser().getPublications().remove(sale);
@@ -164,7 +179,7 @@ public class DbAccessManager {
             System.out.println("Vehicle not found: " + licensePlate);
         }
     }
-    public List <Sale> getFilteredSales(String location, Double minPrice, Double maxPrice, String make, String model, Integer minYear, Integer maxYear) {
+    public List<Sale> getFilteredSales(String location, Double minPrice, Double maxPrice, String make, String model, Integer minYear, Integer maxYear) {
         String queryStr = "SELECT s FROM Sale s JOIN s.vehicles v WHERE 1=1";
 
         if (location != null && !location.isEmpty()) {

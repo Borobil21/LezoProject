@@ -9,6 +9,10 @@ public interface BlInterface {
 
 	void storeUser(User user);
 
+	boolean register(String name, String email, String password, String phone, String location);
+
+	User login(String email, String password);
+
 	void addSaleToUser(Integer userId, Integer saleId);
 
 	void addSaleToUser(Integer userId, Sale sale);
@@ -33,7 +37,15 @@ public interface BlInterface {
 
 	User getUserById(Integer userId);
 
+	User getUserByEmail(String email);
+
 	Vehicle getVehicleByLicensePlate(String licensePlate);
+
+	List<User> getAllUsers();
+
+	List<Sale> getAllSales();
+
+	List<Vehicle> getAllVehicles();
 
 	void deleteSale(Integer saleId);
 

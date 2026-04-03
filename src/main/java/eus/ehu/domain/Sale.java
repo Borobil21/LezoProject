@@ -10,8 +10,8 @@ public class Sale extends Listing {
     protected Sale() {
     }
 
-    public Sale(String description, String location, ListingStatus status, User user, double fixedPrice) {
-        super(description, location, status, user);
+    public Sale(String description, ListingStatus status, User user, double fixedPrice) {
+        super(description, status, user);
         this.fixedPrice = fixedPrice;
     }
 
