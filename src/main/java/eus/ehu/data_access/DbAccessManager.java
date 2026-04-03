@@ -2,6 +2,9 @@ package eus.ehu.data_access;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
+
+import java.util.List;
 
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -161,5 +164,53 @@ public class DbAccessManager {
             System.out.println("Vehicle not found: " + licensePlate);
         }
     }
+    public List <Sale> getFilteredSales(String location, Double minPrice, Double maxPrice, String make, String model, Integer minYear, Integer maxYear) {
+        String queryStr = "SELECT s FROM Sale s JOIN s.vehicles v WHERE 1=1";
 
+        if (location != null && !location.isEmpty()) {
+            queryStr += " AND s.location = :location";
+        }
+        if (minPrice != null) {
+            queryStr += " AND s.fixedPrice >= :minPrice";
+        }
+        if(maxPrice != null) {
+            queryStr += " AND s.fixedPrice <= :maxPrice";
+        }
+        if (make != null && !make.isEmpty()) {
+            queryStr += " AND v.make = :make";
+        }
+        if(model != null && !model.isEmpty()) {
+            queryStr += " AND v.model = :model";
+        }
+        if(minYear != null) {
+            queryStr += " AND v.year >= :minYear";
+        }
+        if(maxYear != null) {
+            queryStr += " AND v.year <= :maxYear";
+        }
+
+        TypedQuery<Sale> query = db.createQuery(queryStr, Sale.class);
+        if (location != null && !location.isEmpty()) {
+            query.setParameter("location", location);
+        }
+        if (minPrice != null) {
+            query.setParameter("minPrice", minPrice);
+        }
+        if(maxPrice != null) {
+            query.setParameter("maxPrice", maxPrice);
+        }
+        if (make != null && !make.isEmpty()) {
+            query.setParameter("make", make);
+        }
+        if (model != null && !model.isEmpty()) {
+            query.setParameter("model", model);
+        }
+        if (minYear != null) {
+            query.setParameter("minYear", minYear);
+        }
+        if (maxYear != null) {
+            query.setParameter("maxYear", maxYear);
+        }
+        return query.getResultList();
+    }
 }

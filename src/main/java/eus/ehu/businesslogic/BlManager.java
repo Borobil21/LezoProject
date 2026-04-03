@@ -1,9 +1,12 @@
-package eus.ehu.businesslogic;
+package eus.ehu.businessLogic;
+
+import javax.persistence.TypedQuery;
 
 import eus.ehu.data_access.DbAccessManager;
 import eus.ehu.domain.Sale;
 import eus.ehu.domain.User;
 import eus.ehu.domain.Vehicle;
+import java.util.List;
 
 public class BlManager implements BlInterface {
 
@@ -115,5 +118,11 @@ public class BlManager implements BlInterface {
     @Override
     public void deleteVehicle(Vehicle vehicle) {
         dbManager.deleteVehicle(vehicle.getLicensePlate());
+    }
+
+    @Override
+    public List<Sale> getFilteredSales(String location, Double minPrice, Double maxPrice, String make, String model, Integer minYear, Integer maxYear) {
+        // La lógica de persistencia NO debe estar aquí, solo la llamada
+        return dbManager.getFilteredSales(location, minPrice, maxPrice, make, model, minYear, maxYear);
     }
 }
