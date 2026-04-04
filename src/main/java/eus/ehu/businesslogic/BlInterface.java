@@ -43,6 +43,8 @@ public interface BlInterface {
 
 	Vehicle getVehicleByLicensePlate(String licensePlate);
 
+	Vehicle getVehicleBySaleId(Integer saleId);
+
 	List<User> getAllUsers();
 
 	List<Sale> getAllSales();

@@ -1,15 +1,22 @@
 package eus.ehu.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import eus.ehu.businesslogic.BlInterface;
 import eus.ehu.domain.MotorType;
 import eus.ehu.domain.Sale;
-
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 
 public class SearchController {
 
@@ -181,7 +188,7 @@ public class SearchController {
         }
         List<String> display = sales.stream()
                 .map(Sale::toString)
-                .toList();
+                .collect(Collectors.toList());
         resultsListView.setItems(FXCollections.observableArrayList(display));
         resultsListView.setVisible(true);
         placeholderLabel.setVisible(false);

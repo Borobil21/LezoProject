@@ -1,9 +1,9 @@
 package eus.ehu.data_access;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 
 import org.hibernate.boot.MetadataSources;
@@ -119,6 +119,17 @@ public class DbAccessManager {
 
     public Vehicle getVehicleByLicensePlate(String licensePlate) {
         return db.find(Vehicle.class, licensePlate);
+    }
+
+    public Vehicle getVehicleBySaleId(Integer saleId) {
+        try {
+            return db.createQuery("SELECT v FROM Vehicle v JOIN v.listing s WHERE s.id = :saleId", Vehicle.class)
+                    .setParameter("saleId", saleId)
+                    .setMaxResults(1)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public List<User> getAllUsers() {
