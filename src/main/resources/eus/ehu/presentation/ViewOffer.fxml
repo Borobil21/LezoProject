@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ui.ViewOfferController">
    <children>
       <AnchorPane prefHeight="70.0" prefWidth="1000.0" style="-fx-background-color: #007bff;">
          <children>
@@ -38,7 +37,7 @@
             </Button>
             <ImageView accessibleText="Image goes here" fitHeight="250.0" fitWidth="300.0" layoutX="40.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@/eus/ehu/funnycar.jpg" />
+                  <Image url="@../funnycar.jpg" />
                </image>
             </ImageView>
             <Label fx:id="Model" layoutX="40.0" layoutY="62.0" prefHeight="43.0" prefWidth="620.0" text="Brand and model goes here">

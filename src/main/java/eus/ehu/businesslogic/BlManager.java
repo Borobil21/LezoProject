@@ -237,6 +237,14 @@ public class BlManager implements BlInterface {
     }
 
     @Override
+    public Vehicle getVehicleBySaleId(Integer saleId) {
+        if (saleId == null) {
+            throw new NullPointerException("saleId cannot be null");
+        }
+        return dbManager.getVehicleBySaleId(saleId);
+    }
+
+    @Override
     public List<User> getAllUsers() {
         return dbManager.getAllUsers();
     }
