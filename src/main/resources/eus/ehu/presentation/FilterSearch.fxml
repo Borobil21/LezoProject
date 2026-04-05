@@ -10,10 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="820.0" prefWidth="1000.0" style="-fx-background-color: #f4f4f4;"
-            xmlns="http://javafx.com/javafx/13"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="eus.ehu.ui.SearchController">
+<AnchorPane prefHeight="820.0" prefWidth="1000.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ui.SearchController">
    <children>
 
       <AnchorPane prefHeight="70.0" prefWidth="1000.0" style="-fx-background-color: #007bff;">
@@ -24,91 +21,70 @@
             <Label layoutX="850.0" layoutY="25.0" text="My profile" textFill="WHITE">
                <font><Font size="14.0" /></font>
             </Label>
+            <Button layoutX="700.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleCreatePost" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 18; -fx-border-color: #cfe3ff; -fx-border-radius: 18; -fx-text-fill: #005fcc; -fx-font-weight: bold; -fx-cursor: hand;" text="Create Post" />
          </children>
       </AnchorPane>
 
-      <AnchorPane layoutX="40.0" layoutY="90.0" prefHeight="700.0" prefWidth="300.0"
-                  style="-fx-background-color: #ffffff; -fx-border-color: #dddddd;">
+      <AnchorPane layoutX="40.0" layoutY="90.0" prefHeight="700.0" prefWidth="300.0" style="-fx-background-color: #ffffff; -fx-border-color: #dddddd;">
          <children>
 
             <Label layoutX="20.0" layoutY="15.0" text="Refine Search">
                <font><Font name="System Bold" size="16.0" /></font>
             </Label>
-            <Label fx:id="clearAllLabel" layoutX="220.0" layoutY="18.0" text="Clear All"
-                   textFill="#007bff" onMouseClicked="#handleClearAll" style="-fx-cursor: hand;" />
+            <Label fx:id="clearAllLabel" layoutX="220.0" layoutY="18.0" onMouseClicked="#handleClearAll" style="-fx-cursor: hand;" text="Clear All" textFill="#007bff" />
 
             <Label layoutX="20.0" layoutY="50.0" text="Brand &amp; Manufacturers">
                <font><Font name="System Bold" size="13.0" /></font>
             </Label>
-            <CheckBox fx:id="porscheCheck"      layoutX="20.0" layoutY="75.0"  text="Porsche" />
-            <CheckBox fx:id="bmwCheck"          layoutX="20.0" layoutY="95.0"  text="BMW" />
-            <CheckBox fx:id="audiCheck"         layoutX="20.0" layoutY="115.0" text="Audi" />
-            <CheckBox fx:id="mercedesCheck"     layoutX="20.0" layoutY="135.0" text="Mercedes-Benz" />
-            <CheckBox fx:id="teslaCheck"        layoutX="20.0" layoutY="155.0" text="Tesla" />
+            <CheckBox fx:id="porscheCheck" layoutX="20.0" layoutY="75.0" text="Porsche" />
+            <CheckBox fx:id="bmwCheck" layoutX="20.0" layoutY="95.0" text="BMW" />
+            <CheckBox fx:id="audiCheck" layoutX="20.0" layoutY="115.0" text="Audi" />
+            <CheckBox fx:id="mercedesCheck" layoutX="20.0" layoutY="135.0" text="Mercedes-Benz" />
+            <CheckBox fx:id="teslaCheck" layoutX="20.0" layoutY="155.0" text="Tesla" />
             <Label layoutX="20.0" layoutY="180.0" text="+ Show 24 more brands" textFill="#007bff" />
 
             <Label layoutX="20.0" layoutY="210.0" text="Price Range">
                <font><Font name="System Bold" size="13.0" /></font>
             </Label>
             <Slider fx:id="priceSlider" layoutX="20.0" layoutY="235.0" prefWidth="260.0" value="40.0" />
-            <TextField fx:id="minPriceField" layoutX="20.0"  layoutY="255.0"
-                       prefHeight="25.0" prefWidth="120.0" promptText="€ 0"
-                       style="-fx-border-color: #cccccc;" />
-            <TextField fx:id="maxPriceField" layoutX="160.0" layoutY="255.0"
-                       prefHeight="25.0" prefWidth="120.0" promptText="€ 20.000"
-                       style="-fx-border-color: #cccccc;" />
+            <TextField fx:id="minPriceField" layoutX="20.0" layoutY="255.0" prefHeight="25.0" prefWidth="120.0" promptText="€ 0" style="-fx-border-color: #cccccc;" />
+            <TextField fx:id="maxPriceField" layoutX="160.0" layoutY="255.0" prefHeight="25.0" prefWidth="120.0" promptText="€ 20.000" style="-fx-border-color: #cccccc;" />
 
             <Label layoutX="20.0" layoutY="295.0" text="Kilometers">
                <font><Font name="System Bold" size="13.0" /></font>
             </Label>
             <Slider fx:id="kmSlider" layoutX="20.0" layoutY="320.0" prefWidth="260.0" value="70.0" />
-            <TextField fx:id="minKmField" layoutX="20.0"  layoutY="340.0"
-                       prefHeight="25.0" prefWidth="120.0" promptText="0 Km"
-                       style="-fx-border-color: #cccccc;" />
-            <TextField fx:id="maxKmField" layoutX="160.0" layoutY="340.0"
-                       prefHeight="25.0" prefWidth="120.0" promptText="+200.000 Km"
-                       style="-fx-border-color: #cccccc;" />
+            <TextField fx:id="minKmField" layoutX="20.0" layoutY="340.0" prefHeight="25.0" prefWidth="120.0" promptText="0 Km" style="-fx-border-color: #cccccc;" />
+            <TextField fx:id="maxKmField" layoutX="160.0" layoutY="340.0" prefHeight="25.0" prefWidth="120.0" promptText="+200.000 Km" style="-fx-border-color: #cccccc;" />
 
             <Label layoutX="20.0" layoutY="380.0" text="Vehicle Age">
                <font><Font name="System Bold" size="13.0" /></font>
             </Label>
-            <CheckBox fx:id="newCheck"       layoutX="20.0" layoutY="405.0" text="New (2025-2026)" />
+            <CheckBox fx:id="newCheck" layoutX="20.0" layoutY="405.0" text="New (2025-2026)" />
             <CheckBox fx:id="almostNewCheck" layoutX="20.0" layoutY="425.0" text="Almost New (2021-24)" />
-            <CheckBox fx:id="usedCheck"      layoutX="20.0" layoutY="445.0" text="Used (2006-2020)" />
-            <CheckBox fx:id="oldCheck"       layoutX="20.0" layoutY="465.0" text="Old (Pre-2006)" />
+            <CheckBox fx:id="usedCheck" layoutX="20.0" layoutY="445.0" text="Used (2006-2020)" />
+            <CheckBox fx:id="oldCheck" layoutX="20.0" layoutY="465.0" text="Old (Pre-2006)" />
 
-            <ComboBox fx:id="motorTypeComboBox"    layoutX="20.0" layoutY="500.0"
-                      prefHeight="25.0" prefWidth="260.0" promptText="Motor &amp; Fuel"
-                      style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
-            <ComboBox fx:id="transmissionComboBox" layoutX="20.0" layoutY="535.0"
-                      prefHeight="25.0" prefWidth="260.0" promptText="Transmission (Auto / Manual)"
-                      style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
-            <ComboBox fx:id="colorComboBox"        layoutX="20.0" layoutY="570.0"
-                      prefHeight="25.0" prefWidth="260.0" promptText="Exterior Color"
-                      style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
-            <ComboBox fx:id="bodyTypeComboBox"     layoutX="20.0" layoutY="605.0"
-                      prefHeight="25.0" prefWidth="260.0" promptText="Body Type (SUV, Sedan...)"
-                      style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+            <ComboBox fx:id="motorTypeComboBox" layoutX="20.0" layoutY="500.0" prefHeight="25.0" prefWidth="260.0" promptText="Motor &amp; Fuel" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+            <ComboBox fx:id="transmissionComboBox" layoutX="20.0" layoutY="535.0" prefHeight="25.0" prefWidth="260.0" promptText="Transmission (Auto / Manual)" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+            <ComboBox fx:id="colorComboBox" layoutX="20.0" layoutY="570.0" prefHeight="25.0" prefWidth="260.0" promptText="Exterior Color" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+            <ComboBox fx:id="bodyTypeComboBox" layoutX="20.0" layoutY="605.0" prefHeight="25.0" prefWidth="260.0" promptText="Body Type (SUV, Sedan...)" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
 
-            <Button layoutX="20.0" layoutY="645.0" mnemonicParsing="false"
-                    prefHeight="40.0" prefWidth="260.0"
-                    style="-fx-background-color: #007bff;" text="Apply Filters" textFill="WHITE"
-                    onAction="#handleSearch">
+            <Button layoutX="20.0" layoutY="645.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="40.0" prefWidth="260.0" style="-fx-background-color: #007bff;" text="Apply Filters" textFill="WHITE">
                <font><Font name="System Bold" size="14.0" /></font>
             </Button>
 
          </children>
       </AnchorPane>
 
-      <AnchorPane layoutX="360.0" layoutY="90.0" prefHeight="700.0" prefWidth="600.0"
-                  style="-fx-background-color: #ffffff; -fx-border-color: #dddddd;">
+      <AnchorPane layoutX="360.0" layoutY="90.0" prefHeight="700.0" prefWidth="600.0" style="-fx-background-color: #ffffff; -fx-border-color: #dddddd;">
          <children>
-            <Label fx:id="placeholderLabel" layoutX="140.0" layoutY="320.0"
-                   text="Vehicle search results will appear here" textFill="#aaaaaa">
+            <Label fx:id="placeholderLabel" layoutX="140.0" layoutY="320.0" text="Vehicle search results will appear here" textFill="#aaaaaa">
                <font><Font size="14.0" /></font>
             </Label>
-            <ListView fx:id="resultsListView" layoutX="10.0" layoutY="10.0"
-                      prefHeight="680.0" prefWidth="580.0" visible="false" />
+            <ListView fx:id="resultsListView" layoutX="10.0" layoutY="10.0" prefHeight="680.0" prefWidth="580.0" visible="false" />
+            <Button layoutX="82.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleViewOffer" text="View selected offer" />
+            <TextField fx:id="SaleIdField" layoutX="65.0" layoutY="134.0" promptText="Insert sale ID" />
          </children>
       </AnchorPane>
 

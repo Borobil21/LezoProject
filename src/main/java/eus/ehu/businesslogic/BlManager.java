@@ -52,21 +52,18 @@ public class BlManager implements BlInterface {
 
     @Override
     public boolean register(String name, String email, String password, String phone, String location) {
-        if (name == null || email == null || password == null || phone == null || location == null) {
-            throw new NullPointerException("registration fields cannot be null");
-        }
-        if (dbManager.getUserByEmail(email) != null) {
+        if (name.equals("") || email.equals("") || password.equals("") || phone.equals("") || 
+                location.equals("") || dbManager.getUserByEmail(email) != null) {
             return false;
         }
-
         storeUser(new User(name, email, password, phone, location));
         return true;
     }
 
     @Override
     public User login(String email, String password) {
-        if (email == null || password == null) {
-            throw new NullPointerException("email and password cannot be null");
+        if (email.equals("") || password.equals("")) {
+            return null;
         }
 
         User user = dbManager.getUserByEmail(email);

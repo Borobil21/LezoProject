@@ -22,35 +22,46 @@ public class SearchController {
 
     @FXML
     private CheckBox porscheCheck;
+
     @FXML
     private CheckBox bmwCheck;
+
     @FXML
     private CheckBox audiCheck;
+
     @FXML
     private CheckBox mercedesCheck;
+
     @FXML
     private CheckBox teslaCheck;
 
     @FXML
     private Slider priceSlider;
+
     @FXML
     private TextField minPriceField;
+
     @FXML
     private TextField maxPriceField;
 
     @FXML
     private Slider kmSlider;
+
     @FXML
     private TextField minKmField;
+
     @FXML
     private TextField maxKmField;
 
     @FXML
     private CheckBox newCheck;
+
     @FXML
     private CheckBox almostNewCheck;
+
     @FXML
     private CheckBox usedCheck;
+
     @FXML
     private CheckBox oldCheck;
 
@@ -59,20 +70,51 @@ public class SearchController {
 
     @FXML
     private ComboBox<String> transmissionComboBox;
+
     @FXML
     private ComboBox<String> colorComboBox;
+
     @FXML
     private ComboBox<String> bodyTypeComboBox;
 
     @FXML
     private Label placeholderLabel;
+
     @FXML
     private ListView<String> resultsListView;
+
+    @FXML
+    private TextField SaleIdField;
 
     private BlInterface bl;
 
     public void setBl(BlInterface bl) {
         this.bl = bl;
+    }
+
+    @FXML
+    private void handleCreatePost() {
+        try {
+            App.setRoot("CreatePost");
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to open Create Post scene", e);
+        }
+    }
+
+    @FXML
+    private void handleViewOffer() {
+        try {
+            String saleIdText = SaleIdField.getText();
+            if (saleIdText == null || saleIdText.isBlank()) {
+                showError("Please enter a sale id.");
+                return;
+            }
+            App.openViewOffer(Integer.parseInt(saleIdText.trim()));
+        } catch (NumberFormatException e) {
+            showError("Sale ID must be a valid number.");
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to open View Offer scene", e);
+        }
     }
 
     @FXML
@@ -87,7 +129,7 @@ public class SearchController {
     }
 
     @FXML
-    void handleSearch() {
+    private void handleSearch() {
 
         Double minPrice = parseDouble(minPriceField, "minimum price");
         if (minPrice == null && !minPriceField.getText().isEmpty())
@@ -149,7 +191,6 @@ public class SearchController {
         List<String> makesFilter = makes.isEmpty() ? null : makes;
 
         MotorType motorType = motorTypeComboBox.getValue();
-
         
         List<Sale> results = bl.getFilteredSales(
                 null,
@@ -218,11 +259,11 @@ public class SearchController {
         }
     }
 
-    private Integer earliest(Integer current, int candidate) {
+    private int earliest(Integer current, int candidate) {
         return (current == null) ? candidate : Math.min(current, candidate);
     }
 
-    private Integer latest(Integer current, int candidate) {
+    private int latest(Integer current, int candidate) {
         return (current == null) ? candidate : Math.max(current, candidate);
     }
 

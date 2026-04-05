@@ -28,7 +28,16 @@ public class RegisterController {
     private TextField txtLocation;
 
     @FXML
-    private Label ErrorLabel;
+    private Label InformationLabel;
+
+    @FXML
+    private void handleGoToLogin() {
+        try {
+            App.setRoot("Login");
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to open Login scene", e);
+        }
+    }
 
     @FXML
     private void handleRegister() {
@@ -43,12 +52,21 @@ public class RegisterController {
 
         if (success) {
             System.out.println("¡User succesfully registered!");
-            // Here'll change to the login scene, but for now just print a message
+            InformationLabel.setText("User succesfully registered!");
+            InformationLabel.setVisible(true);
+
+            try {
+                App.setRoot("FilterSearch");
+            } catch (Exception e) {
+                throw new RuntimeException("Unable to open FilterSearch scene", e);
+            }
+
         } else {
             // Show error message for 5 seconds
-            ErrorLabel.setVisible(true);
+            InformationLabel.setText("Registration failed. Please check your information.");
+            InformationLabel.setVisible(true);
             PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(5));
-            pause.setOnFinished(e -> ErrorLabel.setVisible(false));
+            pause.setOnFinished(e -> InformationLabel.setVisible(false));
             pause.play();
         }
     }
