@@ -22,35 +22,46 @@ public class SearchController {
 
     @FXML
     private CheckBox porscheCheck;
+
     @FXML
     private CheckBox bmwCheck;
+
     @FXML
     private CheckBox audiCheck;
+
     @FXML
     private CheckBox mercedesCheck;
+
     @FXML
     private CheckBox teslaCheck;
 
     @FXML
     private Slider priceSlider;
+
     @FXML
     private TextField minPriceField;
+
     @FXML
     private TextField maxPriceField;
 
     @FXML
     private Slider kmSlider;
+
     @FXML
     private TextField minKmField;
+
     @FXML
     private TextField maxKmField;
 
     @FXML
     private CheckBox newCheck;
+
     @FXML
     private CheckBox almostNewCheck;
+
     @FXML
     private CheckBox usedCheck;
+
     @FXML
     private CheckBox oldCheck;
 
@@ -59,13 +70,16 @@ public class SearchController {
 
     @FXML
     private ComboBox<String> transmissionComboBox;
+
     @FXML
     private ComboBox<String> colorComboBox;
+
     @FXML
     private ComboBox<String> bodyTypeComboBox;
 
     @FXML
     private Label placeholderLabel;
+
     @FXML
     private ListView<String> resultsListView;
 
@@ -73,6 +87,15 @@ public class SearchController {
 
     public void setBl(BlInterface bl) {
         this.bl = bl;
+    }
+
+    @FXML
+    private void handleCreatePost() {
+        try {
+            App.setRoot("CreatePost");
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to open Create Post scene", e);
+        }
     }
 
     @FXML

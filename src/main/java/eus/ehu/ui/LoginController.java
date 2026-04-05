@@ -45,8 +45,13 @@ public class LoginController {
             System.out.println("Welcome, " + loggedUser.getName());
             InformationLabel.setText("Login successful!");
             InformationLabel.setVisible(true);
-            // TODO: Cambiar a la pantalla principal (Main / ViewOffer)
-            
+
+            try {
+                App.setRoot("FilterSearch");
+            } catch (Exception e) {
+                throw new RuntimeException("Unable to open FilterSearch scene", e);
+            }
+
             // TODO: Pasar el objeto 'loggedUser' a la siguiente pantalla para saber quién está conectado
             
         } else {

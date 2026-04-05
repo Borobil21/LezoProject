@@ -54,7 +54,13 @@ public class RegisterController {
             System.out.println("¡User succesfully registered!");
             InformationLabel.setText("User succesfully registered!");
             InformationLabel.setVisible(true);
-            // Here'll change to the login scene, but for now just print a message
+
+            try {
+                App.setRoot("FilterSearch");
+            } catch (Exception e) {
+                throw new RuntimeException("Unable to open FilterSearch scene", e);
+            }
+
         } else {
             // Show error message for 5 seconds
             InformationLabel.setText("Registration failed. Please check your information.");
