@@ -22,7 +22,16 @@ public class LoginController {
     private PasswordField txtPassword; // Pwfield to hide password input (yk professionalism)
 
     @FXML
-    private Label lblError;
+    private Label InformationLabel;
+
+    @FXML
+    private void handleGoToRegister() {
+        try {
+            App.setRoot("Register");
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to open Register scene", e);
+        }
+    }
 
     @FXML
     private void handleLogin() {
@@ -34,7 +43,8 @@ public class LoginController {
 
         if (loggedUser != null) {
             System.out.println("Welcome, " + loggedUser.getName());
-            
+            InformationLabel.setText("Login successful!");
+            InformationLabel.setVisible(true);
             // TODO: Cambiar a la pantalla principal (Main / ViewOffer)
             
             // TODO: Pasar el objeto 'loggedUser' a la siguiente pantalla para saber quién está conectado
@@ -45,10 +55,10 @@ public class LoginController {
     }
 
     private void mostrarErrorTemporal(String mensaje) {
-        lblError.setText(mensaje);
-        lblError.setVisible(true);
+        InformationLabel.setText(mensaje);
+        InformationLabel.setVisible(true);
         PauseTransition pause = new PauseTransition(Duration.seconds(5));
-        pause.setOnFinished(e -> lblError.setVisible(false));
+        pause.setOnFinished(e -> InformationLabel.setVisible(false));
         pause.play();
     }
 }
