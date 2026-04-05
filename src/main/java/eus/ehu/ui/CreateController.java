@@ -48,6 +48,15 @@ public class CreateController {
     private TextField price;
 
     @FXML
+    private void handleGoToSearch() {
+        try {
+            App.setRoot("FilterSearch");
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to open Filter Search scene", e);
+        }
+    }
+
+    @FXML
     void initialize() {
         bl = new BlManager();
         motorType.getItems().addAll(MotorType.values());
@@ -92,8 +101,13 @@ public class CreateController {
             showError(ex.getMessage());
         }
         if (done) {
-            bl.close();
-            closeWindow();
+                    try {
+            App.setRoot("FilterSearch");
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to open Filter Search scene", e);
+        }
+//            bl.close();
+//           closeWindow();
         }
     }
 

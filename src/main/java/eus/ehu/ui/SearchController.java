@@ -83,6 +83,9 @@ public class SearchController {
     @FXML
     private ListView<String> resultsListView;
 
+    @FXML
+    private TextField SaleIdField;
+
     private BlInterface bl;
 
     public void setBl(BlInterface bl) {
@@ -99,6 +102,22 @@ public class SearchController {
     }
 
     @FXML
+    private void handleViewOffer() {
+        try {
+            String saleIdText = SaleIdField.getText();
+            if (saleIdText == null || saleIdText.isBlank()) {
+                showError("Please enter a sale id.");
+                return;
+            }
+            App.openViewOffer(Integer.parseInt(saleIdText.trim()));
+        } catch (NumberFormatException e) {
+            showError("Sale ID must be a valid number.");
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to open View Offer scene", e);
+        }
+    }
+
+    @FXML
     public void initialize() {
         motorTypeComboBox.setItems(FXCollections.observableArrayList(MotorType.values()));
 
@@ -110,7 +129,7 @@ public class SearchController {
     }
 
     @FXML
-    void handleSearch() {
+    private void handleSearch() {
 
         Double minPrice = parseDouble(minPriceField, "minimum price");
         if (minPrice == null && !minPriceField.getText().isEmpty())
@@ -172,7 +191,6 @@ public class SearchController {
         List<String> makesFilter = makes.isEmpty() ? null : makes;
 
         MotorType motorType = motorTypeComboBox.getValue();
-
         
         List<Sale> results = bl.getFilteredSales(
                 null,
@@ -241,11 +259,11 @@ public class SearchController {
         }
     }
 
-    private Integer earliest(Integer current, int candidate) {
+    private int earliest(Integer current, int candidate) {
         return (current == null) ? candidate : Math.min(current, candidate);
     }
 
-    private Integer latest(Integer current, int candidate) {
+    private int latest(Integer current, int candidate) {
         return (current == null) ? candidate : Math.max(current, candidate);
     }
 

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="820.0" prefWidth="1000.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ui.SearchController">
+<AnchorPane prefHeight="820.0" prefWidth="1000.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ui.SearchController">
    <children>
 
       <AnchorPane prefHeight="70.0" prefWidth="1000.0" style="-fx-background-color: #007bff;">
@@ -83,6 +83,8 @@
                <font><Font size="14.0" /></font>
             </Label>
             <ListView fx:id="resultsListView" layoutX="10.0" layoutY="10.0" prefHeight="680.0" prefWidth="580.0" visible="false" />
+            <Button layoutX="82.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleViewOffer" text="View selected offer" />
+            <TextField fx:id="SaleIdField" layoutX="65.0" layoutY="134.0" promptText="Insert sale ID" />
          </children>
       </AnchorPane>
 

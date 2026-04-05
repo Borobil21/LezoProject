@@ -33,6 +33,15 @@ public class ViewOfferController {
     private Sale selectedSale;
     private Vehicle selectedVehicle;
 
+    @FXML
+    private void handleGoToSearch() {
+        try {
+            App.setRoot("FilterSearch");
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to open Filter Search scene", e);
+        }
+    }
+
     public void setBl(BlInterface bl) {
         this.bl = bl;
         refreshView();
@@ -138,4 +147,5 @@ public class ViewOfferController {
     private String formatNumber(int value) {
         return String.valueOf(value);
     }
+
 }
