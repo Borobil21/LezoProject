@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import eus.ehu.businesslogic.BlInterface;
+import eus.ehu.businessLogic.BlInterface;
 import eus.ehu.domain.MotorType;
 import eus.ehu.domain.Sale;
 import javafx.collections.FXCollections;
@@ -227,9 +227,21 @@ public class SearchController {
             showError("No vehicles match your filters.");
             return;
         }
+
         List<String> display = sales.stream()
-                .map(Sale::toString)
+                .map(sale -> {
+
+                    eus.ehu.domain.Vehicle v = sale.getVehicle();
+                    return String.format("ID: %d | %s %s (%d) - %d km -> %.2f €",
+                            sale.getId(),
+                            v.getMake(),
+                            v.getModel(),
+                            v.getYear(),
+                            v.getMileage(),
+                            sale.getFixedPrice());
+                })
                 .collect(Collectors.toList());
+
         resultsListView.setItems(FXCollections.observableArrayList(display));
         resultsListView.setVisible(true);
         placeholderLabel.setVisible(false);
