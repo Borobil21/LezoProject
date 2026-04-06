@@ -81,12 +81,12 @@ public class CreateController {
                 throw new NullPointerException("You must select a motor type");
             }
             String description = this.description.getText();
-            
+
             eus.ehu.domain.User user = bl.getDefaultUser();
             if (user == null) {
                 throw new NullPointerException("Default user not available");
             }
-            
+
             Sale sale = new Sale(description, ListingStatus.ACTIVE, user, price);
             Vehicle v = new Vehicle(licensePlate, brand, model, age, mileage, horsePower, motorType, sale);
             bl.storeSale(sale);
@@ -101,13 +101,13 @@ public class CreateController {
             showError(ex.getMessage());
         }
         if (done) {
-                    try {
-            App.setRoot("FilterSearch");
-        } catch (Exception e) {
-            throw new RuntimeException("Unable to open Filter Search scene", e);
-        }
-//            bl.close();
-//           closeWindow();
+            try {
+                App.setRoot("FilterSearch");
+            } catch (Exception e) {
+                throw new RuntimeException("Unable to open Filter Search scene", e);
+            }
+            // bl.close();
+            // closeWindow();
         }
     }
 

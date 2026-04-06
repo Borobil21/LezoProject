@@ -192,58 +192,58 @@ public class DbAccessManager {
         }
     }
 
-   public List<Sale> getFilteredSales(String location, Double minPrice, Double maxPrice,
-        List<String> makes, String model,
-        Integer minYear, Integer maxYear,
-        Integer minMileage, Integer maxMileage,
-        MotorType motorType) {
+    public List<Sale> getFilteredSales(String location, Double minPrice, Double maxPrice,
+            List<String> makes, String model,
+            Integer minYear, Integer maxYear,
+            Integer minMileage, Integer maxMileage,
+            MotorType motorType) {
 
-    String queryStr = "SELECT s FROM Sale s JOIN s.vehicle v WHERE 1=1";
+        String queryStr = "SELECT s FROM Sale s JOIN s.vehicle v WHERE 1=1";
 
-    if (location != null && !location.isEmpty())
-        queryStr += " AND s.location = :location";
-    if (minPrice != null)
-        queryStr += " AND s.fixedPrice >= :minPrice";
-    if (maxPrice != null)
-        queryStr += " AND s.fixedPrice <= :maxPrice";
-    if (makes != null && !makes.isEmpty())
-        queryStr += " AND v.make IN :makes";         
-    if (model != null && !model.isEmpty())
-        queryStr += " AND v.model = :model";
-    if (minYear != null)
-        queryStr += " AND v.year >= :minYear";
-    if (maxYear != null)
-        queryStr += " AND v.year <= :maxYear";
-    if (minMileage != null)
-        queryStr += " AND v.mileage >= :minMileage";
-    if (maxMileage != null)
-        queryStr += " AND v.mileage <= :maxMileage";
-    if (motorType != null)
-        queryStr += " AND v.motorType = :motorType"; 
+        if (location != null && !location.isEmpty())
+            queryStr += " AND s.location = :location";
+        if (minPrice != null)
+            queryStr += " AND s.fixedPrice >= :minPrice";
+        if (maxPrice != null)
+            queryStr += " AND s.fixedPrice <= :maxPrice";
+        if (makes != null && !makes.isEmpty())
+            queryStr += " AND v.make IN :makes";
+        if (model != null && !model.isEmpty())
+            queryStr += " AND v.model = :model";
+        if (minYear != null)
+            queryStr += " AND v.year >= :minYear";
+        if (maxYear != null)
+            queryStr += " AND v.year <= :maxYear";
+        if (minMileage != null)
+            queryStr += " AND v.mileage >= :minMileage";
+        if (maxMileage != null)
+            queryStr += " AND v.mileage <= :maxMileage";
+        if (motorType != null)
+            queryStr += " AND v.motorType = :motorType";
 
-    TypedQuery<Sale> query = db.createQuery(queryStr, Sale.class);
+        TypedQuery<Sale> query = db.createQuery(queryStr, Sale.class);
 
-    if (location != null && !location.isEmpty())
-        query.setParameter("location", location);
-    if (minPrice != null)
-        query.setParameter("minPrice", minPrice);
-    if (maxPrice != null)
-        query.setParameter("maxPrice", maxPrice);
-    if (makes != null && !makes.isEmpty())
-        query.setParameter("makes", makes);          
-    if (model != null && !model.isEmpty())
-        query.setParameter("model", model);
-    if (minYear != null)
-        query.setParameter("minYear", minYear);
-    if (maxYear != null)
-        query.setParameter("maxYear", maxYear);
-    if (minMileage != null)
-        query.setParameter("minMileage", minMileage);
-    if (maxMileage != null)
-        query.setParameter("maxMileage", maxMileage);
-    if (motorType != null)
-        query.setParameter("motorType", motorType);
+        if (location != null && !location.isEmpty())
+            query.setParameter("location", location);
+        if (minPrice != null)
+            query.setParameter("minPrice", minPrice);
+        if (maxPrice != null)
+            query.setParameter("maxPrice", maxPrice);
+        if (makes != null && !makes.isEmpty())
+            query.setParameter("makes", makes);
+        if (model != null && !model.isEmpty())
+            query.setParameter("model", model);
+        if (minYear != null)
+            query.setParameter("minYear", minYear);
+        if (maxYear != null)
+            query.setParameter("maxYear", maxYear);
+        if (minMileage != null)
+            query.setParameter("minMileage", minMileage);
+        if (maxMileage != null)
+            query.setParameter("maxMileage", maxMileage);
+        if (motorType != null)
+            query.setParameter("motorType", motorType);
 
-    return query.getResultList();
-}
+        return query.getResultList();
+    }
 }

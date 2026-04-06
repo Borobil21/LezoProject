@@ -1,0 +1,129 @@
+@startuml
+hide footbox
+autonumber
+skinparam maxMessageSize 150
+title Use Case: Create Post (Pro Version)
+
+actor User
+participant "UI: CreateController" as UI
+participant "UI: App" as App
+participant "bl: BlManager" as BL
+participant "da: DbAccessManager" as DA
+database "db: EntityManager" as DB
+participant "sale: Sale" as SALE
+participant "v: Vehicle" as V
+
+User -> UI : clicks post()
+activate UI
+
+group Input Validation
+    UI -> UI : requiredText(licensePlate)
+    UI -> UI : requiredText(brand)
+    UI -> UI : requiredText(model)
+    UI -> UI : parseRequiredInt(age)
+    UI -> UI : parseRequiredInt(mileage)
+    UI -> UI : parseRequiredInt(horsePower)
+    UI -> UI : parseRequiredDouble(price)
+    UI -> UI : motorType = motorType.getValue()
+    UI -> UI : description = description.getText()
+        note right of UI
+            Throws NullPointerException or
+            NumberFormatException if they fail.
+        end note
+end
+
+UI -> BL : getVehicleByLicensePlate(licensePlate)
+activate BL
+BL -> DA : getVehicleByLicensePlate(licensePlate)
+activate DA
+DA -> DB : find(Vehicle.class, licensePlate)
+activate DB
+DB --> DA : return vehicle (or null)
+deactivate DB
+DA --> BL : return vehicle
+deactivate DA
+BL --> UI : return vehicle
+deactivate BL
+
+break vehicle != null [Vehicle already exists]
+    UI -> UI : throw IllegalStateException("Already exists")
+end
+
+UI -> BL : getDefaultUser()
+    activate BL
+    BL -> DA : getUserByEmail("default@gmail.com")
+    activate DA
+    DA -> DB : createQuery(SELECT u FROM User u...)
+    activate DB
+    DB --> DA : return defaultUser
+    deactivate DB
+    DA --> BL : return defaultUser
+    deactivate DA
+    BL --> UI : return defaultUser
+    deactivate BL
+
+    create SALE
+    UI -> SALE : new Sale(description, ListingStatus.ACTIVE, user, price)
+    create V
+    UI -> V : new Vehicle(licensePlate, brand, model, age, mileage, horsePower, motorType, sale)
+
+    UI -> BL : storeSale(sale)
+    activate BL
+    BL -> DA : storeSale(sale)
+    activate DA
+    note right of DA: getTransaction().begin()\npersist(sale)\ngetTransaction().commit()
+    DA -> DB : persist(sale)
+    DA --> BL : void
+    deactivate DA
+    BL --> UI : void
+    deactivate BL
+
+    UI -> BL : storeVehicle(v)
+    activate BL
+    BL -> DA : storeVehicle(v)
+    activate DA
+    note right of DA: getTransaction().begin()\npersist(v)\ngetTransaction().commit()
+    DA -> DB : persist(v)
+    DA --> BL : void
+    deactivate DA
+    BL --> UI : void
+    deactivate BL
+
+    UI -> BL : addVehicleToSale(sale, v)
+    activate BL
+    BL -> DA : addVehicleToSale(sale, v)
+    activate DA
+    DA -> DA : sale.setVehicle(v)\nv.setListing(sale)
+    note right of DA: getTransaction().begin()\nmerge(v) & merge(sale)\ngetTransaction().commit()
+    DA -> DB : merge(entities)
+    DA --> BL : void
+    deactivate DA
+    BL --> UI : void
+    deactivate BL
+
+    UI -> BL : addSaleToUser(user, sale)
+    activate BL
+    BL -> DA : addSaleToUser(user, sale)
+    activate DA
+    DA -> DA : user.getPublications().add(sale)\nsale.setUser(user)
+    note right of DA: getTransaction().begin()\nmerge(sale) & merge(user)\ngetTransaction().commit()
+    DA -> DB : merge(entities)
+    DA --> BL : void
+    deactivate DA
+    BL --> UI : void
+    deactivate BL
+
+UI -> UI : done = true
+
+opt Exceptions (Catch Block)
+    UI -> UI : showError(ex.getMessage())
+    note right of UI: Catches validation and business exceptions.
+end
+
+UI -> App : setRoot("FilterSearch")
+activate App
+App --> UI : void
+deactivate App
+
+deactivate UI
+@enduml

@@ -64,8 +64,8 @@ public interface BlInterface {
 	void deleteVehicle(Vehicle vehicle);
 
 	List<Sale> getFilteredSales(String location, Double minPrice, Double maxPrice,
-        List<String> makes, String model,
-        Integer minYear, Integer maxYear,
-        Integer minMileage, Integer maxMileage,
-        MotorType motorType);
+			List<String> makes, String model,
+			Integer minYear, Integer maxYear,
+			Integer minMileage, Integer maxMileage,
+			MotorType motorType);
 }

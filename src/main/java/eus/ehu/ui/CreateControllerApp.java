@@ -12,7 +12,7 @@ public class CreateControllerApp extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/eus/ehu/presentation/CreatePost.fxml"));
         AnchorPane root = loader.load();
-        
+
         Scene scene = new Scene(root, 1000, 800);
         stage.setTitle("Create Post - PickAuto");
         stage.setScene(scene);

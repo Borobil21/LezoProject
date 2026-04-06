@@ -52,8 +52,9 @@ public class LoginController {
                 throw new RuntimeException("Unable to open FilterSearch scene", e);
             }
 
-            // TODO: Pasar el objeto 'loggedUser' a la siguiente pantalla para saber quién está conectado
-            
+            // TODO: Pasar el objeto 'loggedUser' a la siguiente pantalla para saber quién
+            // está conectado
+
         } else {
             mostrarErrorTemporal("Email or password incorrect.");
         }
