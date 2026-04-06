@@ -1,7 +1,7 @@
 package eus.ehu.ui;
 
-import eus.ehu.businesslogic.BlInterface;
-import eus.ehu.businesslogic.BlManager;
+import eus.ehu.businessLogic.BlInterface;
+import eus.ehu.businessLogic.BlManager;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

@@ -79,12 +79,14 @@
 
       <AnchorPane layoutX="360.0" layoutY="90.0" prefHeight="700.0" prefWidth="600.0" style="-fx-background-color: #ffffff; -fx-border-color: #dddddd;">
          <children>
-            <Label fx:id="placeholderLabel" layoutX="140.0" layoutY="320.0" text="Vehicle search results will appear here" textFill="#aaaaaa">
+            <Label fx:id="placeholderLabel" layoutX="140.0" layoutY="280.0" text="Vehicle search results will appear here" textFill="#aaaaaa">
                <font><Font size="14.0" /></font>
             </Label>
-            <ListView fx:id="resultsListView" layoutX="10.0" layoutY="10.0" prefHeight="680.0" prefWidth="580.0" visible="false" />
-            <Button layoutX="82.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleViewOffer" text="View selected offer" />
-            <TextField fx:id="SaleIdField" layoutX="65.0" layoutY="134.0" promptText="Insert sale ID" />
+            
+            <ListView fx:id="resultsListView" layoutX="10.0" layoutY="10.0" prefHeight="580.0" prefWidth="580.0" visible="false" />
+            
+            <TextField fx:id="SaleIdField" layoutX="160.0" layoutY="630.0" prefHeight="30.0" prefWidth="120.0" promptText="Insert sale ID" style="-fx-border-color: #cccccc;" />
+            <Button layoutX="300.0" layoutY="630.0" mnemonicParsing="false" onAction="#handleViewOffer" prefHeight="30.0" prefWidth="140.0" text="View selected offer" style="-fx-cursor: hand;" />
          </children>
       </AnchorPane>
 

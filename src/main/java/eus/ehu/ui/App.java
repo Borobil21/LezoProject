@@ -2,8 +2,8 @@ package eus.ehu.ui;
 
 import java.io.IOException;
 
-import eus.ehu.businesslogic.BlInterface;
-import eus.ehu.businesslogic.BlManager;
+import eus.ehu.businessLogic.BlInterface;
+import eus.ehu.businessLogic.BlManager;
 import eus.ehu.domain.Sale;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +16,7 @@ public class App extends Application {
     private static final String FXML_BASE_PATH = "/eus/ehu/presentation/";
     private static Scene scene;
     private static Integer selectedViewOfferSaleId;
+    private static BlInterface bl = new BlManager();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -39,16 +40,17 @@ public class App extends Application {
 
         if ("ViewOffer".equals(fxml)) {
             ViewOfferController controller = fxmlLoader.getController();
-            BlInterface bl = new BlManager();
             controller.setBl(bl);
 
             if (selectedViewOfferSaleId != null) {
                 Sale sale = bl.getSaleById(selectedViewOfferSaleId);
                 controller.setSelectedSale(sale);
-            } else {
-                controller.showEmptyState();
             }
+        } else if ("FilterSearch".equals(fxml)) {
+            SearchController controller = fxmlLoader.getController();
+            controller.setBl(bl);
         }
+
         return root;
     }
 
