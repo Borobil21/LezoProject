@@ -83,5 +83,5 @@ public abstract class Listing {
                 ", userId=" + (user != null ? user.getId() : null) +
                 '}';
     }
-    
+
 }

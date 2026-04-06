@@ -52,7 +52,7 @@ public class BlManager implements BlInterface {
 
     @Override
     public boolean register(String name, String email, String password, String phone, String location) {
-        if (name.equals("") || email.equals("") || password.equals("") || phone.equals("") || 
+        if (name.equals("") || email.equals("") || password.equals("") || phone.equals("") ||
                 location.equals("") || dbManager.getUserByEmail(email) != null) {
             return false;
         }
@@ -319,7 +319,8 @@ public class BlManager implements BlInterface {
             Integer minYear, Integer maxYear,
             Integer minMileage, Integer maxMileage,
             MotorType motorType) {
-        return dbManager.getFilteredSales(location, minPrice, maxPrice, makes, model, minYear, maxYear, minMileage, maxMileage, motorType);
+        return dbManager.getFilteredSales(location, minPrice, maxPrice, makes, model, minYear, maxYear, minMileage,
+                maxMileage, motorType);
     }
 
     public void close() {

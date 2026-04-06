@@ -191,7 +191,7 @@ public class SearchController {
         List<String> makesFilter = makes.isEmpty() ? null : makes;
 
         MotorType motorType = motorTypeComboBox.getValue();
-        
+
         List<Sale> results = bl.getFilteredSales(
                 null,
                 minPrice, maxPrice,
