@@ -1,4 +1,4 @@
-package eus.ehu.businessLogic;
+package eus.ehu.businesslogic;
 
 import java.util.List;
 
