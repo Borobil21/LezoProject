@@ -1,6 +1,6 @@
 package eus.ehu.init;
 
-import eus.ehu.businessLogic.BlManager;
+import eus.ehu.businesslogic.BlManager;
 import eus.ehu.domain.ListingStatus;
 import eus.ehu.domain.MotorType;
 import eus.ehu.domain.Sale;

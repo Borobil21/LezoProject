@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import eus.ehu.businessLogic.BlInterface;
+import eus.ehu.businesslogic.BlInterface;
 import eus.ehu.domain.MotorType;
 import eus.ehu.domain.Sale;
 import javafx.collections.FXCollections;

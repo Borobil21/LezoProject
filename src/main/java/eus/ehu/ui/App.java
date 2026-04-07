@@ -2,8 +2,8 @@ package eus.ehu.ui;
 
 import java.io.IOException;
 
-import eus.ehu.businessLogic.BlInterface;
-import eus.ehu.businessLogic.BlManager;
+import eus.ehu.businesslogic.BlInterface;
+import eus.ehu.businesslogic.BlManager;
 import eus.ehu.domain.Sale;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
