@@ -18,9 +18,11 @@
             <Label layoutX="40.0" layoutY="20.0" text="PickAuto" textFill="WHITE">
                <font><Font name="System Bold" size="24.0" /></font>
             </Label>
-            <Label fx:id="profileName" layoutX="850.0" layoutY="25.0" text="My profile" textFill="WHITE">
-               <font><Font size="14.0" /></font>
-            </Label>
+            <Button fx:id="profileName" layoutX="855.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleViewProfile" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 18; -fx-border-color: #cfe3ff; -fx-border-radius: 18; -fx-text-fill: #005fcc; -fx-font-weight: bold; -fx-cursor: hand;" text="My profile">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
             <Button layoutX="700.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleCreatePost" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 18; -fx-border-color: #cfe3ff; -fx-border-radius: 18; -fx-text-fill: #005fcc; -fx-font-weight: bold; -fx-cursor: hand;" text="Create Post" />
          </children>
       </AnchorPane>

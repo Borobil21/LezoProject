@@ -7,11 +7,11 @@ import eus.ehu.domain.Sale;
 import eus.ehu.domain.Vehicle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class CreateController {
 
@@ -48,6 +48,9 @@ public class CreateController {
     private TextField price;
 
     @FXML
+    private Button profileName;
+
+    @FXML
     private void handleGoToSearch() {
         try {
             App.setRoot("FilterSearch");
@@ -57,9 +60,19 @@ public class CreateController {
     }
 
     @FXML
+    private void handleViewProfile() {
+        try {
+            App.setRoot("Profile");
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to open Profile scene", e);
+        }
+    }
+
+    @FXML
     void initialize() {
         bl = new BlManager();
         motorType.getItems().addAll(MotorType.values());
+        profileName.setText("Welcome, " + App.getActualUser().getName() + "!");
     }
 
     @FXML

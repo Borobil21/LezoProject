@@ -51,6 +51,9 @@ public class App extends Application {
         } else if ("FilterSearch".equals(fxml)) {
             SearchController controller = fxmlLoader.getController();
             controller.setBl(bl);
+        } else if ("Profile".equals(fxml)) {
+            ProfileController controller = fxmlLoader.getController();
+            controller.setUser(actualUser);
         }
 
         return root;
