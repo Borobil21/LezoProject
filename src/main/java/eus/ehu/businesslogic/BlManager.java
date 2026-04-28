@@ -323,6 +323,18 @@ public class BlManager implements BlInterface {
                 maxMileage, motorType);
     }
 
+    @Override
+    public void addToWishlist(Integer userId, String licensePlate) {
+        // Usamos el método que definimos antes en DbAccessManager
+        dbManager.addVehicleToWishlist(userId, licensePlate);
+    }
+
+    @Override
+    public List<Vehicle> getUserWishlist(Integer userId) {
+        // Simplemente redirige la petición a la base de datos
+        return dbManager.getUserWishlist(userId);
+    }
+
     public void close() {
         dbManager.close();
     }

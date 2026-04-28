@@ -6,9 +6,13 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -107,4 +111,21 @@ public class User {
 				'}';
 	}
 
+	// ManyToMany relationship for the wishlist, a user can have many vehicles in their wishlist and a vehicle can be in the wishlist of many users
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+		name = "user_wishlist", 
+		joinColumns = @JoinColumn(name = "user_id"), 
+		inverseJoinColumns = @JoinColumn(name = "vehicle_id")
+	)
+
+	private List<Vehicle> wishlist = new ArrayList<>();
+
+	// Getters and Setters
+	public List<Vehicle> getWishlist() { 
+		return wishlist; 
+	}
+	public void addToWishlist(Vehicle v) { 
+		this.wishlist.add(v);
+	}
 }

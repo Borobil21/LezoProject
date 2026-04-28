@@ -54,6 +54,9 @@ public class App extends Application {
         } else if ("Profile".equals(fxml)) {
             ProfileController controller = fxmlLoader.getController();
             controller.setUser(actualUser);
+        } else if ("Wishlist".equals(fxml)) {
+            WishlistController controller = fxmlLoader.getController();
+            controller.setBl(bl);
         }
 
         return root;

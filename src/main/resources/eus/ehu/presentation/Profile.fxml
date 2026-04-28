@@ -37,6 +37,11 @@
             <Label fx:id="phoneLabel" layoutX="220.0" layoutY="310.0" prefHeight="18.0" prefWidth="420.0" />
             <Label fx:id="locationLabel" layoutX="220.0" layoutY="360.0" prefHeight="18.0" prefWidth="420.0" />
             <Label fx:id="publicationsLabel" layoutX="220.0" layoutY="410.0" prefHeight="18.0" prefWidth="420.0" />
+            <Button fx:id="WishlistButton" layoutX="240.0" layoutY="540.0" mnemonicParsing="false" onAction="#handleViewWishlist" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: transparent; -fx-border-color: #007bff; -fx-text-fill: #007bff; -fx-cursor: hand;" text="❤ See Wishlist">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+            </Button>
          </children>
       </AnchorPane>
       <Button layoutX="700.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleGoToSearch" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 18; -fx-border-color: #cfe3ff; -fx-border-radius: 18; -fx-text-fill: #005fcc; -fx-font-weight: bold; -fx-cursor: hand;" text="Go back" />
