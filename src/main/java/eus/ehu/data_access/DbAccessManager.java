@@ -15,10 +15,12 @@ import eus.ehu.domain.MotorType;
 import eus.ehu.domain.Sale;
 import eus.ehu.domain.User;
 import eus.ehu.domain.Vehicle;
+import eus.ehu.data_access.H2WebLauncher;
 
 public class DbAccessManager {
     private static final String DB_URL_PROPERTY = "lezo.db.url";
     private static final String DB_URL_ENV = "LEZO_DB_URL";
+    private static final String FALLBACK_LOCAL_URL = "jdbc:h2:tcp://localhost:9094/./data/lezo";
 
     protected EntityManager db;
     protected EntityManagerFactory emf;
@@ -26,36 +28,49 @@ public class DbAccessManager {
     private static DbAccessManager instance;
 
     private DbAccessManager() {
+        available = false;
+
+        String configuredUrl = resolveDbUrl();
+        if (!tryInitialize(configuredUrl)) {
+            boolean explicitUrl = configuredUrl != null && !configuredUrl.isBlank();
+            if (!explicitUrl) {
+                System.err.println("Primary DB unavailable, starting local fallback H2 server...");
+                try {
+                    H2WebLauncher.startServer();
+                } catch (Exception e) {
+                    System.err.println("Unable to start local H2 server: " + e.getMessage());
+                    e.printStackTrace();
+                }
+                if (!tryInitialize(FALLBACK_LOCAL_URL)) {
+                    System.err.println("Local fallback database also unavailable.");
+                }
+            }
+        }
+    }
+
+    private boolean tryInitialize(String dbUrl) {
         StandardServiceRegistryBuilder registryBuilder = new StandardServiceRegistryBuilder()
                 .configure("hibernate.cfg.xml");
 
-        String configuredUrl = resolveDbUrl();
-        if (configuredUrl != null && !configuredUrl.isBlank()) {
-            registryBuilder.applySetting("hibernate.connection.url", configuredUrl);
+        if (dbUrl != null && !dbUrl.isBlank()) {
+            registryBuilder.applySetting("hibernate.connection.url", dbUrl);
         }
 
         final StandardServiceRegistry registry = registryBuilder.build();
-        available = false;
         try {
             emf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+            db = emf.createEntityManager();
+            available = true;
+            System.out.println("DataBase opened using URL: " + (dbUrl != null ? dbUrl : "hibernate.cfg.xml"));
+            return true;
         } catch (Exception e) {
             emf = null;
+            db = null;
+            available = false;
             StandardServiceRegistryBuilder.destroy(registry);
-            System.err.println("Database bootstrap failed: " + e.getMessage());
+            System.err.println("Database bootstrap failed for URL [" + (dbUrl != null ? dbUrl : "hibernate.cfg.xml") + "]: " + e.getMessage());
             e.printStackTrace();
-        }
-
-        if (emf != null) {
-            try {
-                db = emf.createEntityManager();
-                available = true;
-                System.out.println("DataBase opened");
-            } catch (Exception e) {
-                db = null;
-                available = false;
-                System.err.println("Unable to create EntityManager: " + e.getMessage());
-                e.printStackTrace();
-            }
+            return false;
         }
     }
 
