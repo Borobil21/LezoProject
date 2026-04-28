@@ -187,7 +187,6 @@ public class DbAccessManager {
 
             if (vehicle.getListing() != null) {
                 vehicle.getListing().setVehicle(null);
-                vehicle.setListing(null);
             }
 
             db.remove(vehicle);

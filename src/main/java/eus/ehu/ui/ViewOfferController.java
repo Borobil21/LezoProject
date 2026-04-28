@@ -42,6 +42,15 @@ public class ViewOfferController {
         }
     }
 
+    @FXML
+    private void handleViewProfile() {
+        try {
+            App.setRoot("Profile");
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to open Profile scene", e);
+        }
+    }
+
     public void setBl(BlInterface bl) {
         this.bl = bl;
         refreshView();

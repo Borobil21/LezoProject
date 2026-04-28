@@ -7,11 +7,11 @@ import eus.ehu.domain.Sale;
 import eus.ehu.domain.Vehicle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class CreateController {
 
@@ -48,6 +48,9 @@ public class CreateController {
     private TextField price;
 
     @FXML
+    private Button profileName;
+
+    @FXML
     private void handleGoToSearch() {
         try {
             App.setRoot("FilterSearch");
@@ -57,10 +60,20 @@ public class CreateController {
     }
 
     @FXML
+    private void handleViewProfile() {
+        try {
+            App.setRoot("Profile");
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to open Profile scene", e);
+        }
+    }
+
+    @FXML
     void initialize() {
         bl = BlManager.getInstance();
 
         motorType.getItems().addAll(MotorType.values());
+        profileName.setText("Welcome, " + App.getActualUser().getName() + "!");
     }
 
     @FXML
@@ -73,10 +86,10 @@ public class CreateController {
             }
             String brand = requiredText(this.brand, "Brand is required");
             String model = requiredText(this.model, "Model is required");
-            int age = parseRequiredInt(this.age, "Age must be a valid number");
-            int mileage = parseRequiredInt(this.mileage, "Mileage must be a valid number");
-            int horsePower = parseRequiredInt(this.horsePower, "Horsepower must be a valid number");
-            double price = parseRequiredDouble(this.price, "Price must be a valid number");
+            int age = parseRequiredPositiveInt(this.age, "Age must be a valid number");
+            int mileage = parseRequiredPositiveInt(this.mileage, "Mileage must be a valid number");
+            int horsePower = parseRequiredPositiveInt(this.horsePower, "Horsepower must be a valid number");
+            double price = parseRequiredPositiveDouble(this.price, "Price must be a valid number");
             MotorType motorType = this.motorType.getValue();
             if (motorType == null) {
                 throw new NullPointerException("You must select a motor type");
@@ -111,7 +124,7 @@ public class CreateController {
             System.out.println("OK -> " + licensePlate + " " + brand + " " + model + " " + age + " " + mileage + " "
                     + horsePower + " " + price + " " + motorType + " " + description);
             done = true;
-        } catch (NullPointerException | NumberFormatException | IllegalStateException ex) {
+        } catch (NullPointerException | IllegalStateException | IllegalArgumentException ex) {
             showError(ex.getMessage());
         }
         if (done) {
@@ -145,6 +158,14 @@ public class CreateController {
         }
     }
 
+    private int parseRequiredPositiveInt(TextField field, String message) {
+        int value = parseRequiredInt(field, message);
+        if (value <= 0) {
+            throw new IllegalArgumentException(message + " (must be greater than 0)");
+        }
+        return value;
+    }
+
     private double parseRequiredDouble(TextField field, String message) {
         String value = requiredText(field, message);
         try {
@@ -152,6 +173,14 @@ public class CreateController {
         } catch (NumberFormatException ex) {
             throw new NumberFormatException(message);
         }
+    }
+
+    private double parseRequiredPositiveDouble(TextField field, String message) {
+        double value = parseRequiredDouble(field, message);
+        if (value <= 0) {
+            throw new IllegalArgumentException(message + " (must be greater than 0)");
+        }
+        return value;
     }
 
     private void showError(String message) {

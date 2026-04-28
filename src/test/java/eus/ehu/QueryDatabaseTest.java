@@ -1,10 +1,11 @@
-package eus.ehu.test;
+package eus.ehu;
+
+import java.util.List;
 
 import eus.ehu.businesslogic.BlManager;
 import eus.ehu.domain.Sale;
-import eus.ehu.domain.Vehicle;
 import eus.ehu.domain.User;
-import java.util.List;
+import eus.ehu.domain.Vehicle;
 
 public class QueryDatabaseTest {
 

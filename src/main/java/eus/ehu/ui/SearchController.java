@@ -51,10 +51,14 @@ public class SearchController {
 
     @FXML private Label placeholderLabel;
 
+    @FXML 
+    private Button viewOfferButton;
 
-    @FXML private ListView<Sale> resultsListView;
-    
-    @FXML private Button viewOfferButton;
+    @FXML
+    private ListView<Sale> resultsListView;
+
+    @FXML
+    private TextField SaleIdField;
 
     private BlInterface bl;
 
@@ -108,7 +112,6 @@ public class SearchController {
                     } catch (Exception e) {
                         System.out.println("Could not load image");
                     }
-
                     VBox detailsBox = new VBox(10); 
 
                     Label titleLabel = new Label(v.getMake() + " " + v.getModel());
@@ -138,6 +141,15 @@ public class SearchController {
         resultsListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             viewOfferButton.setDisable(newSelection == null);
         });
+    }
+    
+    @FXML
+    private void handleViewProfile() {
+        try {
+            App.setRoot("Profile");
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to open Profile scene", e);
+        }
     }
 
     @FXML

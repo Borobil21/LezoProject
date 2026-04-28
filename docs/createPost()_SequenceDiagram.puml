@@ -12,6 +12,7 @@ participant "da: DbAccessManager" as DA
 database "db: EntityManager" as DB
 participant "sale: Sale" as SALE
 participant "v: Vehicle" as V
+participant "u: User" as U
 
 User -> UI : clicks post()
 activate UI
@@ -62,55 +63,53 @@ UI -> BL : getDefaultUser()
     BL --> UI : return defaultUser
     deactivate BL
 
-    create SALE
     UI -> SALE : new Sale(description, ListingStatus.ACTIVE, user, price)
-    create V
     UI -> V : new Vehicle(licensePlate, brand, model, age, mileage, horsePower, motorType, sale)
 
     UI -> BL : storeSale(sale)
     activate BL
     BL -> DA : storeSale(sale)
     activate DA
-    note right of DA: getTransaction().begin()\npersist(sale)\ngetTransaction().commit()
+    DA -> DB : getTransaction().begin()
     DA -> DB : persist(sale)
-    DA --> BL : void
+    DA -> DB : getTransaction().commit()
     deactivate DA
-    BL --> UI : void
     deactivate BL
 
     UI -> BL : storeVehicle(v)
     activate BL
     BL -> DA : storeVehicle(v)
     activate DA
-    note right of DA: getTransaction().begin()\npersist(v)\ngetTransaction().commit()
+    DA -> DB : getTransaction().begin()
     DA -> DB : persist(v)
-    DA --> BL : void
+    DA -> DB : getTransaction().commit()
     deactivate DA
-    BL --> UI : void
     deactivate BL
 
     UI -> BL : addVehicleToSale(sale, v)
     activate BL
     BL -> DA : addVehicleToSale(sale, v)
     activate DA
-    DA -> DA : sale.setVehicle(v)\nv.setListing(sale)
-    note right of DA: getTransaction().begin()\nmerge(v) & merge(sale)\ngetTransaction().commit()
-    DA -> DB : merge(entities)
-    DA --> BL : void
+    DA -> DB : getTransaction().begin()
+    DA -> SALE : setVehicle(v)
+    DA -> V : setListing(sale)
+    DA -> DB : merge(sale)
+    DA -> DB : merge(v)
+    DA -> DB : getTransaction().commit()
     deactivate DA
-    BL --> UI : void
     deactivate BL
 
     UI -> BL : addSaleToUser(user, sale)
     activate BL
     BL -> DA : addSaleToUser(user, sale)
     activate DA
-    DA -> DA : user.getPublications().add(sale)\nsale.setUser(user)
-    note right of DA: getTransaction().begin()\nmerge(sale) & merge(user)\ngetTransaction().commit()
-    DA -> DB : merge(entities)
-    DA --> BL : void
+    DA -> DB : getTransaction().begin()
+    DA -> SALE : setUser(user)
+    DA -> U : getPublications().add(sale)
+    DA -> DB : merge(sale)
+    DA -> DB : merge(user)
+    DA -> DB : getTransaction().commit()
     deactivate DA
-    BL --> UI : void
     deactivate BL
 
 UI -> UI : done = true
@@ -121,9 +120,6 @@ opt Exceptions (Catch Block)
 end
 
 UI -> App : setRoot("FilterSearch")
-activate App
-App --> UI : void
-deactivate App
 
 deactivate UI
 @enduml
