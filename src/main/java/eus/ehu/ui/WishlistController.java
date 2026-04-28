@@ -35,7 +35,7 @@ public class WishlistController {
     @FXML
     private void handleGoToSearch() {
         try {
-            App.setRoot("Search");
+            App.setRoot("FilterSearch");
         } catch (Exception e) {
             e.printStackTrace();
         }
