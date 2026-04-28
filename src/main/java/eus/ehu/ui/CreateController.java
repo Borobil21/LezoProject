@@ -110,7 +110,7 @@ public class CreateController {
             System.out.println("OK -> " + licensePlate + " " + brand + " " + model + " " + age + " " + mileage + " "
                     + horsePower + " " + price + " " + motorType + " " + description);
             done = true;
-        } catch (NullPointerException | NumberFormatException | IllegalStateException | IllegalArgumentException ex) {
+        } catch (NullPointerException | IllegalStateException | IllegalArgumentException ex) {
             showError(ex.getMessage());
         }
         if (done) {

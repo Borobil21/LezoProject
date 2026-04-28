@@ -72,4 +72,13 @@ public class ProfileController {
         locationLabel.setText(user.getLocation() != null ? user.getLocation() : "N/A");
         publicationsLabel.setText(user.getPublications() != null ? String.valueOf(user.getPublications().size()) : "0");
     }
+
+    @FXML
+    private void handleViewWishlist() {
+        try {
+            App.setRoot("Wishlist");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
