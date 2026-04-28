@@ -1,5 +1,6 @@
 package eus.ehu.data_access;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -250,5 +251,43 @@ public class DbAccessManager {
             query.setParameter("motorType", motorType);
 
         return query.getResultList();
+    }
+
+    // for wishlist
+    public void addVehicleToWishlist(Integer userId, String licensePlate) {
+        try {
+            db.getTransaction().begin();
+            User user = db.find(User.class, userId);
+            Vehicle vehicle = db.find(Vehicle.class, licensePlate);
+            
+            if (user != null && vehicle != null) {
+                if (!user.getWishlist().contains(vehicle)) {
+                    user.getWishlist().add(vehicle);
+                    db.merge(user);
+                    System.out.println("Coche " + licensePlate + " añadido a la wishlist del usuario " + userId);
+                }
+            }
+            db.getTransaction().commit();
+        } catch (Exception e) {
+            if (db.getTransaction().isActive()) {
+                db.getTransaction().rollback();
+            }
+            System.err.println("Error al añadir a la wishlist:");
+            e.printStackTrace();
+        }
+    }
+
+    public List<Vehicle> getUserWishlist(Integer userId) {
+        try {
+            db.clear(); 
+            
+            return db.createQuery("SELECT v FROM User u JOIN u.wishlist v WHERE u.id = :userId", Vehicle.class)
+                     .setParameter("userId", userId)
+                     .getResultList();
+        } catch (Exception e) {
+            System.err.println("Error al obtener la wishlist:");
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 }

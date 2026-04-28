@@ -65,6 +65,10 @@ public interface BlInterface {
 
 	void deleteVehicle(Vehicle vehicle);
 
+	public void addToWishlist(Integer userId, String licensePlate);
+
+	List<Vehicle> getUserWishlist(Integer userId);
+
 	List<Sale> getFilteredSales(String location, Double minPrice, Double maxPrice,
 			List<String> makes, String model,
 			Integer minYear, Integer maxYear,

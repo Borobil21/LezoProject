@@ -28,6 +28,8 @@ public class ViewOfferController {
     private Button BuyButton;
     @FXML
     private Button OfferButton;
+    @FXML
+    private Button WishlistButton;
 
     private BlInterface bl;
     private Sale selectedSale;
@@ -155,6 +157,21 @@ public class ViewOfferController {
 
     private String formatNumber(int value) {
         return String.valueOf(value);
+    }
+
+    @FXML
+    private void handleAddToWishlist() {
+        if (selectedVehicle != null && bl != null) {
+            Integer currentUserId = App.getActualUser().getId(); 
+            System.out.println("Intentando añadir coche " + selectedVehicle.getLicensePlate() + " al user " + currentUserId);
+            
+            bl.addToWishlist(currentUserId, selectedVehicle.getLicensePlate());
+            
+            WishlistButton.setText("Wished!");
+            WishlistButton.setDisable(true);
+        } else {
+            System.out.println("Fallo al añadir: selectedVehicle o bl son null");
+        }
     }
 
 }
