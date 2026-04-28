@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import eus.ehu.businesslogic.BlInterface;
 import eus.ehu.businesslogic.BlManager;
+import eus.ehu.data_access.H2WebLauncher;
 import eus.ehu.domain.Sale;
 import eus.ehu.domain.User;
 import javafx.application.Application;
@@ -17,11 +18,26 @@ public class App extends Application {
     private static final String FXML_BASE_PATH = "/eus/ehu/presentation/";
     private static Scene scene;
     private static Integer selectedViewOfferSaleId;
-    private static BlInterface bl = BlManager.getInstance();
-    private static User actualUser = bl.getDefaultUser();
+    private static BlInterface bl;
+    private static User actualUser;
 
     @Override
     public void start(Stage stage) throws IOException {
+        try {
+            H2WebLauncher.startServer();
+        } catch (Exception e) {
+            System.err.println("Warning: could not start local H2 server: " + e.getMessage());
+        }
+
+        // Initialize business layer lazily so DB connection errors don't prevent GUI startup
+        bl = BlManager.getInstance();
+        try {
+            actualUser = bl.getDefaultUser();
+        } catch (Exception e) {
+            actualUser = null;
+            System.err.println("Warning: could not load default user — DB may be unavailable: " + e.getMessage());
+        }
+
         scene = new Scene(loadFXML("Register"), 1000, 800);
         stage.setScene(scene);
         stage.show();

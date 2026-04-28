@@ -17,29 +17,73 @@ import eus.ehu.domain.User;
 import eus.ehu.domain.Vehicle;
 
 public class DbAccessManager {
+    private static final String DB_URL_PROPERTY = "lezo.db.url";
+    private static final String DB_URL_ENV = "LEZO_DB_URL";
+
     protected EntityManager db;
     protected EntityManagerFactory emf;
+    private boolean available;
     private static DbAccessManager instance;
 
     private DbAccessManager() {
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                .configure("hibernate.cfg.xml")
-                .build();
+        StandardServiceRegistryBuilder registryBuilder = new StandardServiceRegistryBuilder()
+                .configure("hibernate.cfg.xml");
+
+        String configuredUrl = resolveDbUrl();
+        if (configuredUrl != null && !configuredUrl.isBlank()) {
+            registryBuilder.applySetting("hibernate.connection.url", configuredUrl);
+        }
+
+        final StandardServiceRegistry registry = registryBuilder.build();
+        available = false;
         try {
             emf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
         } catch (Exception e) {
+            emf = null;
             StandardServiceRegistryBuilder.destroy(registry);
+            System.err.println("Database bootstrap failed: " + e.getMessage());
+            e.printStackTrace();
         }
 
-        db = emf.createEntityManager();
-        System.out.println("DataBase opened");
+        if (emf != null) {
+            try {
+                db = emf.createEntityManager();
+                available = true;
+                System.out.println("DataBase opened");
+            } catch (Exception e) {
+                db = null;
+                available = false;
+                System.err.println("Unable to create EntityManager: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
     }
-    public static DbAccessManager getInstance() {
+
+    private String resolveDbUrl() {
+        String systemValue = System.getProperty(DB_URL_PROPERTY);
+        if (systemValue != null && !systemValue.isBlank()) {
+            return systemValue;
+        }
+
+        String envValue = System.getenv(DB_URL_ENV);
+        if (envValue != null && !envValue.isBlank()) {
+            return envValue;
+        }
+
+        return null;
+    }
+
+    public static synchronized DbAccessManager getInstance() {
         if (instance == null) {
             instance = new DbAccessManager();
         }
         return instance;
     }
+
+    public boolean isAvailable() {
+        return available && db != null;
+    }
+
     public void close() {
         if (db != null && db.isOpen()) {
             db.close();
@@ -47,10 +91,14 @@ public class DbAccessManager {
         if (emf != null && emf.isOpen()) {
             emf.close();
         }
+        available = false;
         System.out.println("DataBase is closed");
     }
 
     public void storeUser(User user) {
+        if (!isAvailable()) {
+            throw new IllegalStateException("Database not available");
+        }
         db.getTransaction().begin();
         db.persist(user);
         db.getTransaction().commit();
@@ -58,6 +106,9 @@ public class DbAccessManager {
     }
 
     public void addSaleToUser(Integer userId, Integer saleId) {
+        if (!isAvailable()) {
+            throw new IllegalStateException("Database not available");
+        }
         User user = db.find(User.class, userId);
         Sale sale = db.find(Sale.class, saleId);
 
@@ -65,6 +116,9 @@ public class DbAccessManager {
     }
 
     public void addSaleToUser(User user, Sale sale) {
+        if (!isAvailable()) {
+            throw new IllegalStateException("Database not available");
+        }
         db.getTransaction().begin();
         user.getPublications().add(sale);
         sale.setUser(user);
@@ -75,6 +129,9 @@ public class DbAccessManager {
     }
 
     public void storeSale(Sale sale) {
+        if (!isAvailable()) {
+            throw new IllegalStateException("Database not available");
+        }
         db.getTransaction().begin();
         db.persist(sale);
         db.getTransaction().commit();
@@ -82,6 +139,9 @@ public class DbAccessManager {
     }
 
     public void storeVehicle(Vehicle vehicle) {
+        if (!isAvailable()) {
+            throw new IllegalStateException("Database not available");
+        }
         db.getTransaction().begin();
         db.persist(vehicle);
         db.getTransaction().commit();
@@ -89,6 +149,9 @@ public class DbAccessManager {
     }
 
     public void addVehicleToSale(Integer saleId, String licensePlate) {
+        if (!isAvailable()) {
+            throw new IllegalStateException("Database not available");
+        }
         Sale sale = db.find(Sale.class, saleId);
         Vehicle vehicle = db.find(Vehicle.class, licensePlate);
 
@@ -96,6 +159,9 @@ public class DbAccessManager {
     }
 
     public void addVehicleToSale(Sale sale, Vehicle vehicle) {
+        if (!isAvailable()) {
+            throw new IllegalStateException("Database not available");
+        }
         db.getTransaction().begin();
         sale.setVehicle(vehicle);
         vehicle.setListing(sale);
@@ -106,14 +172,23 @@ public class DbAccessManager {
     }
 
     public Sale getSaleById(Integer saleId) {
+        if (!isAvailable()) {
+            return null;
+        }
         return db.find(Sale.class, saleId);
     }
 
     public User getUserById(Integer userId) {
+        if (!isAvailable()) {
+            return null;
+        }
         return db.find(User.class, userId);
     }
 
     public User getUserByEmail(String email) {
+        if (!isAvailable()) {
+            return null;
+        }
         try {
             return db.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
                     .setParameter("email", email)
@@ -125,10 +200,16 @@ public class DbAccessManager {
     }
 
     public Vehicle getVehicleByLicensePlate(String licensePlate) {
+        if (!isAvailable()) {
+            return null;
+        }
         return db.find(Vehicle.class, licensePlate);
     }
 
     public Vehicle getVehicleBySaleId(Integer saleId) {
+        if (!isAvailable()) {
+            return null;
+        }
         try {
             return db.createQuery("SELECT v FROM Vehicle v JOIN v.listing s WHERE s.id = :saleId", Vehicle.class)
                     .setParameter("saleId", saleId)
@@ -140,18 +221,30 @@ public class DbAccessManager {
     }
 
     public List<User> getAllUsers() {
+        if (!isAvailable()) {
+            return new ArrayList<>();
+        }
         return db.createQuery("SELECT u FROM User u ORDER BY u.id", User.class).getResultList();
     }
 
     public List<Sale> getAllSales() {
+        if (!isAvailable()) {
+            return new ArrayList<>();
+        }
         return db.createQuery("SELECT s FROM Sale s ORDER BY s.id", Sale.class).getResultList();
     }
 
     public List<Vehicle> getAllVehicles() {
+        if (!isAvailable()) {
+            return new ArrayList<>();
+        }
         return db.createQuery("SELECT v FROM Vehicle v ORDER BY v.licensePlate", Vehicle.class).getResultList();
     }
 
     public void deleteSale(Integer saleId) {
+        if (!isAvailable()) {
+            throw new IllegalStateException("Database not available");
+        }
         Sale sale = db.find(Sale.class, saleId);
         if (sale != null) {
             db.getTransaction().begin();
@@ -170,6 +263,9 @@ public class DbAccessManager {
     }
 
     public void deleteUser(Integer userId) {
+        if (!isAvailable()) {
+            throw new IllegalStateException("Database not available");
+        }
         User user = db.find(User.class, userId);
         if (user != null) {
             db.getTransaction().begin();
@@ -182,6 +278,9 @@ public class DbAccessManager {
     }
 
     public void deleteVehicle(String licensePlate) {
+        if (!isAvailable()) {
+            throw new IllegalStateException("Database not available");
+        }
         Vehicle vehicle = db.find(Vehicle.class, licensePlate);
         if (vehicle != null) {
             db.getTransaction().begin();
@@ -203,6 +302,10 @@ public class DbAccessManager {
             Integer minYear, Integer maxYear,
             Integer minMileage, Integer maxMileage,
             MotorType motorType) {
+
+        if (!isAvailable()) {
+            return new ArrayList<>();
+        }
 
         String queryStr = "SELECT s FROM Sale s JOIN s.vehicle v WHERE 1=1";
 
@@ -255,6 +358,9 @@ public class DbAccessManager {
 
     // for wishlist
     public void addVehicleToWishlist(Integer userId, String licensePlate) {
+        if (!isAvailable()) {
+            throw new IllegalStateException("Database not available");
+        }
         try {
             db.getTransaction().begin();
             User user = db.find(User.class, userId);
@@ -278,6 +384,9 @@ public class DbAccessManager {
     }
 
     public List<Vehicle> getUserWishlist(Integer userId) {
+        if (!isAvailable()) {
+            return new ArrayList<>();
+        }
         try {
             db.clear(); 
             
