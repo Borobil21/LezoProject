@@ -42,6 +42,7 @@ public class LoginController {
         User loggedUser = bl.login(email, pass);
 
         if (loggedUser != null) {
+            App.setActualUser(loggedUser); // Store the logged-in user in the App class for global access
             System.out.println("Welcome, " + loggedUser.getName());
             InformationLabel.setText("Login successful!");
             InformationLabel.setVisible(true);
@@ -67,4 +68,34 @@ public class LoginController {
         pause.setOnFinished(e -> InformationLabel.setVisible(false));
         pause.play();
     }
+
+    @FXML
+    private void handleOierLogin() {
+        txtEmail.setText("oier@gmail.com");
+        txtPassword.setText("oier");
+        handleLogin();
+    }
+
+    @FXML
+    private void handlePabloLogin() {
+        txtEmail.setText("pablo@gmail.com");
+        txtPassword.setText("pablo");
+        handleLogin();
+    }
+
+    @FXML
+    private void handleRaulLogin() {
+        txtEmail.setText("raul@gmail.com");
+        txtPassword.setText("raul");
+        handleLogin();
+    }
+
+    @FXML
+    private void handleJonLogin() {
+        txtEmail.setText("jon@gmail.com");
+        txtPassword.setText("jon");
+        handleLogin();
+    }
+
+
 }

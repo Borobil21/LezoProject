@@ -86,6 +86,9 @@ public class SearchController {
     @FXML
     private TextField SaleIdField;
 
+    @FXML
+    private Label profileName;
+
     private BlInterface bl;
 
     public void setBl(BlInterface bl) {
@@ -126,6 +129,7 @@ public class SearchController {
                 "Black", "White", "Silver", "Red", "Blue", "Grey", "Other"));
         bodyTypeComboBox.setItems(FXCollections.observableArrayList(
                 "SUV", "Sedan", "Hatchback", "Coupe", "Convertible", "Van", "Truck"));
+        profileName.setText("Welcome, " + App.getActualUser().getName() + "!");
     }
 
     @FXML
