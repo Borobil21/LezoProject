@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ui.LoginController">
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ui.LoginController">
    <children>
       
       <AnchorPane prefHeight="70.0" prefWidth="1000.0" style="-fx-background-color: #007bff;">
@@ -51,6 +51,10 @@
                </font>
             </Button>
             <Label fx:id="InformationLabel" alignment="CENTER" contentDisplay="CENTER" disable="true" ellipsisString="" layoutX="103.0" layoutY="542.0" prefHeight="59.0" prefWidth="498.0" textAlignment="CENTER" textOverrun="CLIP" />
+            <Button layoutX="550.0" layoutY="441.0" mnemonicParsing="false" onAction="#handleOierLogin" text="Oier" />
+            <Button layoutX="547.0" layoutY="471.0" mnemonicParsing="false" onAction="#handlePabloLogin" text="Paulo" />
+            <Button layoutX="550.0" layoutY="502.0" mnemonicParsing="false" onAction="#handleRaulLogin" text="Raul" />
+            <Button layoutX="552.0" layoutY="533.0" mnemonicParsing="false" onAction="#handleJonLogin" text="Jon" />
          </children>
       </AnchorPane>
    </children>

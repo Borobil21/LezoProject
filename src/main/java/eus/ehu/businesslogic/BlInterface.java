@@ -9,6 +9,8 @@ import eus.ehu.domain.Vehicle;
 
 public interface BlInterface {
 
+	User getDefaultUser();
+
 	void storeUser(User user);
 
 	boolean register(String name, String email, String password, String phone, String location);

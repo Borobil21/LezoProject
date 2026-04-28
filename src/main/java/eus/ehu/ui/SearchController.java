@@ -10,6 +10,7 @@ import eus.ehu.domain.Sale;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -86,10 +87,22 @@ public class SearchController {
     @FXML
     private TextField SaleIdField;
 
+    @FXML
+    private Button profileName;
+
     private BlInterface bl;
 
     public void setBl(BlInterface bl) {
         this.bl = bl;
+    }
+    
+    @FXML
+    private void handleViewProfile() {
+        try {
+            App.setRoot("Profile");
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to open Profile scene", e);
+        }
     }
 
     @FXML
@@ -126,6 +139,7 @@ public class SearchController {
                 "Black", "White", "Silver", "Red", "Blue", "Grey", "Other"));
         bodyTypeComboBox.setItems(FXCollections.observableArrayList(
                 "SUV", "Sedan", "Hatchback", "Coupe", "Convertible", "Van", "Truck"));
+        profileName.setText("Welcome, " + App.getActualUser().getName() + "!");
     }
 
     @FXML

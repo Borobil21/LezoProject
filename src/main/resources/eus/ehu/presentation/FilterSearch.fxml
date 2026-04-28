@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="820.0" prefWidth="1000.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ui.SearchController">
+<AnchorPane prefHeight="820.0" prefWidth="1000.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ui.SearchController">
    <children>
 
       <AnchorPane prefHeight="70.0" prefWidth="1000.0" style="-fx-background-color: #007bff;">
@@ -18,9 +18,11 @@
             <Label layoutX="40.0" layoutY="20.0" text="PickAuto" textFill="WHITE">
                <font><Font name="System Bold" size="24.0" /></font>
             </Label>
-            <Label layoutX="850.0" layoutY="25.0" text="My profile" textFill="WHITE">
-               <font><Font size="14.0" /></font>
-            </Label>
+            <Button fx:id="profileName" layoutX="855.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleViewProfile" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 18; -fx-border-color: #cfe3ff; -fx-border-radius: 18; -fx-text-fill: #005fcc; -fx-font-weight: bold; -fx-cursor: hand;" text="My profile">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
             <Button layoutX="700.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleCreatePost" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 18; -fx-border-color: #cfe3ff; -fx-border-radius: 18; -fx-text-fill: #005fcc; -fx-font-weight: bold; -fx-cursor: hand;" text="Create Post" />
          </children>
       </AnchorPane>
@@ -86,7 +88,7 @@
             <ListView fx:id="resultsListView" layoutX="10.0" layoutY="10.0" prefHeight="580.0" prefWidth="580.0" visible="false" />
             
             <TextField fx:id="SaleIdField" layoutX="160.0" layoutY="630.0" prefHeight="30.0" prefWidth="120.0" promptText="Insert sale ID" style="-fx-border-color: #cccccc;" />
-            <Button layoutX="300.0" layoutY="630.0" mnemonicParsing="false" onAction="#handleViewOffer" prefHeight="30.0" prefWidth="140.0" text="View selected offer" style="-fx-cursor: hand;" />
+            <Button layoutX="300.0" layoutY="630.0" mnemonicParsing="false" onAction="#handleViewOffer" prefHeight="30.0" prefWidth="140.0" style="-fx-cursor: hand;" text="View selected offer" />
          </children>
       </AnchorPane>
 

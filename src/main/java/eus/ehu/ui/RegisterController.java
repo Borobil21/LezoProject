@@ -50,6 +50,8 @@ public class RegisterController {
         // bl is BlManager instance
         boolean success = bl.register(name, email, pass, phone, loc);
 
+        App.setActualUser(bl.getUserByEmail(email)); // Set the actual user in App after registration
+
         if (success) {
             System.out.println("¡User succesfully registered!");
             InformationLabel.setText("User succesfully registered!");

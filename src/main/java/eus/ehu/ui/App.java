@@ -5,6 +5,7 @@ import java.io.IOException;
 import eus.ehu.businesslogic.BlInterface;
 import eus.ehu.businesslogic.BlManager;
 import eus.ehu.domain.Sale;
+import eus.ehu.domain.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +18,7 @@ public class App extends Application {
     private static Scene scene;
     private static Integer selectedViewOfferSaleId;
     private static BlInterface bl = new BlManager();
+    private static User actualUser = bl.getDefaultUser();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -49,9 +51,20 @@ public class App extends Application {
         } else if ("FilterSearch".equals(fxml)) {
             SearchController controller = fxmlLoader.getController();
             controller.setBl(bl);
+        } else if ("Profile".equals(fxml)) {
+            ProfileController controller = fxmlLoader.getController();
+            controller.setUser(actualUser);
         }
 
         return root;
+    }
+
+    public static User getActualUser() {
+        return actualUser;
+    }
+
+    public static void setActualUser(User user) {
+        actualUser = user;
     }
 
     public static void main(String[] args) {
