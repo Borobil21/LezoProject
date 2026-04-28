@@ -18,8 +18,9 @@ import eus.ehu.domain.Vehicle;
 public class DbAccessManager {
     protected EntityManager db;
     protected EntityManagerFactory emf;
+    private static DbAccessManager instance;
 
-    public DbAccessManager() {
+    private DbAccessManager() {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure("hibernate.cfg.xml")
                 .build();
@@ -32,7 +33,12 @@ public class DbAccessManager {
         db = emf.createEntityManager();
         System.out.println("DataBase opened");
     }
-
+    public static DbAccessManager getInstance() {
+        if (instance == null) {
+            instance = new DbAccessManager();
+        }
+        return instance;
+    }
     public void close() {
         if (db != null && db.isOpen()) {
             db.close();

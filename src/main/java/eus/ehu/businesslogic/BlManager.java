@@ -12,23 +12,23 @@ public class BlManager implements BlInterface {
 
     private final DbAccessManager dbManager;
     private User defaultUser;
+    private static BlManager instance;
 
+    private BlManager() {
+        // Usamos el getInstance() de la base de datos
+        this.dbManager = DbAccessManager.getInstance();
+    }
+    public static BlManager getInstance() {
+        if (instance == null) {
+            instance = new BlManager();
+        }
+        return instance;
+    }
     public User getDefaultUser() {
         if (defaultUser == null) {
             defaultUser = loadOrCreateDefaultUser();
         }
         return defaultUser;
-    }
-
-    public BlManager() {
-        this.dbManager = new DbAccessManager();
-    }
-
-    public BlManager(DbAccessManager dbManager) {
-        if (dbManager == null) {
-            throw new NullPointerException("dbManager cannot be null");
-        }
-        this.dbManager = dbManager;
     }
 
     private User loadOrCreateDefaultUser() {
@@ -37,7 +37,12 @@ public class BlManager implements BlInterface {
             return user;
         }
 
-        User defaultUser = new User("Default User", "default@gmail.com", "1234", "999999999", "Lezo");
+        User defaultUser = new User.Builder()
+                .email("default@gmail.com")
+                .password("1234")
+                .phone("999999999")
+                .location("Lezo")
+                .build();
         storeUser(defaultUser);
         return dbManager.getUserByEmail("default@gmail.com");
     }
@@ -56,7 +61,13 @@ public class BlManager implements BlInterface {
                 location.equals("") || dbManager.getUserByEmail(email) != null) {
             return false;
         }
-        storeUser(new User(name, email, password, phone, location));
+        storeUser(new User.Builder()
+                .name(name)
+                .email(email)
+                .password(password)
+                .phone(phone)
+                .location(location)
+                .build());
         return true;
     }
 

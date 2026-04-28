@@ -33,13 +33,50 @@ public class User {
 		this.publications = new ArrayList<>();
 	}
 
-	public User(String name, String email, String password, String phone, String location) {
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.phone = phone;
-		this.location = location;
+	private User(Builder builder) {
+		this.name = builder.name;
+		this.email = builder.email;
+		this.password = builder.password;
+		this.phone = builder.phone;
+		this.location = builder.location;
 		this.publications = new ArrayList<>();
+	}
+
+	public static class Builder {
+		private String name;
+		private String email;
+		private String password;
+		private String phone;
+		private String location;
+
+		public Builder name(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public Builder email(String email) {
+			this.email = email;
+			return this;
+		}
+
+		public Builder password(String password) {
+			this.password = password;
+			return this;
+		}
+
+		public Builder phone(String phone) {
+			this.phone = phone;
+			return this;
+		}
+
+		public Builder location(String location) {
+			this.location = location;
+			return this;
+		}
+
+		public User build() {
+			return new User(this);
+		}
 	}
 
 	public Integer getId() {

@@ -19,8 +19,10 @@ public class Vehicle {
 	private String model;
 	@Column(name = "vehicle_year")
 	private int year;
-	private int mileage;
-	private int horsepower;
+
+	
+	private Integer mileage;
+	private Integer horsepower;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
@@ -33,16 +35,69 @@ public class Vehicle {
 	protected Vehicle() {
 	}
 
-	public Vehicle(String licensePlate, String make, String model, int year, int mileage, int horsepower,
-			MotorType motorType, Listing listing) {
-		this.licensePlate = licensePlate;
-		this.make = make;
-		this.model = model;
-		this.year = year;
-		this.mileage = mileage;
-		this.horsepower = horsepower;
-		this.motorType = motorType;
-		this.listing = listing;
+	private Vehicle(Builder builder) {
+		this.licensePlate = builder.licensePlate;
+		this.make = builder.make;
+		this.model = builder.model;
+		this.year = builder.year;
+		this.mileage = builder.mileage;
+		this.horsepower = builder.horsepower;
+		this.motorType = builder.motorType;
+		this.listing = builder.listing;
+	}
+
+	public static class Builder {
+		private String licensePlate;
+		private String make;
+		private String model;
+		private int year;
+		private Integer mileage;
+		private Integer horsepower;
+		private MotorType motorType;
+		private Listing listing;
+
+		public Builder(String licensePlate) {
+			this.licensePlate = licensePlate;
+		}
+
+		public Builder make(String make) {
+			this.make = make;
+			return this;
+		}
+
+		public Builder model(String model) {
+			this.model = model;
+			return this;
+		}
+
+		public Builder year(int year) {
+			this.year = year;
+			return this;
+		}
+
+		public Builder mileage(Integer mileage) {
+			this.mileage = mileage;
+			return this;
+		}
+
+		public Builder horsepower(Integer horsepower) {
+			this.horsepower = horsepower;
+			return this;
+		}
+
+		public Builder motorType(MotorType motorType) {
+			this.motorType = motorType;
+			return this;
+		}
+
+		public Builder listing(Listing listing) {
+			this.listing = listing;
+			return this;
+		}
+
+		public Vehicle build() {
+			return new Vehicle(this);
+		}
 	}
 
 	public String getLicensePlate() {
@@ -73,19 +128,19 @@ public class Vehicle {
 		this.year = year;
 	}
 
-	public int getMileage() {
+	public Integer getMileage() {
 		return mileage;
 	}
 
-	public void setMileage(int mileage) {
+	public void setMileage(Integer mileage) {
 		this.mileage = mileage;
 	}
 
-	public int getHorsepower() {
+	public Integer getHorsepower() {
 		return horsepower;
 	}
 
-	public void setHorsepower(int horsepower) {
+	public void setHorsepower(Integer horsepower) {
 		this.horsepower = horsepower;
 	}
 
@@ -107,16 +162,17 @@ public class Vehicle {
 
 	@Override
 	public String toString() {
+		String displayMileage = (mileage != null) ? mileage + " km" : "No data";
+		String displayHorsepower = (horsepower != null) ? horsepower + " CV" : "No data";
+
 		return "Vehicle{" +
 				"licensePlate='" + licensePlate + '\'' +
 				", make='" + make + '\'' +
 				", model='" + model + '\'' +
 				", year=" + year +
-				", mileage=" + mileage +
-				", horsepower=" + horsepower +
+				", mileage=" + displayMileage +
+				", horsepower=" + displayHorsepower +
 				", motorType=" + motorType +
-				", listingId=" + (listing != null ? listing.getId() : null) +
 				'}';
 	}
-
 }

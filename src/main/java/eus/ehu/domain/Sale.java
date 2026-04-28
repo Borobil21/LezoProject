@@ -5,21 +5,53 @@ import javax.persistence.Entity;
 @Entity
 public class Sale extends Listing {
 
-    private double fixedPrice;
+    private Double fixedPrice;
 
     protected Sale() {
+        super();
     }
 
-    public Sale(String description, ListingStatus status, User user, double fixedPrice) {
-        super(description, status, user);
-        this.fixedPrice = fixedPrice;
+    private Sale(Builder builder) {
+        super(builder.description, builder.status, builder.user);
+        this.fixedPrice = builder.fixedPrice;
     }
 
-    public double getFixedPrice() {
+    public static class Builder {
+        private String description;
+        private ListingStatus status = ListingStatus.ACTIVE; 
+        private User user;
+        private Double fixedPrice;
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder status(ListingStatus status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder user(User user) {
+            this.user = user;
+            return this;
+        }
+
+        public Builder fixedPrice(Double fixedPrice) {
+            this.fixedPrice = fixedPrice;
+            return this;
+        }
+
+        public Sale build() {
+            return new Sale(this);
+        }
+    }
+
+    public Double getFixedPrice() {
         return fixedPrice;
     }
 
-    public void setFixedPrice(double fixedPrice) {
+    public void setFixedPrice(Double fixedPrice) {
         this.fixedPrice = fixedPrice;
     }
 
@@ -27,9 +59,9 @@ public class Sale extends Listing {
     public String toString() {
         return "Sale{" +
                 "id=" + getId() +
-                ", fixedPrice=" + fixedPrice +
+                ", description='" + getDescription() + '\'' +
                 ", status=" + getStatus() +
+                ", price=" + fixedPrice +
                 '}';
     }
-
 }

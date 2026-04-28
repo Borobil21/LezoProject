@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 public class RegisterController {
     // this controler is for the register scene (Resgister.fxml)
 
-    private BlInterface bl = new BlManager();
+    private BlInterface bl = BlManager.getInstance();
 
     @FXML
     private TextField txtName;

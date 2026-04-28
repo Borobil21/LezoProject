@@ -83,10 +83,9 @@
                <font><Font size="14.0" /></font>
             </Label>
             
-            <ListView fx:id="resultsListView" layoutX="10.0" layoutY="10.0" prefHeight="580.0" prefWidth="580.0" visible="false" />
+            <ListView fx:id="resultsListView" layoutX="10.0" layoutY="10.0" prefHeight="580.0" prefWidth="580.0" visible="false" style="-fx-background-color: transparent; -fx-control-inner-background: transparent;" />
             
-            <TextField fx:id="SaleIdField" layoutX="160.0" layoutY="630.0" prefHeight="30.0" prefWidth="120.0" promptText="Insert sale ID" style="-fx-border-color: #cccccc;" />
-            <Button layoutX="300.0" layoutY="630.0" mnemonicParsing="false" onAction="#handleViewOffer" prefHeight="30.0" prefWidth="140.0" text="View selected offer" style="-fx-cursor: hand;" />
+            <Button fx:id="viewOfferButton" layoutX="230.0" layoutY="630.0" mnemonicParsing="false" onAction="#handleViewOffer" prefHeight="30.0" prefWidth="140.0" style="-fx-cursor: hand;" text="View selected offer" />
          </children>
       </AnchorPane>
 

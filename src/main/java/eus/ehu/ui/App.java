@@ -16,7 +16,7 @@ public class App extends Application {
     private static final String FXML_BASE_PATH = "/eus/ehu/presentation/";
     private static Scene scene;
     private static Integer selectedViewOfferSaleId;
-    private static BlInterface bl = new BlManager();
+    private static BlInterface bl = BlManager.getInstance();
 
     @Override
     public void start(Stage stage) throws IOException {

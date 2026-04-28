@@ -58,7 +58,8 @@ public class CreateController {
 
     @FXML
     void initialize() {
-        bl = new BlManager();
+        bl = BlManager.getInstance();
+
         motorType.getItems().addAll(MotorType.values());
     }
 
@@ -87,8 +88,21 @@ public class CreateController {
                 throw new NullPointerException("Default user not available");
             }
 
-            Sale sale = new Sale(description, ListingStatus.ACTIVE, user, price);
-            Vehicle v = new Vehicle(licensePlate, brand, model, age, mileage, horsePower, motorType, sale);
+            Sale sale = new Sale.Builder()
+                    .description(description)
+                    .status(ListingStatus.ACTIVE)
+                    .user(user)
+                    .fixedPrice(price)
+                    .build();
+            Vehicle v = new Vehicle.Builder(licensePlate)
+                    .make(brand)
+                    .model(model)
+                    .year(age)
+                    .mileage(mileage)
+                    .horsepower(horsePower)
+                    .motorType(motorType)
+                    .listing(sale)
+                    .build();
             bl.storeSale(sale);
             bl.storeVehicle(v);
             bl.addVehicleToSale(sale, v);
