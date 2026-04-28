@@ -13,7 +13,7 @@ import javafx.util.Duration;
 public class LoginController {
     // This controller is for the login scene (Login.fxml)
 
-    private BlInterface bl = new BlManager();
+    private BlInterface bl = BlManager.getInstance();
 
     @FXML
     private TextField txtEmail;

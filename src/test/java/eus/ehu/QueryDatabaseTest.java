@@ -19,7 +19,7 @@ public class QueryDatabaseTest {
         BlManager bl = null;
 
         try {
-            bl = new BlManager();
+            bl = BlManager.getInstance();
             User defaultUser = bl.getDefaultUser();
             String defaultEmail = defaultUser != null ? defaultUser.getEmail() : "default@gmail.com";
 
@@ -63,7 +63,7 @@ public class QueryDatabaseTest {
         BlManager bl = null;
 
         try {
-            bl = new BlManager();
+            bl = BlManager.getInstance();
 
             System.out.println("--- USERS ---");
             List<User> users = bl.getAllUsers();

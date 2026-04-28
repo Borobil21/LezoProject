@@ -14,11 +14,17 @@ public class DefaultUserInitializer {
         BlManager bl = null;
 
         try {
-            bl = new BlManager();
+            bl = BlManager.getInstance();
             User defaultUser = bl.getUserByEmail("default@gmail.com");
 
             if (defaultUser == null) {
-                defaultUser = new User("Default User", "default@gmail.com", "1234", "999999999", "Lezo");
+                defaultUser = new User.Builder()
+                        .name("Default User")
+                        .email("default@gmail.com")
+                        .password("1234")
+                        .phone("999999999")
+                        .location("Lezo")
+                        .build();
                 System.out.println("Storing default user: " + defaultUser.getName());
                 bl.storeUser(defaultUser);
             } else {
@@ -33,28 +39,92 @@ public class DefaultUserInitializer {
                 System.out.println("Generating test vehicle fleet.");
 
                 
-                Sale sale1 = new Sale("Tesla Model 3", ListingStatus.ACTIVE, fetchedUser, 45000.0);
-                Vehicle v1 = new Vehicle("1111-AAA", "Tesla", "Model 3", 2025, 50, 350, MotorType.ELECTRIC, sale1);
+                Sale sale1 = new Sale.Builder()
+                       .description("Tesla Model 3")
+                        .status(ListingStatus.ACTIVE)
+                        .user(fetchedUser)
+                        .fixedPrice(45000.0)
+                        .build();
+                Vehicle v1 = new Vehicle.Builder("1111-AAA")
+                        .make("Tesla")
+                        .model("Model 3")
+                        .year(2025)
+                        .mileage(50)
+                        .horsepower(350)
+                        .motorType(MotorType.ELECTRIC)
+                        .listing(sale1)
+                        .build();
                 sale1.setVehicle(v1);
 
                 
-                Sale sale2 = new Sale("BMW Serie 3", ListingStatus.ACTIVE, fetchedUser, 32000.0);
-                Vehicle v2 = new Vehicle("2222-BBB", "BMW", "Serie 3", 2022, 45000, 190, MotorType.GASOLINE, sale2);
+                Sale sale2 = new Sale.Builder()
+                        .description("BMW Serie 3")
+                        .status(ListingStatus.ACTIVE)
+                        .user(fetchedUser)
+                        .fixedPrice(32000.0)
+                        .build();
+                Vehicle v2 = new Vehicle.Builder("2222-BBB")
+                        .make("BMW")
+                        .model("Serie 3")
+                        .year(2022)
+                        .mileage(45000)
+                        .horsepower(190)
+                        .motorType(MotorType.GASOLINE)
+                        .listing(sale2)
+                        .build();
                 sale2.setVehicle(v2);
 
                 
-                Sale sale3 = new Sale("Mercedes C Class", ListingStatus.ACTIVE, fetchedUser, 15000.0);
-                Vehicle v3 = new Vehicle("3333-CCC", "Mercedes-Benz", "Clase C", 2015, 120000, 170, MotorType.DIESEL, sale3);
+                Sale sale3 = new Sale.Builder()
+                        .description("Mercedes C Class")
+                        .status(ListingStatus.ACTIVE)
+                        .user(fetchedUser)
+                        .fixedPrice(15000.0)
+                        .build();
+                Vehicle v3 = new Vehicle.Builder("3333-CCC")
+                        .make("Mercedes-Benz")
+                        .model("Clase C")
+                        .year(2015)
+                        .mileage(120000)
+                        .horsepower(170)
+                        .motorType(MotorType.DIESEL)
+                        .listing(sale3)
+                        .build();
                 sale3.setVehicle(v3);
 
                 
-                Sale sale4 = new Sale("Porsche 911", ListingStatus.ACTIVE, fetchedUser, 65000.0);
-                Vehicle v4 = new Vehicle("4444-DDD", "Porsche", "911 Carrera", 2004, 180000, 320, MotorType.GASOLINE, sale4);
+                Sale sale4 = new Sale.Builder()
+                        .description("Porsche 911")
+                        .status(ListingStatus.ACTIVE)
+                        .user(fetchedUser)
+                        .fixedPrice(65000.0)
+                        .build();
+                Vehicle v4 = new Vehicle.Builder("4444-DDD")
+                        .make("Porsche")
+                        .model("911 Carrera")
+                        .year(2004)
+                        .horsepower(320)
+                        .motorType(MotorType.GASOLINE)
+                        .listing(sale4)
+                        .build();
                 sale4.setVehicle(v4);
 
                 
-                Sale sale5 = new Sale("Audi A3", ListingStatus.ACTIVE, fetchedUser, 8500.0);
-                Vehicle v5 = new Vehicle("5555-EEE", "Audi", "A3", 2009, 210000, 105, MotorType.DIESEL, sale5);
+                Sale sale5 = new Sale.Builder()
+                        .description("Audi A3")
+                        .status(ListingStatus.ACTIVE)
+                        .user(fetchedUser)
+                        .fixedPrice(8500.0)
+                        .build();
+                Vehicle v5 = new Vehicle.Builder("5555-EEE")
+                        .make("Audi")
+                        .model("A3")
+                        .year(2009)
+                        .mileage(210000)
+                        .horsepower(105)
+                        .motorType(MotorType.DIESEL)
+                        .listing(sale5)
+                        .build();
                 sale5.setVehicle(v5);
 
 
