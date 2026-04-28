@@ -5,7 +5,9 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">org.h2.Driver</property>
-        <property name="hibernate.connection.url">jdbc:h2:./data/lezo;AUTO_SERVER=TRUE</property>
+        <!-- Use TCP URL so other machines can connect; replace 'localhost' with server IP if needed -->
+        <!-- Use absolute path to the DB file in project to match the server data location -->
+        <property name="hibernate.connection.url">jdbc:h2:tcp://localhost:9092/C:/Users/Usuario/OneDrive/Escritorio/LezoProject/data/lezo</property>
         <property name="hibernate.connection.username">sa</property>
         <property name="hibernate.connection.password"></property>
 

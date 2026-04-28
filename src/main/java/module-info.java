@@ -2,9 +2,11 @@ module eus.ehu {
     requires transitive javafx.graphics;
     requires javafx.controls;
     requires javafx.fxml;
-    requires java.persistence;
+    requires jakarta.persistence;
     requires org.hibernate.orm.core;
     requires java.sql;
+    requires com.h2database;
+
 
     opens eus.ehu.ui to javafx.fxml;
     opens eus.ehu.domain to org.hibernate.orm.core;
