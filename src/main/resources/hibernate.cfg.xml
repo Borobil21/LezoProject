@@ -5,7 +5,8 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">org.h2.Driver</property>
-        <property name="hibernate.connection.url">jdbc:h2:./data/lezo;AUTO_SERVER=TRUE</property>
+        <!-- Default to the project DB served by H2 on port 9093; override with -Dlezo.db.url or LEZO_DB_URL -->
+        <property name="hibernate.connection.url">jdbc:h2:tcp://localhost:9093/./data/lezo</property>
         <property name="hibernate.connection.username">sa</property>
         <property name="hibernate.connection.password"></property>
 

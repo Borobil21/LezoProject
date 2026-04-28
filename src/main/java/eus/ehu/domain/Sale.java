@@ -1,6 +1,6 @@
 package eus.ehu.domain;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 @Entity
 public class Sale extends Listing {
