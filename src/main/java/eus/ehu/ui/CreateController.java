@@ -85,10 +85,10 @@ public class CreateController {
             }
             String brand = requiredText(this.brand, "Brand is required");
             String model = requiredText(this.model, "Model is required");
-            int age = parseRequiredInt(this.age, "Age must be a valid number");
-            int mileage = parseRequiredInt(this.mileage, "Mileage must be a valid number");
-            int horsePower = parseRequiredInt(this.horsePower, "Horsepower must be a valid number");
-            double price = parseRequiredDouble(this.price, "Price must be a valid number");
+            int age = parseRequiredPositiveInt(this.age, "Age must be a valid number");
+            int mileage = parseRequiredPositiveInt(this.mileage, "Mileage must be a valid number");
+            int horsePower = parseRequiredPositiveInt(this.horsePower, "Horsepower must be a valid number");
+            double price = parseRequiredPositiveDouble(this.price, "Price must be a valid number");
             MotorType motorType = this.motorType.getValue();
             if (motorType == null) {
                 throw new NullPointerException("You must select a motor type");
@@ -110,7 +110,7 @@ public class CreateController {
             System.out.println("OK -> " + licensePlate + " " + brand + " " + model + " " + age + " " + mileage + " "
                     + horsePower + " " + price + " " + motorType + " " + description);
             done = true;
-        } catch (NullPointerException | NumberFormatException | IllegalStateException ex) {
+        } catch (NullPointerException | NumberFormatException | IllegalStateException | IllegalArgumentException ex) {
             showError(ex.getMessage());
         }
         if (done) {
@@ -144,6 +144,14 @@ public class CreateController {
         }
     }
 
+    private int parseRequiredPositiveInt(TextField field, String message) {
+        int value = parseRequiredInt(field, message);
+        if (value <= 0) {
+            throw new IllegalArgumentException(message + " (must be greater than 0)");
+        }
+        return value;
+    }
+
     private double parseRequiredDouble(TextField field, String message) {
         String value = requiredText(field, message);
         try {
@@ -151,6 +159,14 @@ public class CreateController {
         } catch (NumberFormatException ex) {
             throw new NumberFormatException(message);
         }
+    }
+
+    private double parseRequiredPositiveDouble(TextField field, String message) {
+        double value = parseRequiredDouble(field, message);
+        if (value <= 0) {
+            throw new IllegalArgumentException(message + " (must be greater than 0)");
+        }
+        return value;
     }
 
     private void showError(String message) {
