@@ -15,6 +15,15 @@
 In LezoKapitalFumar.ong, we dream. That's the reason we have created this project: PickAuto. 
 We intend to make an application for buying and selling cars, implementing auctions too, where users can bid for the car they want to buy.
 
+## Shared database setup
+
+The application can connect to a shared H2 server instead of a local-only database. Set one of these before starting the app:
+
+- JVM property: `-Dlezo.db.url=jdbc:h2:tcp://10.245.3.251:9094/./data/lezo`
+- Environment variable: `LEZO_DB_URL=jdbc:h2:tcp://10.245.3.251:9094/./data/lezo`
+
+If no URL is provided, the app falls back to a local H2 server on `localhost` for development.
+
 ### User experience
 
 The users will be able to:
