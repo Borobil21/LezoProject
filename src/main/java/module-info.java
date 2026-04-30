@@ -10,7 +10,7 @@ module eus.ehu {
 
     opens eus.ehu.ui to javafx.fxml;
     opens eus.ehu.domain to org.hibernate.orm.core;
+    exports eus.ehu.data_access;
     exports eus.ehu.businesslogic;
-    exports eus.ehu.domain;
     exports eus.ehu.ui;
 }
