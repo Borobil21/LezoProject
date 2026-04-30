@@ -22,3 +22,6 @@ release.properties
 
 # macOS
 .DS_Store
+
+# Data
+data/
