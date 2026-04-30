@@ -7,8 +7,8 @@
         <property name="hibernate.connection.driver_class">org.h2.Driver</property>
         <!-- Default to the shared server DB; override with -Dlezo.db.url or LEZO_DB_URL -->
     <!-- EHU VPN:  <property name="hibernate.connection.url">jdbc:h2:tcp://192.168.1.138:9094/./data/lezo</property> -->
-    <!-- Oier mobil <property name="hibernate.connection.url">jdbc:h2:tcp://10.95.46.65:9094/./data/lezo</property> -->
-    <!-- eduroam -->    <property name="hibernate.connection.url">jdbc:h2:tcp://10.245.3.251:9094/./data/lezo</property>
+    <!-- Oier mobil --> <property name="hibernate.connection.url">jdbc:h2:tcp://10.95.46.65:9094/./data/lezo</property> 
+    <!-- eduroam     <property name="hibernate.connection.url">jdbc:h2:tcp://10.245.3.251:9094/./data/lezo</property> -->
         <property name="hibernate.connection.username">sa</property>
         <property name="hibernate.connection.password"></property>
 
