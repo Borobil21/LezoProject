@@ -7,8 +7,19 @@ public class SaleTest {
 
     @Test
     public void salePropertiesAndAccessors() {
-        User u = new User("Alice", "a@example.com", "secret", "600000000", "Bilbao");
-        Sale s = new Sale("Old car", ListingStatus.ACTIVE, u, 4500.5);
+    User u = new User.Builder()
+        .name("Alice")
+        .email("a@example.com")
+        .password("secret")
+        .phone("600000000")
+        .location("Bilbao")
+        .build();
+    Sale s = new Sale.Builder()
+        .description("Old car")
+        .status(ListingStatus.ACTIVE)
+        .user(u)
+        .fixedPrice(4500.5)
+        .build();
 
         assertEquals("Old car", s.getDescription());
         assertEquals(ListingStatus.ACTIVE, s.getStatus());
@@ -27,10 +38,21 @@ public class SaleTest {
 
     @Test
     public void toStringIncludesKeyParts() {
-        User u = new User("A", "a@x", "pw", "600", "L");
-        Sale s = new Sale("X", ListingStatus.ACTIVE, u, 1000.0);
+        User u = new User.Builder()
+            .name("A")
+            .email("a@x")
+            .password("pw")
+            .phone("600")
+            .location("L")
+            .build();
+        Sale s = new Sale.Builder()
+            .description("X")
+            .status(ListingStatus.ACTIVE)
+            .user(u)
+            .fixedPrice(1000.0)
+            .build();
         String out = s.toString();
-        assertTrue(out.contains("Sale{") || out.contains("fixedPrice"));
+        assertTrue(out.contains("Sale{") || out.contains("price="));
     }
 
 }
