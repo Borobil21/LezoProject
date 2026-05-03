@@ -1,5 +1,7 @@
 package eus.ehu.ui;
 
+import java.util.List;
+
 import eus.ehu.businesslogic.BlInterface;
 import eus.ehu.domain.Listing;
 import eus.ehu.domain.MotorType;
@@ -120,6 +122,7 @@ public class ViewOfferController {
         if (OfferButton != null) {
             OfferButton.setDisable(false);
         }
+        updateWishlistButtonState();
     }
 
     public void showEmptyState() {
@@ -136,6 +139,11 @@ public class ViewOfferController {
         }
         if (OfferButton != null) {
             OfferButton.setDisable(true);
+        }
+        if (WishlistButton != null) {
+            WishlistButton.setDisable(true);
+            WishlistButton.setText(tr("viewoffer.add_wishlist", "Add to wishlist"));
+            WishlistButton.setStyle("-fx-background-color: #007bff; -fx-border-color: #007bff; -fx-text-fill: white; -fx-cursor: hand;");
         }
     }
 
@@ -176,16 +184,51 @@ public class ViewOfferController {
         return bundle != null && bundle.containsKey(key) ? bundle.getString(key) : fallback;
     }
 
+    private void updateWishlistButtonState() {
+        if (WishlistButton == null || selectedVehicle == null || bl == null || App.getActualUser() == null) {
+            return;
+        }
+
+        Integer currentUserId = App.getActualUser().getId();
+        List<Vehicle> wishlist = bl.getUserWishlist(currentUserId);
+        boolean isWishlisted = wishlist.stream()
+                .anyMatch(vehicle -> selectedVehicle.getLicensePlate() != null
+                        && selectedVehicle.getLicensePlate().equals(vehicle.getLicensePlate()));
+
+        setWishlistButtonState(isWishlisted);
+    }
+
+    private void setWishlistButtonState(boolean wishlisted) {
+        if (WishlistButton == null) {
+            return;
+        }
+
+        if (wishlisted) {
+            WishlistButton.setText(tr("viewoffer.remove_wishlist", "Remove from wishlist"));
+            WishlistButton.setStyle("-fx-background-color: white; -fx-border-color: #007bff; -fx-text-fill: #007bff; -fx-cursor: hand;");
+        } else {
+            WishlistButton.setText(tr("viewoffer.add_wishlist", "Add to wishlist"));
+            WishlistButton.setStyle("-fx-background-color: #007bff; -fx-border-color: #007bff; -fx-text-fill: white; -fx-cursor: hand;");
+        }
+        WishlistButton.setDisable(false);
+    }
+
     @FXML
     private void handleAddToWishlist() {
-        if (selectedVehicle != null && bl != null) {
-            Integer currentUserId = App.getActualUser().getId(); 
-            System.out.println("Intentando añadir coche " + selectedVehicle.getLicensePlate() + " al user " + currentUserId);
-            
-            bl.addToWishlist(currentUserId, selectedVehicle.getLicensePlate());
-            
-            WishlistButton.setText("Wished!");
-            WishlistButton.setDisable(true);
+        if (selectedVehicle != null && bl != null && App.getActualUser() != null) {
+            Integer currentUserId = App.getActualUser().getId();
+            boolean wishlisted = bl.getUserWishlist(currentUserId).stream()
+                    .anyMatch(vehicle -> selectedVehicle.getLicensePlate() != null
+                            && selectedVehicle.getLicensePlate().equals(vehicle.getLicensePlate()));
+
+            if (wishlisted) {
+                bl.removeFromWishlist(currentUserId, selectedVehicle.getLicensePlate());
+                setWishlistButtonState(false);
+            } else {
+                System.out.println("Intentando añadir coche " + selectedVehicle.getLicensePlate() + " al user " + currentUserId);
+                bl.addToWishlist(currentUserId, selectedVehicle.getLicensePlate());
+                setWishlistButtonState(true);
+            }
         } else {
             System.out.println("Fallo al añadir: selectedVehicle o bl son null");
         }

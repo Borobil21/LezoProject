@@ -65,7 +65,9 @@ public interface BlInterface {
 
 	void deleteVehicle(Vehicle vehicle);
 
-	public void addToWishlist(Integer userId, String licensePlate);
+	void addToWishlist(Integer userId, String licensePlate);
+
+	void removeFromWishlist(Integer userId, String licensePlate);
 
 	List<Vehicle> getUserWishlist(Integer userId);
 

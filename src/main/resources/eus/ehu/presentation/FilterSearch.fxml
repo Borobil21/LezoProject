@@ -62,10 +62,10 @@
             <Label layoutX="20.0" layoutY="380.0" text="%label.vehicle_age">
                <font><Font name="System Bold" size="13.0" /></font>
             </Label>
-            <CheckBox fx:id="newCheck" layoutX="20.0" layoutY="405.0" text="New (2025-2026)" />
-            <CheckBox fx:id="almostNewCheck" layoutX="20.0" layoutY="425.0" text="Almost New (2021-24)" />
-            <CheckBox fx:id="usedCheck" layoutX="20.0" layoutY="445.0" text="Used (2006-2020)" />
-            <CheckBox fx:id="oldCheck" layoutX="20.0" layoutY="465.0" text="Old (Pre-2006)" />
+            <CheckBox fx:id="newCheck" layoutX="20.0" layoutY="405.0" text="%age.option.new" />
+            <CheckBox fx:id="almostNewCheck" layoutX="20.0" layoutY="425.0" text="%age.option.almost_new" />
+            <CheckBox fx:id="usedCheck" layoutX="20.0" layoutY="445.0" text="%age.option.used" />
+            <CheckBox fx:id="oldCheck" layoutX="20.0" layoutY="465.0" text="%age.option.old" />
 
             <ComboBox fx:id="motorTypeComboBox" layoutX="20.0" layoutY="500.0" prefHeight="25.0" prefWidth="260.0" promptText="%prompt.motor_fuel" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
             <ComboBox fx:id="transmissionComboBox" layoutX="20.0" layoutY="535.0" prefHeight="25.0" prefWidth="260.0" promptText="%prompt.transmission" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />

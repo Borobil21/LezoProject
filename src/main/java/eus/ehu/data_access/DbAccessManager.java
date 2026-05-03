@@ -3,10 +3,6 @@ package eus.ehu.data_access;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.TypedQuery;
-
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -15,7 +11,9 @@ import eus.ehu.domain.MotorType;
 import eus.ehu.domain.Sale;
 import eus.ehu.domain.User;
 import eus.ehu.domain.Vehicle;
-import eus.ehu.data_access.H2WebLauncher;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.TypedQuery;
 
 public class DbAccessManager {
     private static final String DB_URL_PROPERTY = "lezo.db.url";
@@ -394,6 +392,32 @@ public class DbAccessManager {
                 db.getTransaction().rollback();
             }
             System.err.println("Error al añadir a la wishlist:");
+            e.printStackTrace();
+        }
+    }
+
+    public void removeVehicleFromWishlist(Integer userId, String licensePlate) {
+        if (!isAvailable()) {
+            throw new IllegalStateException("Database not available");
+        }
+        try {
+            db.getTransaction().begin();
+            User user = db.find(User.class, userId);
+            Vehicle vehicle = db.find(Vehicle.class, licensePlate);
+
+            if (user != null && vehicle != null) {
+                boolean removed = user.getWishlist().removeIf(v -> licensePlate.equals(v.getLicensePlate()));
+                if (removed) {
+                    db.merge(user);
+                    System.out.println("Coche " + licensePlate + " eliminado de la wishlist del usuario " + userId);
+                }
+            }
+            db.getTransaction().commit();
+        } catch (Exception e) {
+            if (db.getTransaction().isActive()) {
+                db.getTransaction().rollback();
+            }
+            System.err.println("Error al eliminar de la wishlist:");
             e.printStackTrace();
         }
     }
