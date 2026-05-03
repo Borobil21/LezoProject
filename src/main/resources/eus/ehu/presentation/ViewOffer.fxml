@@ -48,7 +48,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="WishlistButton" layoutX="445.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddToWishlist" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: transparent; -fx-border-color: #007bff; -fx-text-fill: #007bff; -fx-cursor: hand;" text="%viewoffer.add_wishlist">
+            <Button fx:id="WishlistButton" layoutX="445.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddToWishlist" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: #007bff; -fx-border-color: #007bff; -fx-text-fill: white; -fx-cursor: hand;" text="%viewoffer.add_wishlist">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

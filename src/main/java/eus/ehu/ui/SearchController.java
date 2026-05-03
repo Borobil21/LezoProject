@@ -392,9 +392,8 @@ public class SearchController {
             placeholderLabel.setText(noResultsText);
             placeholderLabel.setVisible(true);
 
-            if (isFilter) {
-                showError(b != null ? b.getString("error.no_vehicles_filters") : "No vehicles match your filters.");
-            }
+            // Do not show an error popup when a filtered search returns no vehicles;
+            // simply display the placeholder label above.
             return;
         }
         resultsListView.setItems(FXCollections.observableArrayList(sales));

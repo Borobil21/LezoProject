@@ -65,7 +65,9 @@ public interface BlInterface {
 
 	void deleteVehicle(Vehicle vehicle);
 
-	public void addToWishlist(Integer userId, String licensePlate);
+	void addToWishlist(Integer userId, String licensePlate);
+
+	void removeFromWishlist(Integer userId, String licensePlate);
 
 	List<Vehicle> getUserWishlist(Integer userId);
 
@@ -74,4 +76,9 @@ public interface BlInterface {
 			Integer minYear, Integer maxYear,
 			Integer minMileage, Integer maxMileage,
 			MotorType motorType);
+
+	/**
+	 * Returns the number of sales published by the given user.
+	 */
+	int countUserPublications(Integer userId);
 }

@@ -341,9 +341,20 @@ public class BlManager implements BlInterface {
     }
 
     @Override
+    public void removeFromWishlist(Integer userId, String licensePlate) {
+        dbManager.removeVehicleFromWishlist(userId, licensePlate);
+    }
+
+    @Override
     public List<Vehicle> getUserWishlist(Integer userId) {
         // Simplemente redirige la petición a la base de datos
         return dbManager.getUserWishlist(userId);
+    }
+
+    @Override
+    public int countUserPublications(Integer userId) {
+        if (userId == null) return 0;
+        return dbManager.countSalesByUser(userId);
     }
 
     public void close() {
