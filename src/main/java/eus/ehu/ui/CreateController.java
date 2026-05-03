@@ -122,9 +122,10 @@ public class CreateController {
             }
             String description = this.description.getText();
 
-            eus.ehu.domain.User user = bl.getDefaultUser();
+            // Get the actual user (currently logged in), not the default user
+            eus.ehu.domain.User user = App.getActualUser();
             if (user == null) {
-                throw new NullPointerException(tr("error.create.default_user_unavailable", "Default user not available"));
+                throw new NullPointerException(tr("error.create.user_unavailable", "User not available"));
             }
 
             Sale sale = new Sale.Builder()
