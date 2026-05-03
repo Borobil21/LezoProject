@@ -68,6 +68,7 @@
                 controller.setBl(bl);
             } else if ("Profile".equals(fxml)) {
                 ProfileController controller = fxmlLoader.getController();
+                controller.setBl(bl);
                 controller.setUser(actualUser);
             } else if ("Wishlist".equals(fxml)) {
                 WishlistController controller = fxmlLoader.getController();

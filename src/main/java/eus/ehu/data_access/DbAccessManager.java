@@ -438,4 +438,24 @@ public class DbAccessManager {
             return new ArrayList<>();
         }
     }
+
+    public int countSalesByUser(Integer userId) {
+        if (!isAvailable() || userId == null) {
+            System.out.println("DEBUG: countSalesByUser - DB not available or userId is null");
+            return 0;
+        }
+        try {
+            System.out.println("DEBUG: countSalesByUser - Counting listings for userId: " + userId);
+            // Count listings (sales) created by the user
+            Long count = db.createQuery("SELECT COUNT(l) FROM Listing l WHERE l.user.id = :userId", Long.class)
+                    .setParameter("userId", userId)
+                    .getSingleResult();
+            System.out.println("DEBUG: countSalesByUser - Listing count result: " + count);
+            return count != null ? count.intValue() : 0;
+        } catch (Exception e) {
+            System.err.println("Error counting user listings for userId " + userId + ":");
+            e.printStackTrace();
+            return 0;
+        }
+    }
 }

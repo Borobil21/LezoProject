@@ -76,4 +76,9 @@ public interface BlInterface {
 			Integer minYear, Integer maxYear,
 			Integer minMileage, Integer maxMileage,
 			MotorType motorType);
+
+	/**
+	 * Returns the number of sales published by the given user.
+	 */
+	int countUserPublications(Integer userId);
 }

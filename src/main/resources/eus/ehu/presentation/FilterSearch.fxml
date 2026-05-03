@@ -27,13 +27,13 @@
          </children>
       </AnchorPane>
 
-      <AnchorPane layoutX="40.0" layoutY="90.0" prefHeight="700.0" prefWidth="300.0" style="-fx-background-color: #ffffff; -fx-border-color: #dddddd;">
+      <AnchorPane layoutX="40.0" layoutY="90.0" prefHeight="700.0" prefWidth="306.0" style="-fx-background-color: #ffffff; -fx-border-color: #dddddd;">
          <children>
 
             <Label layoutX="20.0" layoutY="15.0" text="%label.refine_search">
                <font><Font name="System Bold" size="16.0" /></font>
             </Label>
-            <Label fx:id="clearAllLabel" layoutX="220.0" layoutY="18.0" onMouseClicked="#handleClearAll" style="-fx-cursor: hand;" text="%label.clear_all" textFill="#007bff" />
+            <Label fx:id="clearAllLabel" alignment="CENTER_RIGHT" layoutX="195.0" layoutY="18.0" onMouseClicked="#handleClearAll" prefHeight="18.0" prefWidth="98.0" style="-fx-cursor: hand;" text="%label.clear_all" textAlignment="RIGHT" textFill="#007bff" />
 
             <Label layoutX="20.0" layoutY="50.0" text="%label.brand_manufacturers">
                <font><Font name="System Bold" size="13.0" /></font>
@@ -81,11 +81,11 @@
 
       <AnchorPane layoutX="360.0" layoutY="90.0" prefHeight="700.0" prefWidth="600.0" style="-fx-background-color: #ffffff; -fx-border-color: #dddddd;">
          <children>
-            <Label fx:id="placeholderLabel" layoutX="140.0" layoutY="280.0" text="%placeholder.search_results" textFill="#aaaaaa">
+            <Label fx:id="placeholderLabel" alignment="CENTER" layoutX="140.0" layoutY="280.0" prefHeight="20.0" prefWidth="320.0" text="%placeholder.search_results" textFill="#aaaaaa">
                <font><Font size="14.0" /></font>
             </Label>
             
-            <ListView fx:id="resultsListView" layoutX="10.0" layoutY="10.0" prefHeight="580.0" prefWidth="580.0" visible="false" style="-fx-background-color: transparent; -fx-control-inner-background: transparent;" />
+            <ListView fx:id="resultsListView" layoutX="10.0" layoutY="10.0" prefHeight="580.0" prefWidth="580.0" style="-fx-background-color: transparent; -fx-control-inner-background: transparent;" visible="false" />
             
             <Button fx:id="viewOfferButton" layoutX="230.0" layoutY="630.0" mnemonicParsing="false" onAction="#handleViewOffer" prefHeight="30.0" prefWidth="140.0" style="-fx-cursor: hand;" text="%button.view_selected_offer" />
          </children>

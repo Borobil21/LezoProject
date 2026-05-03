@@ -351,6 +351,12 @@ public class BlManager implements BlInterface {
         return dbManager.getUserWishlist(userId);
     }
 
+    @Override
+    public int countUserPublications(Integer userId) {
+        if (userId == null) return 0;
+        return dbManager.countSalesByUser(userId);
+    }
+
     public void close() {
         dbManager.close();
     }
