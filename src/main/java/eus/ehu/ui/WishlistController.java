@@ -108,28 +108,33 @@ public class WishlistController {
                     setStyle("-fx-background-color: transparent;");
                 } else {
                     HBox card = new HBox(15);
-                    card.setStyle("-fx-background-color: white; -fx-background-radius: 8; -fx-border-color: #dddddd; -fx-border-radius: 8; -fx-padding: 15;");
+                    card.setStyle("-fx-background-color: white; -fx-background-radius: 8; -fx-border-color: #dddddd; -fx-border-radius: 8; -fx-padding: 15; -fx-cursor: hand;");
 
                     ImageView imageView = new ImageView();
                     imageView.setFitHeight(120);
                     imageView.setFitWidth(180);
 
-                    String fakeUrl = "https://via.placeholder.com/180x120/cccccc/000000.png?text=" + v.getMake();
+                    String imagePath = v.getImagePath();
                     try {
-                        imageView.setImage(new Image(fakeUrl, true));
+                        var stream = imagePath != null && !imagePath.isEmpty()
+                                ? getClass().getResourceAsStream(imagePath) : null;
+                        imageView.setImage(new Image(
+                                stream != null ? stream
+                                        : getClass().getResourceAsStream("/images/cars/default_car.jpg")));
                     } catch (Exception e) {
-                        System.out.println("Could not load image");
+                        try {
+                            imageView.setImage(new Image(
+                                    getClass().getResourceAsStream("/images/cars/default_car.jpg")));
+                        } catch (Exception ignored) {}
                     }
+                    
                     VBox detailsBox = new VBox(10);
+                    detailsBox.setMinWidth(0);
 
                     Label titleLabel = new Label(v.getMake() + " " + v.getModel());
                     titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;");
 
-                    // Como la Wishlist guarda Vehicles, sacamos el precio a través de su Listing
-                    Sale sale = null;
-                    if (v.getListing() instanceof Sale) {
-                        sale = (Sale) v.getListing();
-                    }
+                    final Sale sale = (v.getListing() instanceof Sale) ? (Sale) v.getListing() : null;
                     
                     String priceText = (sale != null) ? String.format("%.2f €", sale.getFixedPrice()) : "N/A";
                     Label priceLabel = new Label(priceText);
@@ -141,6 +146,16 @@ public class WishlistController {
 
                     detailsBox.getChildren().addAll(titleLabel, priceLabel, infoLabel);
                     card.getChildren().addAll(imageView, detailsBox);
+
+                    card.setOnMouseClicked(event -> {
+                        if (event.getClickCount() == 2 && sale != null && sale.getId() != null) {
+                            try {
+                                App.openViewOffer(sale.getId());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
 
                     setGraphic(card);
                     setText(null);
