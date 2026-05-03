@@ -1,6 +1,8 @@
     package eus.ehu.ui;
 
     import java.io.IOException;
+    import java.util.Locale;
+    import java.util.ResourceBundle;
 
     import eus.ehu.businesslogic.BlInterface;
     import eus.ehu.businesslogic.BlManager;
@@ -16,6 +18,7 @@
 
         private static final String FXML_BASE_PATH = "/eus/ehu/presentation/";
         private static Scene scene;
+        private static ResourceBundle bundle;
         private static Integer selectedViewOfferSaleId;
         private static BlInterface bl;
         private static User actualUser;
@@ -30,6 +33,10 @@
                 System.err.println("Warning: could not load default user — DB may be unavailable: " + e.getMessage());
             }
 
+            // default application language should start in English
+            Locale.setDefault(Locale.ENGLISH);
+            bundle = ResourceBundle.getBundle("eus.ehu.i18n.Messages", Locale.ENGLISH);
+            // start at the Register scene by default
             scene = new Scene(loadFXML("Register"), 1000, 800);
             stage.setScene(scene);
             stage.show();
@@ -45,7 +52,7 @@
         }
 
         private static Parent loadFXML(String fxml) throws IOException {
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(FXML_BASE_PATH + fxml + ".fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(FXML_BASE_PATH + fxml + ".fxml"), bundle);
             Parent root = fxmlLoader.load();
 
             if ("ViewOffer".equals(fxml)) {
@@ -76,6 +83,16 @@
 
         public static void setActualUser(User user) {
             actualUser = user;
+        }
+
+        public static void setLocale(Locale locale) {
+            if (locale == null) return;
+            Locale.setDefault(locale);
+            bundle = ResourceBundle.getBundle("eus.ehu.i18n.Messages", locale);
+        }
+
+        public static ResourceBundle getBundle() {
+            return bundle;
         }
 
         public static void main(String[] args) {

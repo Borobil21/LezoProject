@@ -1,7 +1,6 @@
 package eus.ehu.ui;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -31,6 +30,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.util.StringConverter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -80,6 +80,17 @@ public class SearchController {
     @FXML
     public void initialize() {
         motorTypeComboBox.setItems(FXCollections.observableArrayList(MotorType.values()));
+        motorTypeComboBox.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(MotorType motorType) {
+                return getMotorTypeText(motorType);
+            }
+
+            @Override
+            public MotorType fromString(String string) {
+                return null;
+            }
+        });
 
         // Price sliders ↔ text fields
         minPriceSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
@@ -221,6 +232,12 @@ public class SearchController {
                     setStyle("-fx-background-color: transparent;");
                 } else {
                     eus.ehu.domain.Vehicle v = sale.getVehicle();
+                    if (v == null) {
+                        setText(null);
+                        setGraphic(null);
+                        return;
+                    }
+
                     HBox card = new HBox(15);
                     card.setStyle("-fx-background-color: white; -fx-background-radius: 8; " +
                             "-fx-border-color: #dddddd; -fx-border-radius: 8; -fx-padding: 15; -fx-cursor: hand;");
@@ -244,20 +261,20 @@ public class SearchController {
                     }
 
                     VBox details = new VBox(10);
+                    details.setMinWidth(0);
+
                     Label title = new Label(v.getMake() + " " + v.getModel());
                     title.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;");
+
                     Label price = new Label(String.format("%.2f €", sale.getFixedPrice()));
                     price.setStyle("-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #e60000;");
+
                     String mileageStr = v.getMileage() != null ? v.getMileage() + " km" : "Not specified";
                     Label info = new Label(v.getYear() + "  |  " + mileageStr + "  |  " + v.getMotorType());
                     info.setStyle("-fx-font-size: 14px; -fx-text-fill: #666666;");
+
                     details.getChildren().addAll(title, price, info);
                     card.getChildren().addAll(imageView, details);
-
-                    card.setOnMouseClicked(event -> {
-                        try { App.openViewOffer(sale.getId()); }
-                        catch (Exception e) { e.printStackTrace(); }
-                    });
 
                     setGraphic(card);
                     setText(null);
@@ -277,8 +294,25 @@ public class SearchController {
 
     @FXML
     private void handleCreatePost() {
-        try { App.setRoot("CreatePost"); }
-        catch (Exception e) { throw new RuntimeException("Unable to open Create Post scene", e); }
+        try {
+            App.setRoot("CreatePost");
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to open Create Post scene", e);
+        }
+    }
+
+    @FXML
+    private void handleViewOffer() {
+        try {
+            Sale selectedSale = resultsListView.getSelectionModel().getSelectedItem();
+            if (selectedSale == null) {
+                showError(tr("error.search.select_offer", "Please select an offer from the list first."));
+                return;
+            }
+            App.openViewOffer(selectedSale.getId());
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to open View Offer scene", e);
+        }
     }
 
     // ──────────────────────────────────────────────────────────────
@@ -286,20 +320,24 @@ public class SearchController {
     // ──────────────────────────────────────────────────────────────
     @FXML
     private void handleSearch() {
-        Double minPrice = parseDouble(minPriceField, "minimum price");
+        Double minPrice = parseDouble(minPriceField, "error.search.invalid_min_price", "Invalid minimum price");
         if (minPrice == null && !minPriceField.getText().isEmpty()) return;
-        Double maxPrice = parseDouble(maxPriceField, "maximum price");
+
+        Double maxPrice = parseDouble(maxPriceField, "error.search.invalid_max_price", "Invalid maximum price");
         if (maxPrice == null && !maxPriceField.getText().isEmpty()) return;
         if (minPrice != null && maxPrice != null && minPrice > maxPrice) {
-            showError("Minimum price cannot exceed maximum price."); return;
+            showError(tr("error.search.min_price_exceeds", "Minimum price cannot exceed maximum price."));
+            return;
         }
 
-        Integer minMileage = parseInteger(minKmField, "minimum mileage");
+        Integer minMileage = parseInteger(minKmField, "error.search.invalid_min_mileage", "Invalid minimum mileage");
         if (minMileage == null && !minKmField.getText().isEmpty()) return;
-        Integer maxMileage = parseInteger(maxKmField, "maximum mileage");
+
+        Integer maxMileage = parseInteger(maxKmField, "error.search.invalid_max_mileage", "Invalid maximum mileage");
         if (maxMileage == null && !maxKmField.getText().isEmpty()) return;
         if (minMileage != null && maxMileage != null && minMileage > maxMileage) {
-            showError("Minimum mileage cannot exceed maximum mileage."); return;
+            showError(tr("error.search.min_mileage_exceeds", "Minimum mileage cannot exceed maximum mileage."));
+            return;
         }
 
         Integer minYear = null, maxYear = null;
@@ -344,11 +382,19 @@ public class SearchController {
     private void showResults(List<Sale> sales, boolean isFilter) {
         if (sales.isEmpty()) {
             resultsListView.setVisible(false);
-            placeholderLabel.setText(isFilter
-                    ? "No vehicles match your filters."
-                    : "There are no vehicles in the database yet.");
+            java.util.ResourceBundle b = App.getBundle();
+            String noResultsText;
+            if (b != null) {
+                noResultsText = isFilter ? b.getString("placeholder.no_vehicles_filters") : b.getString("placeholder.no_vehicles_database");
+            } else {
+                noResultsText = isFilter ? "No vehicles match your filters." : "There are no vehicles in the database yet.";
+            }
+            placeholderLabel.setText(noResultsText);
             placeholderLabel.setVisible(true);
-            if (isFilter) showError("No vehicles match your filters.");
+
+            if (isFilter) {
+                showError(b != null ? b.getString("error.no_vehicles_filters") : "No vehicles match your filters.");
+            }
             return;
         }
         resultsListView.setItems(FXCollections.observableArrayList(sales));
@@ -356,18 +402,26 @@ public class SearchController {
         placeholderLabel.setVisible(false);
     }
 
-    private Double parseDouble(TextField field, String name) {
+    private Double parseDouble(TextField field, String errorKey, String fallback) {
         String text = field.getText();
         if (text == null || text.isBlank()) return null;
-        try { return Double.parseDouble(text.trim().replace(",", ".")); }
-        catch (NumberFormatException e) { showError("Invalid " + name + ": \"" + text + "\""); return null; }
+        try {
+            return Double.parseDouble(text.trim().replace(",", "."));
+        } catch (NumberFormatException e) {
+            showError(tr(errorKey, fallback) + ": \"" + text + "\"");
+            return null;
+        }
     }
 
-    private Integer parseInteger(TextField field, String name) {
+    private Integer parseInteger(TextField field, String errorKey, String fallback) {
         String text = field.getText();
         if (text == null || text.isBlank()) return null;
-        try { return Integer.parseInt(text.trim().replace(".", "").replace(",", "")); }
-        catch (NumberFormatException e) { showError("Invalid " + name + ": \"" + text + "\""); return null; }
+        try {
+            return Integer.parseInt(text.trim().replace(".", "").replace(",", ""));
+        } catch (NumberFormatException e) {
+            showError(tr(errorKey, fallback) + ": \"" + text + "\"");
+            return null;
+        }
     }
 
     private int earliest(Integer current, int candidate) {
@@ -382,5 +436,21 @@ public class SearchController {
         Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
         alert.setHeaderText(null);
         alert.showAndWait();
+    }
+
+    private String tr(String key, String fallback) {
+        java.util.ResourceBundle b = App.getBundle();
+        return b != null && b.containsKey(key) ? b.getString(key) : fallback;
+    }
+
+    private String getMotorTypeText(MotorType motorType) {
+        if (motorType == null) {
+            return tr("search.not_specified", "Not specified");
+        }
+        return switch (motorType) {
+            case GASOLINE -> tr("motor.gasoline", "Gasoline");
+            case DIESEL -> tr("motor.diesel", "Diesel");
+            case ELECTRIC -> tr("motor.electric", "Electric");
+        };
     }
 }

@@ -2,6 +2,7 @@ package eus.ehu.ui;
 
 import eus.ehu.businesslogic.BlInterface;
 import eus.ehu.domain.Listing;
+import eus.ehu.domain.MotorType;
 import eus.ehu.domain.Sale;
 import eus.ehu.domain.Vehicle;
 import javafx.fxml.FXML;
@@ -61,7 +62,9 @@ public class ViewOfferController {
     }
 
     public void refreshView() {
-        if (Model == null) return;
+        if (Model == null) {
+            return;
+        }
 
         Vehicle vehicle = selectedVehicle;
         Sale sale = selectedSale;
@@ -89,14 +92,20 @@ public class ViewOfferController {
         if (carImage != null) {
             String imagePath = vehicle.getImagePath();
             try {
+                Image image = null;
                 if (imagePath != null && !imagePath.isEmpty()) {
-                    var is = getClass().getResourceAsStream(imagePath);
-                    if (is != null) {
-                        carImage.setImage(new Image(is));
-                    } else {
-                        carImage.setImage(new Image(getClass().getResourceAsStream("/images/cars/default_car.jpg")));
+                    var imageStream = getClass().getResourceAsStream(imagePath);
+                    if (imageStream != null) {
+                        image = new Image(imageStream);
                     }
                 }
+                if (image == null) {
+                    var defaultStream = getClass().getResourceAsStream("/images/cars/default_car.jpg");
+                    if (defaultStream != null) {
+                        image = new Image(defaultStream);
+                    }
+                }
+                carImage.setImage(image);
             } catch (Exception e) {
                 System.out.println("Error loading image: " + e.getMessage());
             }
@@ -181,6 +190,22 @@ public class ViewOfferController {
 
     private String formatNumber(int value) {
         return String.valueOf(value);
+    }
+
+    private String getMotorTypeText(MotorType motorType) {
+        if (motorType == null) {
+            return "N/A";
+        }
+        return switch (motorType) {
+            case GASOLINE -> tr("motor.gasoline", "Gasoline");
+            case DIESEL -> tr("motor.diesel", "Diesel");
+            case ELECTRIC -> tr("motor.electric", "Electric");
+        };
+    }
+
+    private String tr(String key, String fallback) {
+        java.util.ResourceBundle bundle = App.getBundle();
+        return bundle != null && bundle.containsKey(key) ? bundle.getString(key) : fallback;
     }
 
     @FXML

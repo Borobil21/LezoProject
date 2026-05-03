@@ -29,6 +29,8 @@ public class User {
 	private String password;
 	private String phone;
 	private String location;
+	@Column(name = "default_language")
+	private String defaultLanguage;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Listing> publications;
@@ -127,6 +129,14 @@ public class User {
 		this.location = location;
 	}
 
+	public String getDefaultLanguage() {
+		return defaultLanguage;
+	}
+
+	public void setDefaultLanguage(String defaultLanguage) {
+		this.defaultLanguage = defaultLanguage;
+	}
+
 	public List<Listing> getPublications() {
 		return publications;
 	}
@@ -144,6 +154,7 @@ public class User {
 				", password='" + password + '\'' +
 				", phone='" + phone + '\'' +
 				", location='" + location + '\'' +
+				", defaultLanguage='" + defaultLanguage + '\'' +
 				", publicationsCount=" + (publications != null ? publications.size() : 0) +
 				'}';
 	}

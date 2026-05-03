@@ -16,13 +16,15 @@
       <!-- NAVBAR -->
       <AnchorPane prefHeight="70.0" prefWidth="1000.0" style="-fx-background-color: #007bff;">
          <children>
-            <Label layoutX="40.0" layoutY="20.0" text="PickAuto" textFill="WHITE">
+            <Label layoutX="40.0" layoutY="20.0" text="%app.title" textFill="WHITE">
                <font><Font name="System Bold" size="24.0" /></font>
             </Label>
-            <Button fx:id="profileName" layoutX="855.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleViewProfile" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 18; -fx-border-color: #cfe3ff; -fx-border-radius: 18; -fx-text-fill: #005fcc; -fx-font-weight: bold; -fx-cursor: hand;" text="My profile">
-               <font><Font size="14.0" /></font>
+            <Button fx:id="profileName" layoutX="855.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleViewProfile" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 18; -fx-border-color: #cfe3ff; -fx-border-radius: 18; -fx-text-fill: #005fcc; -fx-font-weight: bold; -fx-cursor: hand;" text="%button.my_profile">
+               <font>
+                  <Font size="14.0" />
+               </font>
             </Button>
-            <Button layoutX="700.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleCreatePost" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 18; -fx-border-color: #cfe3ff; -fx-border-radius: 18; -fx-text-fill: #005fcc; -fx-font-weight: bold; -fx-cursor: hand;" text="Create Post" />
+            <Button layoutX="700.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleCreatePost" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 18; -fx-border-color: #cfe3ff; -fx-border-radius: 18; -fx-text-fill: #005fcc; -fx-font-weight: bold; -fx-cursor: hand;" text="%button.create_post" />
          </children>
       </AnchorPane>
 
@@ -30,13 +32,12 @@
       <AnchorPane layoutX="40.0" layoutY="90.0" prefHeight="700.0" prefWidth="300.0" style="-fx-background-color: #ffffff; -fx-border-color: #dddddd;">
          <children>
 
-            <Label layoutX="20.0" layoutY="15.0" text="Refine Search">
+            <Label layoutX="20.0" layoutY="15.0" text="%label.refine_search">
                <font><Font name="System Bold" size="16.0" /></font>
             </Label>
-            <Label fx:id="clearAllLabel" layoutX="220.0" layoutY="18.0" onMouseClicked="#handleClearAll" style="-fx-cursor: hand;" text="Clear All" textFill="#007bff" />
+            <Label fx:id="clearAllLabel" layoutX="220.0" layoutY="18.0" onMouseClicked="#handleClearAll" style="-fx-cursor: hand;" text="%label.clear_all" textFill="#007bff" />
 
-            <!-- Brand & Manufacturers -->
-            <Label layoutX="20.0" layoutY="50.0" text="Brand &amp; Manufacturers">
+            <Label layoutX="20.0" layoutY="50.0" text="%label.brand_manufacturers">
                <font><Font name="System Bold" size="13.0" /></font>
             </Label>
             <CheckBox fx:id="porscheCheck" layoutX="20.0" layoutY="75.0" text="Porsche" />
@@ -87,7 +88,7 @@
       <!-- RIGHT PANEL — Results -->
       <AnchorPane layoutX="360.0" layoutY="90.0" prefHeight="700.0" prefWidth="600.0" style="-fx-background-color: #ffffff; -fx-border-color: #dddddd;">
          <children>
-            <Label fx:id="placeholderLabel" layoutX="140.0" layoutY="280.0" text="Vehicle search results will appear here" textFill="#aaaaaa">
+            <Label fx:id="placeholderLabel" layoutX="140.0" layoutY="280.0" text="%placeholder.search_results" textFill="#aaaaaa">
                <font><Font size="14.0" /></font>
             </Label>
             <ListView fx:id="resultsListView" layoutX="10.0" layoutY="10.0" prefHeight="580.0" prefWidth="580.0" visible="false" style="-fx-background-color: transparent; -fx-control-inner-background: transparent;" />
