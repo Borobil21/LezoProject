@@ -20,7 +20,6 @@ public class Vehicle {
 	@Column(name = "vehicle_year")
 	private int year;
 
-	
 	private Integer mileage;
 	private Integer horsepower;
 
@@ -31,6 +30,17 @@ public class Vehicle {
 	@OneToOne
 	@JoinColumn(name = "listing_id", nullable = false, unique = true)
 	private Listing listing;
+
+	@Column(name = "image_path")
+	private String imagePath;
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 
 	protected Vehicle() {
 	}
@@ -44,6 +54,7 @@ public class Vehicle {
 		this.horsepower = builder.horsepower;
 		this.motorType = builder.motorType;
 		this.listing = builder.listing;
+		this.imagePath = builder.imagePath;	
 	}
 
 	public static class Builder {
@@ -55,6 +66,7 @@ public class Vehicle {
 		private Integer horsepower;
 		private MotorType motorType;
 		private Listing listing;
+		private String imagePath;
 
 		public Builder(String licensePlate) {
 			this.licensePlate = licensePlate;
@@ -98,6 +110,10 @@ public class Vehicle {
 		public Vehicle build() {
 			return new Vehicle(this);
 		}
+		public Builder imagePath(String imagePath) {
+        this.imagePath = imagePath;
+        return this;
+    	}
 	}
 
 	public String getLicensePlate() {

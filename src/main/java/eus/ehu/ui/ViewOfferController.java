@@ -10,6 +10,8 @@ import eus.ehu.domain.Vehicle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class ViewOfferController {
 
@@ -28,6 +30,8 @@ public class ViewOfferController {
     @FXML
     private Label AdditionalDescription;
     @FXML
+    private ImageView carImage;
+    @FXML
     private Button BuyButton;
     @FXML
     private Button OfferButton;
@@ -39,43 +43,24 @@ public class ViewOfferController {
     private Vehicle selectedVehicle;
 
     @FXML
-    private void handleGoToSearch() {
-        try {
-            App.setRoot("FilterSearch");
-        } catch (Exception e) {
-            throw new RuntimeException("Unable to open Filter Search scene", e);
-        }
-    }
-
-    @FXML
-    private void handleViewProfile() {
-        try {
-            App.setRoot("Profile");
-        } catch (Exception e) {
-            throw new RuntimeException("Unable to open Profile scene", e);
-        }
-    }
-
-    public void setBl(BlInterface bl) {
-        this.bl = bl;
-        refreshView();
-    }
-
-    public void setSelectedSale(Sale sale) {
-        this.selectedSale = sale;
-        this.selectedVehicle = sale != null ? sale.getVehicle() : null;
-        refreshView();
-    }
-
-    public void setSelectedVehicle(Vehicle vehicle) {
-        this.selectedVehicle = vehicle;
-        this.selectedSale = vehicle != null ? asSale(vehicle.getListing()) : null;
-        refreshView();
-    }
-
-    @FXML
     public void initialize() {
+        applyStyles();
         refreshView();
+    }
+
+    private void applyStyles() {
+        if (Price != null) {
+            Price.setStyle("-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
+        }
+        if (BuyButton != null) {
+            BuyButton.setStyle("-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;");
+        }
+        if (OfferButton != null) {
+            OfferButton.setStyle("-fx-background-color: transparent; -fx-text-fill: #007bff; -fx-border-color: #007bff; -fx-border-radius: 5; -fx-cursor: hand;");
+        }
+        if (WishlistButton != null) {
+            WishlistButton.setStyle("-fx-border-color: #007bff; -fx-border-radius: 5; -fx-text-fill: #007bff; -fx-cursor: hand;");
+        }
     }
 
     public void refreshView() {
@@ -106,10 +91,32 @@ public class ViewOfferController {
             selectedSale = sale;
         }
 
+        if (carImage != null) {
+            String imagePath = vehicle.getImagePath();
+            try {
+                Image image = null;
+                if (imagePath != null && !imagePath.isEmpty()) {
+                    var imageStream = getClass().getResourceAsStream(imagePath);
+                    if (imageStream != null) {
+                        image = new Image(imageStream);
+                    }
+                }
+                if (image == null) {
+                    var defaultStream = getClass().getResourceAsStream("/images/cars/default_car.jpg");
+                    if (defaultStream != null) {
+                        image = new Image(defaultStream);
+                    }
+                }
+                carImage.setImage(image);
+            } catch (Exception e) {
+                System.out.println("Error loading image: " + e.getMessage());
+            }
+        }
+
         Model.setText(formatVehicleTitle(vehicle));
         Age.setText(vehicle.getYear() > 0 ? String.valueOf(vehicle.getYear()) : "N/A");
         Mileage.setText(formatNumber(vehicle.getMileage()) + " km");
-        MotorType.setText(getMotorTypeText(vehicle.getMotorType()));
+        MotorType.setText(vehicle.getMotorType() != null ? vehicle.getMotorType().name() : "N/A");
         HorsePower.setText(formatNumber(vehicle.getHorsepower()) + " hp");
         Price.setText(sale != null ? formatPrice(sale.getFixedPrice()) : "N/A");
         AdditionalDescription.setText(sale != null && sale.getDescription() != null && !sale.getDescription().isBlank()
@@ -127,6 +134,7 @@ public class ViewOfferController {
 
     public void showEmptyState() {
         Model.setText("No vehicle selected");
+        if (carImage != null) carImage.setImage(null);
         Age.setText("-");
         Mileage.setText("-");
         MotorType.setText("-");
@@ -134,11 +142,25 @@ public class ViewOfferController {
         Price.setText("-");
         AdditionalDescription.setText("Select a vehicle to see its details.");
 
-        if (BuyButton != null) {
-            BuyButton.setDisable(true);
+        if (BuyButton != null) BuyButton.setDisable(true);
+        if (OfferButton != null) OfferButton.setDisable(true);
+    }
+
+    @FXML
+    private void handleGoToSearch() {
+        try {
+            App.setRoot("FilterSearch");
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to open Filter Search scene", e);
         }
-        if (OfferButton != null) {
-            OfferButton.setDisable(true);
+    }
+
+    @FXML
+    private void handleViewProfile() {
+        try {
+            App.setRoot("Profile");
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to open Profile scene", e);
         }
         if (WishlistButton != null) {
             WishlistButton.setDisable(true);
@@ -147,11 +169,25 @@ public class ViewOfferController {
         }
     }
 
+    public void setBl(BlInterface bl) {
+        this.bl = bl;
+        refreshView();
+    }
+
+    public void setSelectedSale(Sale sale) {
+        this.selectedSale = sale;
+        this.selectedVehicle = sale != null ? sale.getVehicle() : null;
+        refreshView();
+    }
+
+    public void setSelectedVehicle(Vehicle vehicle) {
+        this.selectedVehicle = vehicle;
+        this.selectedSale = vehicle != null ? asSale(vehicle.getListing()) : null;
+        refreshView();
+    }
+
     private Sale asSale(Listing listing) {
-        if (listing instanceof Sale) {
-            return (Sale) listing;
-        }
-        return null;
+        return (listing instanceof Sale) ? (Sale) listing : null;
     }
 
     private String formatVehicleTitle(Vehicle vehicle) {
@@ -233,5 +269,4 @@ public class ViewOfferController {
             System.out.println("Fallo al añadir: selectedVehicle o bl son null");
         }
     }
-
 }
