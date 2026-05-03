@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -35,10 +36,11 @@
                </font>
             </Label>
             
-            <ListView fx:id="wishlistListView" layoutX="40.0" layoutY="80.0" prefHeight="450.0" prefWidth="620.0" visible="false" />
+            <!-- ListView modificado para que el fondo sea transparente y encajen las tarjetas -->
+            <ListView fx:id="wishlistListView" layoutX="40.0" layoutY="80.0" prefHeight="450.0" prefWidth="620.0" style="-fx-background-color: transparent; -fx-control-inner-background: transparent;" visible="false" />
             
-            <TextField fx:id="SaleIdField" layoutX="200.0" layoutY="560.0" prefHeight="35.0" prefWidth="140.0" promptText="%wishlist.prompt.insert_sale" style="-fx-border-color: #cccccc;" />
-            <Button layoutX="360.0" layoutY="560.0" mnemonicParsing="false" onAction="#handleViewOffer" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #007bff; -fx-cursor: hand;" text="%button.view_offer" textFill="WHITE">
+            <!-- Botón de ver oferta centrado, ya no necesitamos el TextField -->
+            <Button fx:id="viewOfferButton" layoutX="280.0" layoutY="560.0" mnemonicParsing="false" onAction="#handleViewOffer" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #007bff; -fx-cursor: hand;" text="%button.view_offer" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
