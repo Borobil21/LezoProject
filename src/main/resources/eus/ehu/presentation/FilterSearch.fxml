@@ -13,6 +13,7 @@
 <AnchorPane prefHeight="820.0" prefWidth="1000.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ui.SearchController">
    <children>
 
+      <!-- NAVBAR -->
       <AnchorPane prefHeight="70.0" prefWidth="1000.0" style="-fx-background-color: #007bff;">
          <children>
             <Label layoutX="40.0" layoutY="20.0" text="%app.title" textFill="WHITE">
@@ -43,23 +44,28 @@
             <CheckBox fx:id="audiCheck" layoutX="20.0" layoutY="115.0" text="Audi" />
             <CheckBox fx:id="mercedesCheck" layoutX="20.0" layoutY="135.0" text="Mercedes-Benz" />
             <CheckBox fx:id="teslaCheck" layoutX="20.0" layoutY="155.0" text="Tesla" />
-            <Label layoutX="20.0" layoutY="180.0" text="%label.show_more_brands" textFill="#007bff" />
+            <Label fx:id="showMoreBrandsLabel" layoutX="20.0" layoutY="178.0" onMouseClicked="#handleShowMoreBrands" style="-fx-cursor: hand;" text="+ Show all brands" textFill="#007bff" />
 
-            <Label layoutX="20.0" layoutY="210.0" text="%label.price_range">
+            <!-- Price Range — two sliders -->
+            <Label layoutX="20.0" layoutY="208.0" text="Price Range">
                <font><Font name="System Bold" size="13.0" /></font>
             </Label>
-            <Slider fx:id="priceSlider" layoutX="20.0" layoutY="235.0" prefWidth="260.0" value="40.0" />
-            <TextField fx:id="minPriceField" layoutX="20.0" layoutY="255.0" prefHeight="25.0" prefWidth="120.0" promptText="%prompt.min_price" style="-fx-border-color: #cccccc;" />
-            <TextField fx:id="maxPriceField" layoutX="160.0" layoutY="255.0" prefHeight="25.0" prefWidth="120.0" promptText="%prompt.max_price" style="-fx-border-color: #cccccc;" />
+            <Slider fx:id="minPriceSlider" layoutX="20.0" layoutY="230.0" prefWidth="260.0" min="0" max="200000" value="0" showTickLabels="false" />
+            <Slider fx:id="maxPriceSlider" layoutX="20.0" layoutY="252.0" prefWidth="260.0" min="0" max="200000" value="200000" showTickLabels="false" />
+            <TextField fx:id="minPriceField" layoutX="20.0" layoutY="276.0" prefHeight="28.0" prefWidth="120.0" promptText="€ 0" style="-fx-border-color: #cccccc; -fx-border-radius: 4; -fx-background-radius: 4;" />
+            <TextField fx:id="maxPriceField" layoutX="160.0" layoutY="276.0" prefHeight="28.0" prefWidth="120.0" promptText="€ 200.000" style="-fx-border-color: #cccccc; -fx-border-radius: 4; -fx-background-radius: 4;" />
 
-            <Label layoutX="20.0" layoutY="295.0" text="%label.kilometers">
+            <!-- Kilometers — two sliders -->
+            <Label layoutX="20.0" layoutY="318.0" text="Kilometers">
                <font><Font name="System Bold" size="13.0" /></font>
             </Label>
-            <Slider fx:id="kmSlider" layoutX="20.0" layoutY="320.0" prefWidth="260.0" value="70.0" />
-            <TextField fx:id="minKmField" layoutX="20.0" layoutY="340.0" prefHeight="25.0" prefWidth="120.0" promptText="%prompt.min_km" style="-fx-border-color: #cccccc;" />
-            <TextField fx:id="maxKmField" layoutX="160.0" layoutY="340.0" prefHeight="25.0" prefWidth="120.0" promptText="%prompt.max_km" style="-fx-border-color: #cccccc;" />
+            <Slider fx:id="minKmSlider" layoutX="20.0" layoutY="340.0" prefWidth="260.0" min="0" max="500000" value="0" showTickLabels="false" />
+            <Slider fx:id="maxKmSlider" layoutX="20.0" layoutY="362.0" prefWidth="260.0" min="0" max="500000" value="500000" showTickLabels="false" />
+            <TextField fx:id="minKmField" layoutX="20.0" layoutY="386.0" prefHeight="28.0" prefWidth="120.0" promptText="0 Km" style="-fx-border-color: #cccccc; -fx-border-radius: 4; -fx-background-radius: 4;" />
+            <TextField fx:id="maxKmField" layoutX="160.0" layoutY="386.0" prefHeight="28.0" prefWidth="120.0" promptText="500.000 Km" style="-fx-border-color: #cccccc; -fx-border-radius: 4; -fx-background-radius: 4;" />
 
-            <Label layoutX="20.0" layoutY="380.0" text="%label.vehicle_age">
+            <!-- Vehicle Age -->
+            <Label layoutX="20.0" layoutY="428.0" text="Vehicle Age">
                <font><Font name="System Bold" size="13.0" /></font>
             </Label>
             <CheckBox fx:id="newCheck" layoutX="20.0" layoutY="405.0" text="%age.option.new" />
@@ -67,18 +73,18 @@
             <CheckBox fx:id="usedCheck" layoutX="20.0" layoutY="445.0" text="%age.option.used" />
             <CheckBox fx:id="oldCheck" layoutX="20.0" layoutY="465.0" text="%age.option.old" />
 
-            <ComboBox fx:id="motorTypeComboBox" layoutX="20.0" layoutY="500.0" prefHeight="25.0" prefWidth="260.0" promptText="%prompt.motor_fuel" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
-            <ComboBox fx:id="transmissionComboBox" layoutX="20.0" layoutY="535.0" prefHeight="25.0" prefWidth="260.0" promptText="%prompt.transmission" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
-            <ComboBox fx:id="colorComboBox" layoutX="20.0" layoutY="570.0" prefHeight="25.0" prefWidth="260.0" promptText="%prompt.exterior_color" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
-            <ComboBox fx:id="bodyTypeComboBox" layoutX="20.0" layoutY="605.0" prefHeight="25.0" prefWidth="260.0" promptText="%prompt.body_type" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+            <!-- Motor & Fuel -->
+            <ComboBox fx:id="motorTypeComboBox" layoutX="20.0" layoutY="548.0" prefHeight="28.0" prefWidth="260.0" promptText="Motor &amp; Fuel" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
 
-            <Button layoutX="20.0" layoutY="645.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="40.0" prefWidth="260.0" style="-fx-background-color: #007bff;" text="%button.apply_filters" textFill="WHITE">
+            <!-- Apply button -->
+            <Button layoutX="20.0" layoutY="600.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="40.0" prefWidth="260.0" style="-fx-background-color: #007bff; -fx-background-radius: 6;" text="Apply Filters" textFill="WHITE">
                <font><Font name="System Bold" size="14.0" /></font>
             </Button>
 
          </children>
       </AnchorPane>
 
+      <!-- RIGHT PANEL — Results -->
       <AnchorPane layoutX="360.0" layoutY="90.0" prefHeight="700.0" prefWidth="600.0" style="-fx-background-color: #ffffff; -fx-border-color: #dddddd;">
          <children>
             <Label fx:id="placeholderLabel" alignment="CENTER" layoutX="140.0" layoutY="280.0" prefHeight="20.0" prefWidth="320.0" text="%placeholder.search_results" textFill="#aaaaaa">
