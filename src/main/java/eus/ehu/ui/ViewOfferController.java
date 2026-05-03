@@ -2,6 +2,7 @@ package eus.ehu.ui;
 
 import eus.ehu.businesslogic.BlInterface;
 import eus.ehu.domain.Listing;
+import eus.ehu.domain.MotorType;
 import eus.ehu.domain.Sale;
 import eus.ehu.domain.Vehicle;
 import javafx.fxml.FXML;
@@ -106,7 +107,7 @@ public class ViewOfferController {
         Model.setText(formatVehicleTitle(vehicle));
         Age.setText(vehicle.getYear() > 0 ? String.valueOf(vehicle.getYear()) : "N/A");
         Mileage.setText(formatNumber(vehicle.getMileage()) + " km");
-        MotorType.setText(vehicle.getMotorType() != null ? vehicle.getMotorType().name() : "N/A");
+        MotorType.setText(getMotorTypeText(vehicle.getMotorType()));
         HorsePower.setText(formatNumber(vehicle.getHorsepower()) + " hp");
         Price.setText(sale != null ? formatPrice(sale.getFixedPrice()) : "N/A");
         AdditionalDescription.setText(sale != null && sale.getDescription() != null && !sale.getDescription().isBlank()
@@ -157,6 +158,22 @@ public class ViewOfferController {
 
     private String formatNumber(int value) {
         return String.valueOf(value);
+    }
+
+    private String getMotorTypeText(MotorType motorType) {
+        if (motorType == null) {
+            return "N/A";
+        }
+        return switch (motorType) {
+            case GASOLINE -> tr("motor.gasoline", "Gasoline");
+            case DIESEL -> tr("motor.diesel", "Diesel");
+            case ELECTRIC -> tr("motor.electric", "Electric");
+        };
+    }
+
+    private String tr(String key, String fallback) {
+        java.util.ResourceBundle bundle = App.getBundle();
+        return bundle != null && bundle.containsKey(key) ? bundle.getString(key) : fallback;
     }
 
     @FXML

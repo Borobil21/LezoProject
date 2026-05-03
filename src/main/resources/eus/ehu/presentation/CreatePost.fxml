@@ -28,27 +28,27 @@
 
       <AnchorPane layoutX="150.0" layoutY="110.0" prefHeight="630.0" prefWidth="700.0" style="-fx-background-color: #ffffff; -fx-border-color: #dddddd;">
          <children>
-            <Label layoutX="40.0" layoutY="30.0" text="Create a post">
+            <Label layoutX="40.0" layoutY="30.0" text="%create.title">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
             
-            <Label layoutX="40.0" layoutY="90.0" text="Brand" />
+            <Label layoutX="40.0" layoutY="90.0" text="%create.brand" />
             
-            <Label layoutX="370.0" layoutY="90.0" text="Model" />
+            <Label layoutX="370.0" layoutY="90.0" text="%create.model" />
 
-            <Label layoutX="40.0" layoutY="170.0" text="Age" />
+            <Label layoutX="40.0" layoutY="170.0" text="%create.age" />
             
-            <Label layoutX="370.0" layoutY="170.0" text="Mileage (km)" />
+            <Label layoutX="370.0" layoutY="170.0" text="%create.mileage" />
 
-            <Label layoutX="40.0" layoutY="246.0" text="Motor type" />
+            <Label layoutX="40.0" layoutY="246.0" text="%create.motor_type" />
             
-            <Label layoutX="370.0" layoutY="246.0" text="Horse Power (CV)" />
+            <Label layoutX="370.0" layoutY="246.0" text="%create.horse_power" />
 
-            <Label layoutX="40.0" layoutY="411.0" text="Additional description" />
-            <Label layoutX="40.0" layoutY="322.0" text="License plate" />
-            <Label layoutX="370.0" layoutY="322.0" text="Price">
+            <Label layoutX="40.0" layoutY="411.0" text="%create.additional_description" />
+            <Label layoutX="40.0" layoutY="322.0" text="%create.license_plate" />
+            <Label layoutX="370.0" layoutY="322.0" text="%create.price">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -57,19 +57,19 @@
             <TextField fx:id="model" layoutX="370.0" layoutY="115.0" prefHeight="35.0" prefWidth="290.0" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
             <TextField fx:id="age" layoutX="40.0" layoutY="195.0" prefHeight="35.0" prefWidth="290.0" style="-fx-border-color: #cccccc;" />
             <TextField fx:id="mileage" layoutX="370.0" layoutY="195.0" prefHeight="35.0" prefWidth="290.0" style="-fx-border-color: #cccccc;" />
-            <ComboBox fx:id="motorType" layoutX="40.0" layoutY="271.0" prefHeight="35.0" prefWidth="290.0" promptText="Gasoline / Diesel / Electric" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+            <ComboBox fx:id="motorType" layoutX="40.0" layoutY="271.0" prefHeight="35.0" prefWidth="290.0" promptText="%prompt.motor_options" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
             <TextField fx:id="horsePower" layoutX="370.0" layoutY="271.0" prefHeight="35.0" prefWidth="290.0" style="-fx-border-color: #cccccc;" />
             <TextField fx:id="licensePlate" layoutX="40.0" layoutY="346.0" prefHeight="35.0" prefWidth="290.0" style="-fx-border-color: #cccccc;" />
             <TextField fx:id="price" layoutX="370.0" layoutY="346.0" prefHeight="35.0" prefWidth="290.0" style="-fx-border-color: #cccccc;" />
             <TextArea fx:id="description" layoutX="40.0" layoutY="436.0" prefHeight="100.0" prefWidth="620.0" style="-fx-border-color: #cccccc;" />
 
-            <Button fx:id="postButton" defaultButton="true" layoutX="460.0" layoutY="559.0" mnemonicParsing="false" onAction="#post" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #007bff;" text="POST" textFill="WHITE">
+            <Button fx:id="postButton" defaultButton="true" layoutX="460.0" layoutY="559.0" mnemonicParsing="false" onAction="#post" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #007bff;" text="%button.post" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
          </children>
       </AnchorPane>
-      <Button layoutX="700.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleGoToSearch" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 18; -fx-border-color: #cfe3ff; -fx-border-radius: 18; -fx-text-fill: #005fcc; -fx-font-weight: bold; -fx-cursor: hand;" text="Go back" />
+      <Button layoutX="700.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleGoToSearch" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 18; -fx-border-color: #cfe3ff; -fx-border-radius: 18; -fx-text-fill: #005fcc; -fx-font-weight: bold; -fx-cursor: hand;" text="%button.go_back" />
    </children>
 </AnchorPane>

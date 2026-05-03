@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class LoginController {
     // This controller is for the login scene (Login.fxml)
@@ -34,6 +36,42 @@ public class LoginController {
     }
 
     @FXML
+    private void handleSetLangEu() {
+        setLanguage("eu");
+    }
+
+    @FXML
+    private void handleSetLangEs() {
+        setLanguage("es");
+    }
+
+    @FXML
+    private void handleSetLangEn() {
+        setLanguage("en");
+    }
+
+    @FXML
+    private void handleSetLangFr() {
+        setLanguage("fr");
+    }
+
+    private void setLanguage(String lang) {
+        try {
+            Locale locale = new Locale(lang);
+            App.setLocale(locale);
+            // If user already logged in, persist in memory
+            User current = App.getActualUser();
+            if (current != null) {
+                current.setDefaultLanguage(lang);
+                App.setActualUser(current);
+            }
+            App.setRoot("Login");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void handleLogin() {
         String email = txtEmail.getText();
         String pass = txtPassword.getText();
@@ -44,7 +82,8 @@ public class LoginController {
         if (loggedUser != null) {
             App.setActualUser(loggedUser); // Store the logged-in user in the App class for global access
             System.out.println("Welcome, " + loggedUser.getName());
-            InformationLabel.setText("Login successful!");
+            ResourceBundle b = App.getBundle();
+            InformationLabel.setText(b != null ? b.getString("message.login_success") : "Login successful!");
             InformationLabel.setVisible(true);
 
             try {
@@ -57,7 +96,8 @@ public class LoginController {
             // está conectado
 
         } else {
-            mostrarErrorTemporal("Email or password incorrect.");
+            ResourceBundle b = App.getBundle();
+            mostrarErrorTemporal(b != null ? b.getString("error.login_invalid_credentials") : "Email or password incorrect.");
         }
     }
 

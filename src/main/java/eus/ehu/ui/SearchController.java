@@ -22,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.StringConverter;
 
 public class SearchController {
 
@@ -75,6 +76,18 @@ public class SearchController {
     @FXML
     public void initialize() {
         motorTypeComboBox.setItems(FXCollections.observableArrayList(MotorType.values()));
+        motorTypeComboBox.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(MotorType motorType) {
+                return getMotorTypeText(motorType);
+            }
+
+            @Override
+            public MotorType fromString(String string) {
+                return null;
+            }
+        });
+
         transmissionComboBox.setItems(FXCollections.observableArrayList("Automatic", "Manual"));
         colorComboBox.setItems(FXCollections.observableArrayList("Black", "White", "Silver", "Red", "Blue", "Grey", "Other"));
         bodyTypeComboBox.setItems(FXCollections.observableArrayList("SUV", "Sedan", "Hatchback", "Coupe", "Convertible", "Van", "Truck"));
@@ -120,8 +133,8 @@ public class SearchController {
                     Label priceLabel = new Label(String.format("%.2f €", sale.getFixedPrice()));
                     priceLabel.setStyle("-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #e60000;");
 
-                    String mileageStr = (v.getMileage() != null) ? v.getMileage() + " km" : "Not specified";
-                    Label infoLabel = new Label(v.getYear() + "  |  " + mileageStr + "  |  " + v.getMotorType());
+                    String mileageStr = (v.getMileage() != null) ? v.getMileage() + " km" : tr("search.not_specified", "Not specified");
+                    Label infoLabel = new Label(v.getYear() + "  |  " + mileageStr + "  |  " + getMotorTypeText(v.getMotorType()));
                     infoLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #666666;");
 
                     detailsBox.getChildren().addAll(titleLabel, priceLabel, infoLabel);
@@ -166,7 +179,7 @@ public class SearchController {
         try {
             Sale selectedSale = resultsListView.getSelectionModel().getSelectedItem();
             if (selectedSale == null) {
-                showError("Please select an offer from the list first.");
+                showError(tr("error.search.select_offer", "Please select an offer from the list first."));
                 return;
             }
             App.openViewOffer(selectedSale.getId());
@@ -177,25 +190,25 @@ public class SearchController {
 
     @FXML
     private void handleSearch() {
-        Double minPrice = parseDouble(minPriceField, "minimum price");
+        Double minPrice = parseDouble(minPriceField, "error.search.invalid_min_price", "Invalid minimum price");
         if (minPrice == null && !minPriceField.getText().isEmpty()) return;
 
-        Double maxPrice = parseDouble(maxPriceField, "maximum price");
+        Double maxPrice = parseDouble(maxPriceField, "error.search.invalid_max_price", "Invalid maximum price");
         if (maxPrice == null && !maxPriceField.getText().isEmpty()) return;
 
         if (minPrice != null && maxPrice != null && minPrice > maxPrice) {
-            showError("Minimum price cannot exceed maximum price.");
+            showError(tr("error.search.min_price_exceeds", "Minimum price cannot exceed maximum price."));
             return;
         }
 
-        Integer minMileage = parseInteger(minKmField, "minimum mileage");
+        Integer minMileage = parseInteger(minKmField, "error.search.invalid_min_mileage", "Invalid minimum mileage");
         if (minMileage == null && !minKmField.getText().isEmpty()) return;
 
-        Integer maxMileage = parseInteger(maxKmField, "maximum mileage");
+        Integer maxMileage = parseInteger(maxKmField, "error.search.invalid_max_mileage", "Invalid maximum mileage");
         if (maxMileage == null && !maxKmField.getText().isEmpty()) return;
 
         if (minMileage != null && maxMileage != null && minMileage > maxMileage) {
-            showError("Minimum mileage cannot exceed maximum mileage.");
+            showError(tr("error.search.min_mileage_exceeds", "Minimum mileage cannot exceed maximum mileage."));
             return;
         }
 
@@ -256,11 +269,18 @@ public class SearchController {
     private void showResults(List<Sale> sales, boolean isFilter) {
         if (sales.isEmpty()) {
             resultsListView.setVisible(false);
-            placeholderLabel.setText(isFilter ? "No vehicles match your filters." : "There are no vehicles in the database yet.");
+            java.util.ResourceBundle b = App.getBundle();
+            String noResultsText;
+            if (b != null) {
+                noResultsText = isFilter ? b.getString("placeholder.no_vehicles_filters") : b.getString("placeholder.no_vehicles_database");
+            } else {
+                noResultsText = isFilter ? "No vehicles match your filters." : "There are no vehicles in the database yet.";
+            }
+            placeholderLabel.setText(noResultsText);
             placeholderLabel.setVisible(true);
-            
+
             if (isFilter) {
-                showError("No vehicles match your filters.");
+                showError(b != null ? b.getString("error.no_vehicles_filters") : "No vehicles match your filters.");
             }
             return;
         }
@@ -270,24 +290,24 @@ public class SearchController {
         placeholderLabel.setVisible(false);
     }
 
-    private Double parseDouble(TextField field, String fieldName) {
+    private Double parseDouble(TextField field, String errorKey, String fallback) {
         String text = field.getText();
         if (text == null || text.isBlank()) return null;
         try {
             return Double.parseDouble(text.trim().replace(",", "."));
         } catch (NumberFormatException e) {
-            showError("Invalid " + fieldName + ": \"" + text + "\"");
+            showError(tr(errorKey, fallback) + ": \"" + text + "\"");
             return null;
         }
     }
 
-    private Integer parseInteger(TextField field, String fieldName) {
+    private Integer parseInteger(TextField field, String errorKey, String fallback) {
         String text = field.getText();
         if (text == null || text.isBlank()) return null;
         try {
             return Integer.parseInt(text.trim().replace(".", "").replace(",", ""));
         } catch (NumberFormatException e) {
-            showError("Invalid " + fieldName + ": \"" + text + "\"");
+            showError(tr(errorKey, fallback) + ": \"" + text + "\"");
             return null;
         }
     }
@@ -304,5 +324,21 @@ public class SearchController {
         Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
         alert.setHeaderText(null);
         alert.showAndWait();
+    }
+
+    private String tr(String key, String fallback) {
+        java.util.ResourceBundle b = App.getBundle();
+        return b != null && b.containsKey(key) ? b.getString(key) : fallback;
+    }
+
+    private String getMotorTypeText(MotorType motorType) {
+        if (motorType == null) {
+            return tr("search.not_specified", "Not specified");
+        }
+        return switch (motorType) {
+            case GASOLINE -> tr("motor.gasoline", "Gasoline");
+            case DIESEL -> tr("motor.diesel", "Diesel");
+            case ELECTRIC -> tr("motor.electric", "Electric");
+        };
     }
 }

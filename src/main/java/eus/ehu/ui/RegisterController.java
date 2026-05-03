@@ -1,5 +1,8 @@
 package eus.ehu.ui;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import eus.ehu.businesslogic.BlInterface;
 import eus.ehu.businesslogic.BlManager;
 import javafx.animation.PauseTransition;
@@ -40,6 +43,37 @@ public class RegisterController {
     }
 
     @FXML
+    private void handleSetLangEu() {
+        setLanguage("eu");
+    }
+
+    @FXML
+    private void handleSetLangEs() {
+        setLanguage("es");
+    }
+
+    @FXML
+    private void handleSetLangEn() {
+        setLanguage("en");
+    }
+
+    @FXML
+    private void handleSetLangFr() {
+        setLanguage("fr");
+    }
+
+    private void setLanguage(String lang) {
+        try {
+            Locale locale = new Locale(lang);
+            App.setLocale(locale);
+            // no actual user yet in registration typically
+            App.setRoot("Register");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void handleRegister() {
         String name = txtName.getText();
         String email = txtEmail.getText();
@@ -53,8 +87,9 @@ public class RegisterController {
         App.setActualUser(bl.getUserByEmail(email)); // Set the actual user in App after registration
 
         if (success) {
-            System.out.println("¡User succesfully registered!");
-            InformationLabel.setText("User succesfully registered!");
+            System.out.println("User succesfully registered!");
+            ResourceBundle b = App.getBundle();
+            InformationLabel.setText(b != null ? b.getString("message.register_success") : "User succesfully registered!");
             InformationLabel.setVisible(true);
 
             try {
@@ -65,7 +100,8 @@ public class RegisterController {
 
         } else {
             // Show error message for 5 seconds
-            InformationLabel.setText("Registration failed. Please check your information.");
+            ResourceBundle b = App.getBundle();
+            InformationLabel.setText(b != null ? b.getString("error.register_invalid_info") : "Registration failed. Please check your information.");
             InformationLabel.setVisible(true);
             PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(5));
             pause.setOnFinished(e -> InformationLabel.setVisible(false));

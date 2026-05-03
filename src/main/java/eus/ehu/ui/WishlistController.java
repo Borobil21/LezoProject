@@ -1,6 +1,7 @@
 package eus.ehu.ui;
 
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import eus.ehu.businesslogic.BlInterface;
@@ -56,12 +57,12 @@ public class WishlistController {
         try {
             String saleIdText = SaleIdField.getText();
             if (saleIdText == null || saleIdText.isBlank()) {
-                showError("Por favor introduce un ID de venta.");
+                showError(tr("error.wishlist.insert_sale_id", "Please insert a sale ID."));
                 return;
             }
             App.openViewOffer(Integer.parseInt(saleIdText.trim()));
         } catch (NumberFormatException e) {
-            showError("El ID debe ser un número.");
+            showError(tr("error.wishlist.sale_id_number", "Sale ID must be a number."));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -86,7 +87,7 @@ public class WishlistController {
         if (wishlist == null || wishlist.isEmpty()) {
             wishlistListView.setVisible(false);
             placeholderLabel.setVisible(true);
-            placeholderLabel.setText("Tu Wishlist está vacía.");
+            placeholderLabel.setText(tr("wishlist.placeholder", "Your wishlist is empty"));
             return;
         }
 
@@ -109,5 +110,10 @@ public class WishlistController {
         Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
         alert.setHeaderText(null);
         alert.showAndWait();
+    }
+
+    private String tr(String key, String fallback) {
+        ResourceBundle b = App.getBundle();
+        return b != null && b.containsKey(key) ? b.getString(key) : fallback;
     }
 }
