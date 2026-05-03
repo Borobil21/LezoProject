@@ -11,7 +11,7 @@
       
       <AnchorPane prefHeight="70.0" prefWidth="1000.0" style="-fx-background-color: #007bff;">
          <children>
-            <Label layoutX="40.0" layoutY="20.0" text="PickAuto" textFill="WHITE">
+            <Label layoutX="40.0" layoutY="20.0" text="%app.title" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -21,37 +21,43 @@
 
       <AnchorPane layoutX="150.0" layoutY="110.0" prefHeight="630.0" prefWidth="700.0" style="-fx-background-color: #ffffff; -fx-border-color: #dddddd;">
          <children>
-            <Label layoutX="137.0" layoutY="49.0" text="Please fill all your information to register">
+            <Label alignment="CENTER" layoutX="0.0" layoutY="49.0" prefWidth="700.0" text="%register.info" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
             
-            <Label layoutX="40.0" layoutY="134.0" text="Name" />
+            <Label layoutX="40.0" layoutY="134.0" text="%name" />
             <TextField fx:id="txtName" layoutX="40.0" layoutY="159.0" prefHeight="35.0" prefWidth="290.0" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
             
-            <Label layoutX="370.0" layoutY="134.0" text="Email" />
+            <Label layoutX="370.0" layoutY="134.0" text="%label.email" />
             <TextField fx:id="txtEmail" layoutX="370.0" layoutY="159.0" prefHeight="35.0" prefWidth="290.0" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
 
-            <Label layoutX="207.0" layoutY="358.0" text="Password" />
-            <TextField fx:id="txtPassword" layoutX="207.0" layoutY="383.0" prefHeight="35.0" prefWidth="290.0" promptText="Please remember your password" style="-fx-border-color: #cccccc;" />
+            <Label layoutX="207.0" layoutY="358.0" text="%label.password" />
+            <TextField fx:id="txtPassword" layoutX="207.0" layoutY="383.0" prefHeight="35.0" prefWidth="290.0" promptText="%prompt.password_register" style="-fx-border-color: #cccccc;" />
             
-            <Label layoutX="370.0" layoutY="254.0" text="Location" />
+            <Label layoutX="370.0" layoutY="254.0" text="%label.location" />
             <TextField fx:id="txtLocation" layoutX="370.0" layoutY="279.0" prefHeight="35.0" prefWidth="290.0" style="-fx-border-color: #cccccc;" />
 
-            <Button layoutX="253.0" layoutY="447.0" mnemonicParsing="false" onAction="#handleRegister" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #007bff;" text="Register" textFill="WHITE">
+            <Button layoutX="253.0" layoutY="447.0" mnemonicParsing="false" onAction="#handleRegister" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #007bff;" text="%button.submit_register" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="300.0" layoutY="503.0" mnemonicParsing="false" onAction="#handleGoToLogin" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: #007bff; -fx-text-fill: #007bff;" text="Login">
+            <Button layoutX="300.0" layoutY="503.0" mnemonicParsing="false" onAction="#handleGoToLogin" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-border-color: #007bff; -fx-text-fill: #007bff;" text="%button.login">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <Label layoutX="40.0" layoutY="254.0" text="Phone" />
+            <Label layoutX="40.0" layoutY="254.0" text="%label.phone" />
             <TextField fx:id="txtPhone" layoutX="40.0" layoutY="279.0" prefHeight="35.0" prefWidth="290.0" style="-fx-border-color: #cccccc;" />
-            <Label fx:id="InformationLabel" alignment="CENTER" contentDisplay="CENTER" disable="true" ellipsisString="" layoutX="103.0" layoutY="542.0" prefHeight="59.0" prefWidth="498.0" textAlignment="CENTER" textOverrun="CLIP" />
+            <Label fx:id="InformationLabel" alignment="CENTER" contentDisplay="CENTER" disable="true" ellipsisString="" layoutX="103.0" layoutY="538.0" prefHeight="34.0" prefWidth="498.0" textAlignment="CENTER" textOverrun="CLIP" />
+
+            <!-- Centered language buttons -->
+            <Button fx:id="regLangEu" layoutX="155.0" layoutY="582.0" mnemonicParsing="false" onAction="#handleSetLangEu" prefHeight="26.0" prefWidth="90.0" text="%lang.eu" />
+            <Button fx:id="regLangEs" layoutX="255.0" layoutY="582.0" mnemonicParsing="false" onAction="#handleSetLangEs" prefHeight="26.0" prefWidth="90.0" text="%lang.es" />
+            <Button fx:id="regLangEn" layoutX="355.0" layoutY="582.0" mnemonicParsing="false" onAction="#handleSetLangEn" prefHeight="26.0" prefWidth="90.0" text="%lang.en" />
+            <Button fx:id="regLangFr" layoutX="455.0" layoutY="582.0" mnemonicParsing="false" onAction="#handleSetLangFr" prefHeight="26.0" prefWidth="90.0" text="%lang.fr" />
          </children>
       </AnchorPane>
    </children>

@@ -1,5 +1,7 @@
 package eus.ehu.ui;
 
+import java.util.ResourceBundle;
+
 import eus.ehu.businesslogic.BlManager;
 import eus.ehu.domain.ListingStatus;
 import eus.ehu.domain.MotorType;
@@ -12,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 public class CreateController {
 
@@ -73,6 +76,17 @@ public class CreateController {
         bl = BlManager.getInstance();
 
         motorType.getItems().addAll(MotorType.values());
+        motorType.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(MotorType motorType) {
+                return getMotorTypeText(motorType);
+            }
+
+            @Override
+            public MotorType fromString(String string) {
+                return null;
+            }
+        });
         profileName.setText("Welcome, " + App.getActualUser().getName() + "!");
     }
 
@@ -80,25 +94,37 @@ public class CreateController {
     void post() {
         boolean done = false;
         try {
-            String licensePlate = requiredText(this.licensePlate, "License plate is required");
+            String licensePlate = requiredText(this.licensePlate, tr("error.create.license_required", "License plate is required"));
             if (bl.getVehicleByLicensePlate(licensePlate) != null) {
-                throw new IllegalStateException("There is already a vehicle with that license plate");
+                throw new IllegalStateException(tr("error.create.license_exists", "There is already a vehicle with that license plate"));
             }
-            String brand = requiredText(this.brand, "Brand is required");
-            String model = requiredText(this.model, "Model is required");
-            int age = parseRequiredPositiveInt(this.age, "Age must be a valid number");
-            int mileage = parseRequiredPositiveInt(this.mileage, "Mileage must be a valid number");
-            int horsePower = parseRequiredPositiveInt(this.horsePower, "Horsepower must be a valid number");
-            double price = parseRequiredPositiveDouble(this.price, "Price must be a valid number");
+            String brand = requiredText(this.brand, tr("error.create.brand_required", "Brand is required"));
+            String model = requiredText(this.model, tr("error.create.model_required", "Model is required"));
+            int age = parseRequiredPositiveInt(
+                    this.age,
+                    tr("error.create.age_invalid", "Age must be a valid number"),
+                    tr("error.create.age_positive", "Age must be greater than 0"));
+            int mileage = parseRequiredPositiveInt(
+                    this.mileage,
+                    tr("error.create.mileage_invalid", "Mileage must be a valid number"),
+                    tr("error.create.mileage_positive", "Mileage must be greater than 0"));
+            int horsePower = parseRequiredPositiveInt(
+                    this.horsePower,
+                    tr("error.create.horsepower_invalid", "Horsepower must be a valid number"),
+                    tr("error.create.horsepower_positive", "Horsepower must be greater than 0"));
+            double price = parseRequiredPositiveDouble(
+                    this.price,
+                    tr("error.create.price_invalid", "Price must be a valid number"),
+                    tr("error.create.price_positive", "Price must be greater than 0"));
             MotorType motorType = this.motorType.getValue();
             if (motorType == null) {
-                throw new NullPointerException("You must select a motor type");
+                throw new NullPointerException(tr("error.create.motor_required", "You must select a motor type"));
             }
             String description = this.description.getText();
 
             eus.ehu.domain.User user = bl.getDefaultUser();
             if (user == null) {
-                throw new NullPointerException("Default user not available");
+                throw new NullPointerException(tr("error.create.default_user_unavailable", "Default user not available"));
             }
 
             Sale sale = new Sale.Builder()
@@ -158,14 +184,6 @@ public class CreateController {
         }
     }
 
-    private int parseRequiredPositiveInt(TextField field, String message) {
-        int value = parseRequiredInt(field, message);
-        if (value <= 0) {
-            throw new IllegalArgumentException(message + " (must be greater than 0)");
-        }
-        return value;
-    }
-
     private double parseRequiredDouble(TextField field, String message) {
         String value = requiredText(field, message);
         try {
@@ -175,20 +193,44 @@ public class CreateController {
         }
     }
 
-    private double parseRequiredPositiveDouble(TextField field, String message) {
-        double value = parseRequiredDouble(field, message);
+    private int parseRequiredPositiveInt(TextField field, String invalidMessage, String positiveMessage) {
+        int value = parseRequiredInt(field, invalidMessage);
         if (value <= 0) {
-            throw new IllegalArgumentException(message + " (must be greater than 0)");
+            throw new IllegalArgumentException(positiveMessage);
+        }
+        return value;
+    }
+
+    private double parseRequiredPositiveDouble(TextField field, String invalidMessage, String positiveMessage) {
+        double value = parseRequiredDouble(field, invalidMessage);
+        if (value <= 0) {
+            throw new IllegalArgumentException(positiveMessage);
         }
         return value;
     }
 
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("Cannot publish listing");
+        alert.setTitle(tr("alert.error_title", "Error"));
+        alert.setHeaderText(tr("error.create.cannot_publish", "Cannot publish listing"));
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private String tr(String key, String fallback) {
+        ResourceBundle b = App.getBundle();
+        return b != null && b.containsKey(key) ? b.getString(key) : fallback;
+    }
+
+    private String getMotorTypeText(MotorType motorType) {
+        if (motorType == null) {
+            return "";
+        }
+        return switch (motorType) {
+            case GASOLINE -> tr("motor.gasoline", "Gasoline");
+            case DIESEL -> tr("motor.diesel", "Diesel");
+            case ELECTRIC -> tr("motor.electric", "Electric");
+        };
     }
 
     private void closeWindow() {

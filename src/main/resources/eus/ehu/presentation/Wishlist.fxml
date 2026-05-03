@@ -12,25 +12,25 @@
       
       <AnchorPane prefHeight="70.0" prefWidth="1000.0" style="-fx-background-color: #007bff;">
          <children>
-            <Label layoutX="40.0" layoutY="20.0" text="PickAuto" textFill="WHITE">
+            <Label layoutX="40.0" layoutY="20.0" text="%app.title" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Button layoutX="700.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleGoToSearch" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 18; -fx-border-color: #cfe3ff; -fx-border-radius: 18; -fx-text-fill: #005fcc; -fx-font-weight: bold; -fx-cursor: hand;" text="Search" />
-            <Button layoutX="855.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleViewProfile" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 18; -fx-border-color: #cfe3ff; -fx-border-radius: 18; -fx-text-fill: #005fcc; -fx-font-weight: bold; -fx-cursor: hand;" text="My profile" />
+            <Button layoutX="700.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleGoToSearch" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 18; -fx-border-color: #cfe3ff; -fx-border-radius: 18; -fx-text-fill: #005fcc; -fx-font-weight: bold; -fx-cursor: hand;" text="%button.search" />
+            <Button layoutX="855.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleViewProfile" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 18; -fx-border-color: #cfe3ff; -fx-border-radius: 18; -fx-text-fill: #005fcc; -fx-font-weight: bold; -fx-cursor: hand;" text="%button.my_profile" />
          </children>
       </AnchorPane>
 
       <AnchorPane layoutX="150.0" layoutY="110.0" prefHeight="630.0" prefWidth="700.0" style="-fx-background-color: #ffffff; -fx-border-color: #dddddd;">
          <children>
-            <Label layoutX="40.0" layoutY="30.0" text="My Wishlist">
+            <Label layoutX="40.0" layoutY="30.0" text="%wishlist.title">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
 
-            <Label fx:id="placeholderLabel" layoutX="260.0" layoutY="280.0" text="Your wishlist is empty" textFill="#aaaaaa">
+            <Label fx:id="placeholderLabel" layoutX="260.0" layoutY="280.0" text="%wishlist.placeholder" textFill="#aaaaaa">
                <font>
                   <Font size="14.0" />
                </font>
@@ -38,8 +38,8 @@
             
             <ListView fx:id="wishlistListView" layoutX="40.0" layoutY="80.0" prefHeight="450.0" prefWidth="620.0" visible="false" />
             
-            <TextField fx:id="SaleIdField" layoutX="200.0" layoutY="560.0" prefHeight="35.0" prefWidth="140.0" promptText="Insert sale ID" style="-fx-border-color: #cccccc;" />
-            <Button layoutX="360.0" layoutY="560.0" mnemonicParsing="false" onAction="#handleViewOffer" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #007bff; -fx-cursor: hand;" text="View selected offer" textFill="WHITE">
+            <TextField fx:id="SaleIdField" layoutX="200.0" layoutY="560.0" prefHeight="35.0" prefWidth="140.0" promptText="%wishlist.prompt.insert_sale" style="-fx-border-color: #cccccc;" />
+            <Button layoutX="360.0" layoutY="560.0" mnemonicParsing="false" onAction="#handleViewOffer" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #007bff; -fx-cursor: hand;" text="%button.view_offer" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

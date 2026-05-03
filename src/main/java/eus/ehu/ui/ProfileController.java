@@ -1,5 +1,7 @@
 package eus.ehu.ui;
 
+import java.util.Locale;
+
 import eus.ehu.domain.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -77,6 +79,40 @@ public class ProfileController {
     private void handleViewWishlist() {
         try {
             App.setRoot("Wishlist");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleSetLangEu() {
+        setLanguage("eu");
+    }
+
+    @FXML
+    private void handleSetLangEs() {
+        setLanguage("es");
+    }
+
+    @FXML
+    private void handleSetLangEn() {
+        setLanguage("en");
+    }
+
+    @FXML
+    private void handleSetLangFr() {
+        setLanguage("fr");
+    }
+
+    private void setLanguage(String lang) {
+        try {
+            Locale locale = new Locale(lang);
+            App.setLocale(locale);
+            if (this.user != null) {
+                this.user.setDefaultLanguage(lang);
+                App.setActualUser(this.user);
+            }
+            App.setRoot("Profile");
         } catch (Exception e) {
             e.printStackTrace();
         }
