@@ -6,6 +6,7 @@ module eus.ehu {
     requires org.hibernate.orm.core;
     requires java.sql;
     requires com.h2database;
+    requires com.opencsv;
 
 
     opens eus.ehu.ui to javafx.fxml;
