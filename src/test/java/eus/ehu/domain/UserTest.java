@@ -9,7 +9,13 @@ public class UserTest {
 
     @Test
     public void constructorAndGettersSetters() {
-        User u = new User("Alice", "a@example.com", "secret", "600000000", "Bilbao");
+        User u = new User.Builder()
+                .name("Alice")
+                .email("a@example.com")
+                .password("secret")
+                .phone("600000000")
+                .location("Bilbao")
+                .build();
 
         assertEquals("Alice", u.getName());
         assertEquals("a@example.com", u.getEmail());
@@ -36,8 +42,19 @@ public class UserTest {
 
     @Test
     public void publicationsCanBeManaged() {
-        User u = new User("Alice", "a@example.com", "secret", "600000000", "Bilbao");
-        Sale s = new Sale("Nice car", ListingStatus.ACTIVE, u, 12345.0);
+        User u = new User.Builder()
+            .name("Alice")
+            .email("a@example.com")
+            .password("secret")
+            .phone("600000000")
+            .location("Bilbao")
+            .build();
+        Sale s = new Sale.Builder()
+            .description("Nice car")
+            .status(ListingStatus.ACTIVE)
+            .user(u)
+            .fixedPrice(12345.0)
+            .build();
 
         u.getPublications().add(s);
 
@@ -48,7 +65,13 @@ public class UserTest {
 
     @Test
     public void toStringContainsFields() {
-        User u = new User("Alice", "a@example.com", "secret", "600000000", "Bilbao");
+        User u = new User.Builder()
+                .name("Alice")
+                .email("a@example.com")
+                .password("secret")
+                .phone("600000000")
+                .location("Bilbao")
+                .build();
         String s = u.toString();
         assertTrue(s.contains("name='Alice'") || s.contains("name=Alice"));
         assertTrue(s.contains("email='a@example.com'") || s.contains("email=a@example.com"));
