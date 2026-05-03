@@ -7,6 +7,8 @@ import eus.ehu.domain.Vehicle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class ViewOfferController {
 
@@ -25,6 +27,8 @@ public class ViewOfferController {
     @FXML
     private Label AdditionalDescription;
     @FXML
+    private ImageView carImage;
+    @FXML
     private Button BuyButton;
     @FXML
     private Button OfferButton;
@@ -34,6 +38,97 @@ public class ViewOfferController {
     private BlInterface bl;
     private Sale selectedSale;
     private Vehicle selectedVehicle;
+
+    @FXML
+    public void initialize() {
+        applyStyles();
+        refreshView();
+    }
+
+    private void applyStyles() {
+        if (Price != null) {
+            Price.setStyle("-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
+        }
+        if (BuyButton != null) {
+            BuyButton.setStyle("-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;");
+        }
+        if (OfferButton != null) {
+            OfferButton.setStyle("-fx-background-color: transparent; -fx-text-fill: #007bff; -fx-border-color: #007bff; -fx-border-radius: 5; -fx-cursor: hand;");
+        }
+        if (WishlistButton != null) {
+            WishlistButton.setStyle("-fx-border-color: #007bff; -fx-border-radius: 5; -fx-text-fill: #007bff; -fx-cursor: hand;");
+        }
+    }
+
+    public void refreshView() {
+        if (Model == null) return;
+
+        Vehicle vehicle = selectedVehicle;
+        Sale sale = selectedSale;
+
+        if (sale != null && vehicle == null) {
+            vehicle = sale.getVehicle();
+            if (vehicle == null && bl != null && sale.getId() != null) {
+                sale = bl.getSaleById(sale.getId());
+                vehicle = sale != null ? sale.getVehicle() : null;
+                selectedSale = sale;
+                selectedVehicle = vehicle;
+            }
+        }
+
+        if (vehicle == null) {
+            showEmptyState();
+            return;
+        }
+
+        if (sale == null) {
+            sale = asSale(vehicle.getListing());
+            selectedSale = sale;
+        }
+
+        if (carImage != null) {
+            String imagePath = vehicle.getImagePath();
+            try {
+                if (imagePath != null && !imagePath.isEmpty()) {
+                    var is = getClass().getResourceAsStream(imagePath);
+                    if (is != null) {
+                        carImage.setImage(new Image(is));
+                    } else {
+                        carImage.setImage(new Image(getClass().getResourceAsStream("/images/cars/default_car.jpg")));
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Error loading image: " + e.getMessage());
+            }
+        }
+
+        Model.setText(formatVehicleTitle(vehicle));
+        Age.setText(vehicle.getYear() > 0 ? String.valueOf(vehicle.getYear()) : "N/A");
+        Mileage.setText(formatNumber(vehicle.getMileage()) + " km");
+        MotorType.setText(vehicle.getMotorType() != null ? vehicle.getMotorType().name() : "N/A");
+        HorsePower.setText(formatNumber(vehicle.getHorsepower()) + " hp");
+        Price.setText(sale != null ? formatPrice(sale.getFixedPrice()) : "N/A");
+        AdditionalDescription.setText(sale != null && sale.getDescription() != null && !sale.getDescription().isBlank()
+                ? sale.getDescription()
+                : "No description available.");
+
+        if (BuyButton != null) BuyButton.setDisable(false);
+        if (OfferButton != null) OfferButton.setDisable(false);
+    }
+
+    public void showEmptyState() {
+        Model.setText("No vehicle selected");
+        if (carImage != null) carImage.setImage(null);
+        Age.setText("-");
+        Mileage.setText("-");
+        MotorType.setText("-");
+        HorsePower.setText("-");
+        Price.setText("-");
+        AdditionalDescription.setText("Select a vehicle to see its details.");
+
+        if (BuyButton != null) BuyButton.setDisable(true);
+        if (OfferButton != null) OfferButton.setDisable(true);
+    }
 
     @FXML
     private void handleGoToSearch() {
@@ -70,79 +165,8 @@ public class ViewOfferController {
         refreshView();
     }
 
-    @FXML
-    public void initialize() {
-        refreshView();
-    }
-
-    public void refreshView() {
-        if (Model == null) {
-            return;
-        }
-
-        Vehicle vehicle = selectedVehicle;
-        Sale sale = selectedSale;
-
-        if (sale != null && vehicle == null) {
-            vehicle = sale.getVehicle();
-            if (vehicle == null && bl != null && sale.getId() != null) {
-                sale = bl.getSaleById(sale.getId());
-                vehicle = sale != null ? sale.getVehicle() : null;
-                selectedSale = sale;
-                selectedVehicle = vehicle;
-            }
-        }
-
-        if (vehicle == null) {
-            showEmptyState();
-            return;
-        }
-
-        if (sale == null) {
-            sale = asSale(vehicle.getListing());
-            selectedSale = sale;
-        }
-
-        Model.setText(formatVehicleTitle(vehicle));
-        Age.setText(vehicle.getYear() > 0 ? String.valueOf(vehicle.getYear()) : "N/A");
-        Mileage.setText(formatNumber(vehicle.getMileage()) + " km");
-        MotorType.setText(vehicle.getMotorType() != null ? vehicle.getMotorType().name() : "N/A");
-        HorsePower.setText(formatNumber(vehicle.getHorsepower()) + " hp");
-        Price.setText(sale != null ? formatPrice(sale.getFixedPrice()) : "N/A");
-        AdditionalDescription.setText(sale != null && sale.getDescription() != null && !sale.getDescription().isBlank()
-                ? sale.getDescription()
-                : "No description available.");
-
-        if (BuyButton != null) {
-            BuyButton.setDisable(false);
-        }
-        if (OfferButton != null) {
-            OfferButton.setDisable(false);
-        }
-    }
-
-    public void showEmptyState() {
-        Model.setText("No vehicle selected");
-        Age.setText("-");
-        Mileage.setText("-");
-        MotorType.setText("-");
-        HorsePower.setText("-");
-        Price.setText("-");
-        AdditionalDescription.setText("Select a vehicle to see its details.");
-
-        if (BuyButton != null) {
-            BuyButton.setDisable(true);
-        }
-        if (OfferButton != null) {
-            OfferButton.setDisable(true);
-        }
-    }
-
     private Sale asSale(Listing listing) {
-        if (listing instanceof Sale) {
-            return (Sale) listing;
-        }
-        return null;
+        return (listing instanceof Sale) ? (Sale) listing : null;
     }
 
     private String formatVehicleTitle(Vehicle vehicle) {
@@ -162,16 +186,10 @@ public class ViewOfferController {
     @FXML
     private void handleAddToWishlist() {
         if (selectedVehicle != null && bl != null) {
-            Integer currentUserId = App.getActualUser().getId(); 
-            System.out.println("Intentando añadir coche " + selectedVehicle.getLicensePlate() + " al user " + currentUserId);
-            
+            Integer currentUserId = App.getActualUser().getId();
             bl.addToWishlist(currentUserId, selectedVehicle.getLicensePlate());
-            
             WishlistButton.setText("Wished!");
             WishlistButton.setDisable(true);
-        } else {
-            System.out.println("Fallo al añadir: selectedVehicle o bl son null");
         }
     }
-
 }
