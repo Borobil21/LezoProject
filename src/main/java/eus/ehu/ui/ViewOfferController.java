@@ -1,6 +1,8 @@
 package eus.ehu.ui;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import eus.ehu.businesslogic.BlInterface;
 import eus.ehu.domain.Listing;
@@ -114,14 +116,14 @@ public class ViewOfferController {
         }
 
         Model.setText(formatVehicleTitle(vehicle));
-        Age.setText(vehicle.getYear() > 0 ? String.valueOf(vehicle.getYear()) : "N/A");
-        Mileage.setText(formatNumber(vehicle.getMileage()) + " km");
-        MotorType.setText(vehicle.getMotorType() != null ? vehicle.getMotorType().name() : "N/A");
-        HorsePower.setText(formatNumber(vehicle.getHorsepower()) + " hp");
-        Price.setText(sale != null ? formatPrice(sale.getFixedPrice()) : "N/A");
+        Age.setText(vehicle.getYear() > 0 ? String.valueOf(vehicle.getYear()) : tr("viewoffer.not_available", "N/A"));
+        Mileage.setText(formatNumber(vehicle.getMileage()) + " " + tr("viewoffer.unit_km", "km"));
+        MotorType.setText(getMotorTypeText(vehicle.getMotorType()));
+        HorsePower.setText(formatNumber(vehicle.getHorsepower()) + " " + tr("viewoffer.unit_hp", "hp"));
+        Price.setText(sale != null ? formatPrice(sale.getFixedPrice()) : tr("viewoffer.not_available", "N/A"));
         AdditionalDescription.setText(sale != null && sale.getDescription() != null && !sale.getDescription().isBlank()
                 ? sale.getDescription()
-                : "No description available.");
+            : tr("viewoffer.no_description_available", "No description available."));
 
         if (BuyButton != null) {
             BuyButton.setDisable(false);
@@ -133,14 +135,14 @@ public class ViewOfferController {
     }
 
     public void showEmptyState() {
-        Model.setText("No vehicle selected");
+        Model.setText(tr("viewoffer.no_vehicle_selected", "No vehicle selected"));
         if (carImage != null) carImage.setImage(null);
         Age.setText("-");
         Mileage.setText("-");
         MotorType.setText("-");
         HorsePower.setText("-");
         Price.setText("-");
-        AdditionalDescription.setText("Select a vehicle to see its details.");
+        AdditionalDescription.setText(tr("viewoffer.select_vehicle_to_see_details", "Select a vehicle to see its details."));
 
         if (BuyButton != null) BuyButton.setDisable(true);
         if (OfferButton != null) OfferButton.setDisable(true);
@@ -191,13 +193,15 @@ public class ViewOfferController {
     }
 
     private String formatVehicleTitle(Vehicle vehicle) {
-        String make = vehicle.getMake() != null ? vehicle.getMake() : "Unknown make";
-        String model = vehicle.getModel() != null ? vehicle.getModel() : "Unknown model";
+        String make = vehicle.getMake() != null ? vehicle.getMake() : tr("viewoffer.unknown_make", "Unknown make");
+        String model = vehicle.getModel() != null ? vehicle.getModel() : tr("viewoffer.unknown_model", "Unknown model");
         return make + " " + model;
     }
 
     private String formatPrice(double price) {
-        return String.format("%.2f EUR", price);
+        Locale locale = Locale.getDefault();
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        return currencyFormatter.format(price);
     }
 
     private String formatNumber(int value) {
@@ -206,7 +210,7 @@ public class ViewOfferController {
 
     private String getMotorTypeText(MotorType motorType) {
         if (motorType == null) {
-            return "N/A";
+            return tr("viewoffer.not_available", "N/A");
         }
         return switch (motorType) {
             case GASOLINE -> tr("motor.gasoline", "Gasoline");

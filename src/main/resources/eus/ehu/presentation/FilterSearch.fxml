@@ -50,8 +50,8 @@
             <Label layoutX="20.0" layoutY="208.0" text="Price Range">
                <font><Font name="System Bold" size="13.0" /></font>
             </Label>
-            <Slider fx:id="minPriceSlider" layoutX="20.0" layoutY="230.0" prefWidth="260.0" min="0" max="200000" value="0" showTickLabels="false" />
-            <Slider fx:id="maxPriceSlider" layoutX="20.0" layoutY="252.0" prefWidth="260.0" min="0" max="200000" value="200000" showTickLabels="false" />
+            <Slider fx:id="minPriceSlider" layoutX="20.0" layoutY="230.0" max="200000" min="0" prefWidth="260.0" showTickLabels="false" value="0" />
+            <Slider fx:id="maxPriceSlider" layoutX="20.0" layoutY="252.0" max="200000" min="0" prefWidth="260.0" showTickLabels="false" value="200000" />
             <TextField fx:id="minPriceField" layoutX="20.0" layoutY="276.0" prefHeight="28.0" prefWidth="120.0" promptText="€ 0" style="-fx-border-color: #cccccc; -fx-border-radius: 4; -fx-background-radius: 4;" />
             <TextField fx:id="maxPriceField" layoutX="160.0" layoutY="276.0" prefHeight="28.0" prefWidth="120.0" promptText="€ 200.000" style="-fx-border-color: #cccccc; -fx-border-radius: 4; -fx-background-radius: 4;" />
 
@@ -59,8 +59,8 @@
             <Label layoutX="20.0" layoutY="318.0" text="Kilometers">
                <font><Font name="System Bold" size="13.0" /></font>
             </Label>
-            <Slider fx:id="minKmSlider" layoutX="20.0" layoutY="340.0" prefWidth="260.0" min="0" max="500000" value="0" showTickLabels="false" />
-            <Slider fx:id="maxKmSlider" layoutX="20.0" layoutY="362.0" prefWidth="260.0" min="0" max="500000" value="500000" showTickLabels="false" />
+            <Slider fx:id="minKmSlider" layoutX="20.0" layoutY="340.0" max="500000" min="0" prefWidth="260.0" showTickLabels="false" value="0" />
+            <Slider fx:id="maxKmSlider" layoutX="20.0" layoutY="362.0" max="500000" min="0" prefWidth="260.0" showTickLabels="false" value="500000" />
             <TextField fx:id="minKmField" layoutX="20.0" layoutY="386.0" prefHeight="28.0" prefWidth="120.0" promptText="0 Km" style="-fx-border-color: #cccccc; -fx-border-radius: 4; -fx-background-radius: 4;" />
             <TextField fx:id="maxKmField" layoutX="160.0" layoutY="386.0" prefHeight="28.0" prefWidth="120.0" promptText="500.000 Km" style="-fx-border-color: #cccccc; -fx-border-radius: 4; -fx-background-radius: 4;" />
 
@@ -68,10 +68,10 @@
             <Label layoutX="20.0" layoutY="428.0" text="Vehicle Age">
                <font><Font name="System Bold" size="13.0" /></font>
             </Label>
-            <CheckBox fx:id="newCheck" layoutX="20.0" layoutY="405.0" text="%age.option.new" />
-            <CheckBox fx:id="almostNewCheck" layoutX="20.0" layoutY="425.0" text="%age.option.almost_new" />
-            <CheckBox fx:id="usedCheck" layoutX="20.0" layoutY="445.0" text="%age.option.used" />
-            <CheckBox fx:id="oldCheck" layoutX="20.0" layoutY="465.0" text="%age.option.old" />
+            <CheckBox fx:id="newCheck" layoutX="20.0" layoutY="454.0" text="%age.option.new" />
+            <CheckBox fx:id="almostNewCheck" layoutX="20.0" layoutY="474.0" text="%age.option.almost_new" />
+            <CheckBox fx:id="usedCheck" layoutX="20.0" layoutY="494.0" text="%age.option.used" />
+            <CheckBox fx:id="oldCheck" layoutX="20.0" layoutY="514.0" text="%age.option.old" />
 
             <!-- Motor & Fuel -->
             <ComboBox fx:id="motorTypeComboBox" layoutX="20.0" layoutY="548.0" prefHeight="28.0" prefWidth="260.0" promptText="Motor &amp; Fuel" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
@@ -92,8 +92,6 @@
             </Label>
             
             <ListView fx:id="resultsListView" layoutX="10.0" layoutY="10.0" prefHeight="580.0" prefWidth="580.0" style="-fx-background-color: transparent; -fx-control-inner-background: transparent;" visible="false" />
-            
-            <Button fx:id="viewOfferButton" layoutX="230.0" layoutY="630.0" mnemonicParsing="false" onAction="#handleViewOffer" prefHeight="30.0" prefWidth="140.0" style="-fx-cursor: hand;" text="%button.view_selected_offer" />
          </children>
       </AnchorPane>
 

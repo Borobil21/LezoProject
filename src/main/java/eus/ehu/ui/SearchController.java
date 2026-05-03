@@ -30,9 +30,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.util.StringConverter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 public class SearchController {
 
@@ -275,6 +275,16 @@ public class SearchController {
 
                     details.getChildren().addAll(title, price, info);
                     card.getChildren().addAll(imageView, details);
+
+                    card.setOnMouseClicked(event -> {
+                        if (event.getClickCount() == 2 && sale.getId() != null) {
+                            try {
+                                App.openViewOffer(sale.getId());
+                            } catch (Exception e) {
+                                throw new RuntimeException("Unable to open View Offer scene", e);
+                            }
+                        }
+                    });
 
                     setGraphic(card);
                     setText(null);
